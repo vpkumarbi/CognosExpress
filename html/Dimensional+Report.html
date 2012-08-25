@@ -1,0 +1,162 @@
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+<html>
+      
+<!-- Mirrored from 127.0.0.1:39734/Dimensional+Report.html by HTTrack Website Copier/3.x [XR&CO'2010], Sat, 25 Aug 2012 09:15:51 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+<head>
+        <title>Cognos Express Cookbook — Dimensional Report</title>
+        <link type="text/css" media="screen, projection" rel="stylesheet" href="css/blueprint/screen.css"></link>
+        <link type="text/css" media="screen and (min-device-width: 800px), projection" rel="stylesheet" href="css/blueprint/grid.css"></link>
+        <link type="text/css" media="print" rel="stylesheet" href="css/blueprint/print.css"></link> 
+        <!--[if lt IE 8]>
+          <link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection"/>
+        <![endif]-->
+        <link type="text/css" media="screen, projection" rel="stylesheet" href="css/pamflet.css"></link>
+        <link type="text/css" media="print" rel="stylesheet" href="css/pamflet-print.css"></link>
+        <link type="text/css" media="screen and (min-device-width: 800px), projection" rel="stylesheet" href="css/pamflet-grid.css"></link>
+        <link type="text/css" media="screen, projection" rel="stylesheet" href="css/custom.css"></link>
+        <script src="js/jquery-1.6.2.min.js"></script>
+        <script src="js/jquery.collapse.js"></script>
+        <script src="js/pamflet.js"></script>
+        
+        <meta charset="utf-8"></meta>
+        <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-34336749-1']);
+            _gaq.push(['_trackPageview']);
+            (function() {
+              var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+              ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+              var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+            </script>
+      </head>
+      <body>
+        <a class="page prev nav" href="Loading%2bData%2binto%2bCubes.html">
+            <span class="space">&nbsp;</span>
+            <span class="flip">❧</span>
+          </a><a class="page next nav" href="Tools%2bof%2bthe%2bTrade.html">
+            <span class="space">&nbsp;</span>
+            <span>❧</span>
+          </a>
+        <div class="container">
+          <div class="span-16 prepend-1 append-1">
+            <div class="top nav span-16 title">
+              <span>Cognos Express Cookbook</span> — Dimensional Report
+            </div>
+          </div>
+          <div class="span-16 prepend-1 append-1 contents">
+            <h1 id="Dimensional+Report">Dimensional Report</h1><h2 id="The+Problem">The Problem</h2><p>Create a chart that compares supermarkets with the rest of the store types in regards of the products that have of over 800 store sales.
+</p><h2 id="The+Solution">The Solution</h2><ul><li><a  href="Tools%2bof%2bthe%2bTrade.html#framework_manager">Framework Manager</a>
+</li><li><a  href="Tools%2bof%2bthe%2bTrade.html#query_studio">Query Studio</a>
+</li><li><a  href="Tools%2bof%2bthe%2bTrade.html#architect">Architect</a>
+</li></ul><h3 id="The+Steps">The Steps</h3><ol><li><a  href="#step1">Fix Cube</a>
+</li><li><a  href="#step2">Build Data Source</a>
+</li><li><a  href="#step3">Publish Package</a>
+</li><li><a  href="#step4">Query Data</a>
+</li><li><a  href="#step5">Create Chart</a>
+</li></ol><div id="step1"></div>
+<h3 id="Step+1%3A+Fix+Cube">Step 1: Fix Cube</h3><p>In this recipe, we’ll be using the cube that was created in the <a  href="Loading%2bData%2binto%2bCubes.html">previous recipe</a>. Before we do anything, we need to assign a Time and Measure dimension to the cube directly since that was never done or else when building a package, Cognos will start complaining that there’s missing data.
+</p><ol><li><p>Launch Cognos Architect.
+</p><pre><code class="prettyprint lang-c">    Start &gt; All Programs &gt; IBM Cognos Express &gt; Architect
+</code></pre></li><li><p>Login to the <em>foodmart</em> TM1 server.
+</p><p><img alt="sc1"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc1.png"></img>
+</p></li><li>Right click <em>Store Sales</em> cube and choose <em>Properties…</em>
+</li><li>We never created a measure dimension because we only had one data variable so we could get away with it. For <em>measures dimension</em>, I put <em>Stores</em> but it won’t matter because the data remains in the cube. Put <em>Months</em> for time dimension. Click <em>OK</em>
+</li></ol><div id="step2"></div>
+<h3 id="Step+2%3A+Build+Data+Source">Step 2: Build Data Source</h3><p>The first step is to connect the TM1 server connection in Cognos Express so it can be used by other tools like Report Studio, Query Studio, and Business Insight Advanced. We’ll do this through Framework Manager because we need to publish a package in <a  href="#step3">Step 3</a>.
+</p><ol><li><p>Start Framework Manager from your Windows Start Menu:
+</p><pre><code class="prettyprint lang-c">    Start &gt; All Programs &gt; IBM Cognos Express &gt; Framework Manager
+</code></pre></li><li><p>Click <em>Create a new project…</em>.
+</p><p><img alt="dr1"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/dr1.png"></img>
+</p></li><li><p>A <em>New Project</em> dialog opens. Give your project a name, “TM1-foodmart”. Click <em>OK</em>.
+</p><p><img alt="dr2"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/dr2.png"></img>
+</p></li><li><p>After logging in and selecting a language, the <em>Metadata Wizard</em> will start. In <em>Select Metadata Source</em>, choose <em>Data Sources</em>.
+</p><p><img alt="s02"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/fm_screenshot02.png"></img>
+</p></li><li><p>In <em>Select Data Source</em>, there will be a list of data sources that was configured in Cognos. We haven’t configured one for the foodmart TM1 server yet. Let’s do that now. Click <em>New</em> button.
+</p><p><img alt="dr3"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/dr3.png"></img>
+</p><div class="note"><b>Note</b>: You must be logged in as a Cognos Administrator user to have the privelege of creating a data source connection.</div>
+</li><li><p><em>New Data Source Wizard</em> window opens. Click <em>Next</em>. Give the data source a name, “tm1-foodmart”. Click <em>Next</em>
+</p><p><img alt="dr4"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/dr4.png"></img>
+</p></li><li><p>For <em>Type</em>, choose <em>IBM Cognos TM1</em>. Click <em>Next</em>
+</p><p><img alt="dr5"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/dr5.png"></img>
+</p></li><li>For <em>Administration Host</em>, enter “localhost” since there’s no networking involved in our Cognos setup.
+</li><li>For <em>Server Name</em>, enter “foodmart”; that’s the name of the tm1 server we’re connecing to.
+</li><li>For <em>Sign On</em>, enter the credentials of the TM1 foodmart server.
+</li><li><p>Click <em>Test Connection…</em>
+</p><p><img alt="dr6"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/dr6.png"></img>
+</p></li><li><p>Click <em>Test</em> button.
+</p><p><img alt="dr7"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/dr7.png"></img>
+</p></li><li><p>The status should be <em>Succeeded</em>. Click <em>Close</em>.
+</p><p><img alt="dr8"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/dr8.png"></img>
+</p></li><li><p>Click <em>Finish</em> to complete the new data source.
+</p><p><img alt="dr9"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/dr9.png"></img>
+</p></li></ol><div id="step3"></div>
+<h3 id="Step+3%3A+Publish+Package">Step 3: Publish Package</h3><p>Publishing a package that contains a cube allows the data to be accessed from any application that can open a package so it can be analyzed with its extra dimensional features such as drill down, roll up, etc.
+</p><ol><li><p>To publish a package, continue with the <em>metadata wizard</em> that we left off from <a  href="#step2">Step 2</a>. In <em>Select Data</em>, select <em>tm1-foodmart</em>. Click <em>Next</em>
+</p><p><img alt="dr10"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/dr10.png"></img>
+</p></li><li><p>In <em>Select Objects</em>, select <em>Store Sales</em>. since that is our only cube. Click <em>Next</em>
+</p><p><img alt="dr11"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/dr11.png"></img>
+</p></li><li>In <em>Select Locales</em>, click <em>Next</em>; we don’t have any locales.
+</li><li><p>Check <em>Create a default package</em> so we can publish one right away. And click <em>Finish</em>
+</p><p><img alt="dr12"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/dr12.png"></img>
+</p></li><li><p><em>Create Package</em> window opens. It automatically filled out the name as <em>Store Sales</em>. Click <em>Finish</em>
+</p><p><img alt="dr13"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/dr13.png"></img>
+</p><p>Click <em>Yes</em>
+</p><p><img alt="dr14"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/dr14.png"></img>
+</p></li><li><p><em>Publish Wizard</em> window opens. It’ll store the package in the content store by default, and in my case, I’m saving it in <em>My Folders</em>. Click <em>Next</em>
+</p><p><img alt="dr15"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/dr15.png"></img>
+</p></li><li>In <em>Add Security</em>, click <em>Next</em>; that’s not necessary now.
+</li><li><p>Finally, click <em>Publish</em> and everything will be verified and then click <em>Finish</em> to exit out.
+</p><p><img alt="dr16"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/dr16.png"></img>
+</p></li></ol><div id="step4"></div>
+<h3 id="Step+4%3A+Query+Data">Step 4: Query Data</h3><ol><li>Launch Internet Explorer and go to <em>http://127.0.0.1:19300/cognos_express/manager/welcome.html</em>. Log in if prompted.
+</li><li><p>Click <em>Query my business data with Query Studio</em>
+</p><p><img alt="q1"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/q1.png"></img>
+</p></li><li><p>Find and open <em>Store Sales</em> package. Query Studio should now open a blank project.
+</p><p><img alt="dr17"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/dr17.png"></img>
+</p></li><li><p>Query Studio should now be open with your Store Sales data.
+</p><p><img alt="dr18"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/dr18.png"></img>
+</p></li><li><p>Select <em>Products</em> and click the <em>Insert</em> button with the left, green pointing arrow.
+</p><p><img alt="dr19"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/dr19.png"></img>
+</p><p><img alt="dr20"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/dr20.png"></img>
+</p></li><li><p>Expand <em>Stores</em>, select <em>total store</em> and click <em>Insert</em>.
+</p><p><img alt="dr21"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/dr21.png"></img>
+</p><p><img alt="dr22"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/dr22.png"></img>
+</p></li><li><p>Expand <em>total store</em>, select <em>Supermarket</em> and click <em>Insert</em>
+</p><p><img alt="dr23"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/dr23.png"></img>
+</p><p><img alt="dr24"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/dr24.png"></img>
+</p></li><li><p>Select one of total store’s data, right click, and select <em>Sort…</em> 
+</p><p><img alt="dr25"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/dr25.png"></img>
+</p></li><li><p>In <em>Sort Order</em>, choose <em>Descending (9 to 1)</em> and click <em>OK</em>
+</p><p><img alt="dr26"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/dr26.png"></img>
+</p></li><li><p>Select one of total store’s data, right click, and select <em>Filter…</em>
+</p><p><img alt="dr27"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/dr27.png"></img>
+</p><p>Condition should be: <em>Show only the following</em>, from 800 to Highest value. Click <em>OK</em>
+</p><p><img alt="dr28"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/dr28.png"></img>
+</p><p><img alt="dr29"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/dr29.png"></img>
+</p></li></ol><div id="step5"></div>
+<h3 id="Step+5%3A+Create+Chart">Step 5: Create Chart</h3><ol><li><p>Click the chart button.
+</p><p><img alt="dr30"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/dr30.png"></img>
+</p></li><li>Under <em>Chart Type</em>, choose <em>Bar</em> and pick <em>100 Percent Stacked</em>. Check <em>Show values on the chart</em>. Click <em>OK</em>
+</li></ol><p><img alt="dr31"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/dr31.png"></img>
+</p><p><img alt="dr32"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/dr32.png"></img>
+</p><div class="bottom nav">
+                        <em>Next Page</em>
+                        <span class="arrow">❧</span>
+                        <a href="Tools%2bof%2bthe%2bTrade.html"> Tools of the Trade </a>
+                      </div><div class="tocwrapper show">
+      <a class="tochead nav" style="display: none" href="#toc">❦</a>
+      <a name="toc"></a>
+      <h4 class="toctitle">Contents</h4>
+      <div class="tocbody">
+      <div><a href="Cognos%2bExpress%2bCookbook.html">Cognos Express Cookbook</a></div><ol class="toc"> <li><div><a href="About%2bthis%2btext.html">About this text</a></div></li><li><div><a href="Setting%2bUp%2bData%2bSource.html">Setting Up Data Source</a></div></li><li><div><a href="Relational%2bModels.html">Relational Models</a></div><ol class="toc"> <li><div><a href="DMR%2b-%2bDimensionally%2bModeled%2bRelational%2bModel.html">DMR - Dimensionally Modeled Relational Model</a></div></li><li><div><a href="Simple%2bReport%2bwith%2bGraph.html">Simple Report with Graph</a></div></li><li><div><a href="Report%2b-%2bCommon%2bTechniques.html">Report - Common Techniques</a></div></li><li><div><a href="Report%2b-%2bwith%2bSome%2bScripting.html">Report - with Some Scripting</a></div></li><li><div><a href="Workspace%2baka%2bDashboards.html">Workspace aka Dashboards</a></div></li> </ol></li><li><div><a href="Dimensional%2bModels.html">Dimensional Models</a></div><ol class="toc"> <li><div><a href="Create%2bTM1%2bServer.html">Create TM1 Server</a></div></li><li><div><a href="Manual%2bCube%2bCreation.html">Manual Cube Creation</a></div></li><li><div><a href="Loading%2bData%2binto%2bCubes.html">Loading Data into Cubes</a></div></li><li><div class="current">Dimensional Report</div></li> </ol></li><li><div><a href="Tools%2bof%2bthe%2bTrade.html">Tools of the Trade</a></div></li><li class="generated"><div><a href="Contents%2bin%2bDepth.html">Contents in Depth</a></div></li><li class="generated"><div><a href="Combined%2bPages.html">Combined Pages</a></div></li> </ol></div></div>
+          </div>
+        </div>
+        
+      </body>
+    
+<!-- Mirrored from 127.0.0.1:39734/Dimensional+Report.html by HTTrack Website Copier/3.x [XR&CO'2010], Sat, 25 Aug 2012 09:15:51 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+</html>

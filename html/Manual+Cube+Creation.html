@@ -1,0 +1,226 @@
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+<html>
+      
+<!-- Mirrored from 127.0.0.1:39734/Manual+Cube+Creation.html by HTTrack Website Copier/3.x [XR&CO'2010], Sat, 25 Aug 2012 09:15:51 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+<head>
+        <title>Cognos Express Cookbook — Manual Cube Creation</title>
+        <link type="text/css" media="screen, projection" rel="stylesheet" href="css/blueprint/screen.css"></link>
+        <link type="text/css" media="screen and (min-device-width: 800px), projection" rel="stylesheet" href="css/blueprint/grid.css"></link>
+        <link type="text/css" media="print" rel="stylesheet" href="css/blueprint/print.css"></link> 
+        <!--[if lt IE 8]>
+          <link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection"/>
+        <![endif]-->
+        <link type="text/css" media="screen, projection" rel="stylesheet" href="css/pamflet.css"></link>
+        <link type="text/css" media="print" rel="stylesheet" href="css/pamflet-print.css"></link>
+        <link type="text/css" media="screen and (min-device-width: 800px), projection" rel="stylesheet" href="css/pamflet-grid.css"></link>
+        <link type="text/css" media="screen, projection" rel="stylesheet" href="css/custom.css"></link>
+        <script src="js/jquery-1.6.2.min.js"></script>
+        <script src="js/jquery.collapse.js"></script>
+        <script src="js/pamflet.js"></script>
+        
+        <meta charset="utf-8"></meta>
+        <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-34336749-1']);
+            _gaq.push(['_trackPageview']);
+            (function() {
+              var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+              ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+              var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+            </script>
+      </head>
+      <body>
+        <a class="page prev nav" href="Create%2bTM1%2bServer.html">
+            <span class="space">&nbsp;</span>
+            <span class="flip">❧</span>
+          </a><a class="page next nav" href="Loading%2bData%2binto%2bCubes.html">
+            <span class="space">&nbsp;</span>
+            <span>❧</span>
+          </a>
+        <div class="container">
+          <div class="span-16 prepend-1 append-1">
+            <div class="top nav span-16 title">
+              <span>Cognos Express Cookbook</span> — Manual Cube Creation
+            </div>
+          </div>
+          <div class="span-16 prepend-1 append-1 contents">
+            <h1 id="Manual+Cube+Creation">Manual Cube Creation</h1><h2 id="Problem">Problem</h2><p>Learn how cubes work in TM1 by manually creating a cube.
+</p><h2 id="Solution">Solution</h2><ul><li><a  href="Tools%2bof%2bthe%2bTrade.html#architect">Architect</a>
+</li></ul><h3 id="The+Steps">The Steps</h3><ol><li><a  href="#step1">First Dimension</a>
+</li><li><a  href="#step2">Second Dimension</a>
+</li><li><a  href="#step3">Build Cube</a>
+</li><li><a  href="#step4">Explore the Cube</a>
+</li><li><a  href="#step5">Fiddling with Attributes</a>
+</li><li><a  href="#step6">Subsets</a>
+</li></ol><div id="step1"></div>
+<h3 id="Step+1%3A+First+Dimension">Step 1: First Dimension</h3><p>Before creating a cube, you need to have at least two dimensions. This first dimension will be a time dimension called <em>Months</em>. Months will have elements with the 12 months of the year that will roll up to quarters, and quarters will roll up to year.
+</p><ol><li><p>Launch Cognos Architect.
+</p><pre><code class="prettyprint lang-c">    Start &gt; All Programs &gt; IBM Cognos Express &gt; Architect
+</code></pre></li><li><p>Login to the <em>foodmart</em> TM1 server.
+</p><p><img alt="sc1"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc1.png"></img>
+</p></li><li><p>Right click <em>Dimensions</em> and choose <em>Create New Dimension</em>.
+</p><p><img alt="sc2"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc2.png"></img>
+</p></li><li><p>In <em>Dimension Editor</em>, go to <em>Edit</em> &gt; <em>Insert Element</em>
+</p><p><img alt="sc3"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc3.png"></img>
+</p></li><li>In <em>Insert Element Name</em>, type <em>Jan</em>. 
+</li><li><p>Dimension elements have one type out of three:
+</p><table>
+  <tr>
+    <td>Simple</td>
+    <td>The very last child node in the hierarchy. It has no child elements.</td>
+  </tr>
+  <tr>
+    <td>Consolidated</td>
+    <td>Contains child nodes.</td>
+  </tr>
+  <tr>
+    <td>String</td>
+    <td>Elements in the measure dimension that have string data. ie. "New York"</td>
+  </tr>
+</table>
+</li><li><p>Set <em>Jan</em> and all the following to <em>Simple</em>, and click <em>Add</em> until you have all of the following:
+</p><table>
+  <tr><td>Jan</td></tr>
+  <tr><td>Feb</td></tr>
+  <tr><td>Mar</td></tr>
+  <tr><td>Apr</td></tr>
+  <tr><td>May</td></tr>
+  <tr><td>Jun</td></tr>
+  <tr><td>Jul</td></tr>
+  <tr><td>Aug</td></tr>
+  <tr><td>Sep</td></tr>
+  <tr><td>Oct</td></tr>
+  <tr><td>Nov</td></tr>
+  <tr><td>Dec</td></tr>
+  <tr><td>Q1</td></tr>
+  <tr><td>Q2</td></tr>
+  <tr><td>Q3</td></tr>
+  <tr><td>Q4</td></tr>
+  <tr><td>Total Year</td></tr>
+</table>
+</li><li><p>Click <em>OK</em>
+</p><p><img alt="sc4"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc4.png"></img>
+</p></li><li><p>Next step is to drag and drop elements around so we can construct the hierarchy we want. Select all quarters and drag and drop it into <em>Total Year</em>.
+</p><p><img alt="sc5"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc5.png"></img>
+</p><p><img alt="sc6"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc6.png"></img>
+</p></li><li><p>Drag and drop the months to their appropriate quarter. Final result should be the following:
+</p><p><img alt="sc7"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc7.png"></img>
+</p></li><li><p>Click <em>OK</em> and name the dimension <em>Months</em>. Click <em>OK</em> one more time to save the dimension.
+</p><p><img alt="sc8"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc8.png"></img>
+</p></li></ol><div id="step2"></div>
+<h3 id="Step+2%3A+Second+Dimension">Step 2: Second Dimension</h3><p>The second dimension will be a common one: <em>Region</em>. Cities will roll up to states, and states will roll up to country.
+</p><p><br>
+Repeat steps 3-11 when creating first dimension except, the elements will be the following:
+</p><table>
+      <tr><td>United States</td></tr>
+      <tr><td>New York</td></tr>
+      <tr><td>Florida</td></tr>
+      <tr><td>New York City</td></tr>
+      <tr><td>Poughkeepsie</td></tr>
+      <tr><td>Miami</td></tr>
+      <tr><td>Orlando</td></tr>
+</table>
+<p>And final result:
+</p><p><img alt="sc9"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc9.png"></img>
+</p><p>Name the dimension <em>Cities</em>
+</p><p><img alt="sc10"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc10.png"></img>
+</p><div id="step3"></div>
+<h3 id="Step+3%3A+Build+Cube">Step 3: Build Cube</h3><p>Now that we have at least two dimensions we can create a cube (with no data).
+</p><ol><li><p>Right click on <em>Cubes</em> and choose <em>Create New Cube</em>
+</p><p><img alt="sc11"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc11.png"></img>
+</p></li><li><p>Under <em>Available Dimensions</em>, select the two available dimensions we just created and click on the right-pointing arrow.
+</p><p><img alt="sc12"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc12.png"></img>
+</p><p><img alt="sc13"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc13.png"></img>
+</p></li><li><p>Click <em>Properties…</em> button.
+</p><p><img alt="sc14"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc14.png"></img>
+</p></li><li><p>Leave <em>Measures Dimension</em> blank since we haven’t created one yet. For <em>Time Dimension</em>, choose <em>Months</em>. Click <em>OK</em>
+</p><p><img alt="sc15"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc15.png"></img>
+</p></li><li><p>Under <em>Cube Name</em>, name it <em>Test</em> and Click <em>Create Cube</em> button.
+</p><p><img alt="sc16"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc16.png"></img>
+</p></li></ol><div id="step4"></div>
+<h3 id="Step+4%3A+Explore+the+Cube">Step 4: Explore the Cube</h3><ol><li>Double click on <em>Test</em>, the newly created cube.
+</li><li><p><em>Cube Viewer</em> opens. Click on the <em>Recalculate</em> button. 
+</p><p><img alt="sc17"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc17.png"></img>
+</p><p>Recalculate will generate the latest numbers that are stored in memory. You can expand cities and months.
+</p><p><img alt="sc18"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc18.png"></img>
+</p><p>They’re all zeros because we have nothing to measure.
+</p></li><li><p>Exit out of cube viewer. A pop up will ask you to save changes. If you save, Tm1 will save the instance you’re currently viewing (all the zeros) as a view (aka virtual cube) so you can come back to it later.
+</p><p><img alt="sc19"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc19.png"></img>
+</p><p>Name the view as <em>Zeros</em> and click <em>OK</em>
+</p><p><img alt="sc20"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc20.png"></img>
+</p></li></ol><div id="step5"></div>
+<h3 id="Step+5%3A+Fiddling+with+Attributes">Step 5: Fiddling with Attributes</h3><p>Attributes describe elements, while elements describe the data. ie. The car type can be a string element, and its attribute may be the color of the car. Attributes are convenient, but if you find yourself creating multiple attributes for an element, consider creating a new element so you can measure data against that attribute. ie. You can measure car sales by car type and car sales by car color.
+</p><p><br>
+Let’s create a <em>Next</em> attribute for the elements in the <em>Month</em> dimension. It should match the following
+:
+</p><table>
+  <tr>
+    <th>Elements</th>
+    <th>Next Attribute</th>
+  </tr>
+  <tr>
+    <td>Jan</td>
+    <td>Feb</td>
+  </tr>
+  <tr>
+    <td>Feb</td>
+    <td>Mar</td>
+  </tr>
+  <tr>
+    <td>Mar</td>
+    <td>Apr</td>
+  </tr>
+  <tr>
+    <td>Apr</td>
+    <td>May</td>
+  </tr>
+  <tr>
+    <td>etc.</td>
+  </tr>
+</table>
+<ol><li><p>Right click on <em>Months</em> dimension and choose <em>Edit Element Attributes…</em>
+</p><p><img alt="sc21"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc21.png"></img>
+</p></li><li><p>In <em>Attributes Editor</em> window, go to <em>Edit</em> &gt; <em>Add New Attribute</em>
+</p><p><img alt="sc22"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc22.png"></img>
+</p></li><li><p>Under <em>Name</em> type <em>Next</em> and leave the type as <em>Text</em>. Click <em>OK</em>
+</p><p><img alt="sc23"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc23.png"></img>
+</p></li><li><p>Under the Next column, fill in each space with the appropriate values and click <em>OK</em>
+</p><p><img alt="sc24"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc24.png"></img>
+</p></li></ol><div id="step6"></div>
+<h3 id="Step+6%3A+Subsets">Step 6: Subsets</h3><p>To test the new attribute we created in our previous step, let’s create a subset of the <em>Months</em> dimension that filters by attribute. A subset is simply a portion of the elements in a dimension.
+</p><ol><li><p>Right click <em>Months</em> dimension and choose <em>Insert New Subset…</em>
+</p><p><img alt="sc25"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc25.png"></img>
+</p></li><li><p>In <em>Subset Editor</em> window, click on <em>Filter By Attribute</em> button.
+</p><p><img alt="sc26"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc26.png"></img>
+</p></li><li><p>Under <em>Attribute</em>, choose <em>Next</em>, and <em>Q1</em> as the attribute value. Click <em>OK</em>
+</p><p><img alt="sc27"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc27.png"></img>
+</p><p>And the result should be the key element to the value attribute which is the consolidated <em>Q4</em>. 
+</p><p>KEY -&gt; VALUE
+</p><p>Q4  -&gt; Q1
+</p><p><img alt="sc28"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc28.png"></img>
+</p></li><li><p>In <em>Subset Editor</em>, click on the <em>Save Subset</em> button.
+</p><p><img alt="sc29"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc29.png"></img>
+</p><p>Name it <em>Quarter4</em> and click <em>OK</em> 
+</p><p><img alt="sc30"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc30.png"></img>
+</p><p><img alt="sc31"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc31.png"></img>  
+</p></li></ol><div class="bottom nav">
+                        <em>Next Page</em>
+                        <span class="arrow">❧</span>
+                        <a href="Loading%2bData%2binto%2bCubes.html"> Loading Data into Cubes </a>
+                      </div><div class="tocwrapper show">
+      <a class="tochead nav" style="display: none" href="#toc">❦</a>
+      <a name="toc"></a>
+      <h4 class="toctitle">Contents</h4>
+      <div class="tocbody">
+      <div><a href="Cognos%2bExpress%2bCookbook.html">Cognos Express Cookbook</a></div><ol class="toc"> <li><div><a href="About%2bthis%2btext.html">About this text</a></div></li><li><div><a href="Setting%2bUp%2bData%2bSource.html">Setting Up Data Source</a></div></li><li><div><a href="Relational%2bModels.html">Relational Models</a></div><ol class="toc"> <li><div><a href="DMR%2b-%2bDimensionally%2bModeled%2bRelational%2bModel.html">DMR - Dimensionally Modeled Relational Model</a></div></li><li><div><a href="Simple%2bReport%2bwith%2bGraph.html">Simple Report with Graph</a></div></li><li><div><a href="Report%2b-%2bCommon%2bTechniques.html">Report - Common Techniques</a></div></li><li><div><a href="Report%2b-%2bwith%2bSome%2bScripting.html">Report - with Some Scripting</a></div></li><li><div><a href="Workspace%2baka%2bDashboards.html">Workspace aka Dashboards</a></div></li> </ol></li><li><div><a href="Dimensional%2bModels.html">Dimensional Models</a></div><ol class="toc"> <li><div><a href="Create%2bTM1%2bServer.html">Create TM1 Server</a></div></li><li><div class="current">Manual Cube Creation</div></li><li><div><a href="Loading%2bData%2binto%2bCubes.html">Loading Data into Cubes</a></div></li><li><div><a href="Dimensional%2bReport.html">Dimensional Report</a></div></li> </ol></li><li><div><a href="Tools%2bof%2bthe%2bTrade.html">Tools of the Trade</a></div></li><li class="generated"><div><a href="Contents%2bin%2bDepth.html">Contents in Depth</a></div></li><li class="generated"><div><a href="Combined%2bPages.html">Combined Pages</a></div></li> </ol></div></div>
+          </div>
+        </div>
+        
+      </body>
+    
+<!-- Mirrored from 127.0.0.1:39734/Manual+Cube+Creation.html by HTTrack Website Copier/3.x [XR&CO'2010], Sat, 25 Aug 2012 09:15:51 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+<html>
+      
+<!-- Mirrored from 127.0.0.1:39734/Report+-+with+Some+Scripting.html by HTTrack Website Copier/3.x [XR&CO'2010], Sat, 25 Aug 2012 09:15:51 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+<head>
+        <title>Cognos Express Cookbook — Report - with Some Scripting</title>
+        <link type="text/css" media="screen, projection" rel="stylesheet" href="css/blueprint/screen.css"></link>
+        <link type="text/css" media="screen and (min-device-width: 800px), projection" rel="stylesheet" href="css/blueprint/grid.css"></link>
+        <link type="text/css" media="print" rel="stylesheet" href="css/blueprint/print.css"></link> 
+        <!--[if lt IE 8]>
+          <link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection"/>
+        <![endif]-->
+        <link type="text/css" media="screen, projection" rel="stylesheet" href="css/pamflet.css"></link>
+        <link type="text/css" media="print" rel="stylesheet" href="css/pamflet-print.css"></link>
+        <link type="text/css" media="screen and (min-device-width: 800px), projection" rel="stylesheet" href="css/pamflet-grid.css"></link>
+        <link type="text/css" media="screen, projection" rel="stylesheet" href="css/custom.css"></link>
+        <script src="js/jquery-1.6.2.min.js"></script>
+        <script src="js/jquery.collapse.js"></script>
+        <script src="js/pamflet.js"></script>
+        
+        <meta charset="utf-8"></meta>
+        <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-34336749-1']);
+            _gaq.push(['_trackPageview']);
+            (function() {
+              var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+              ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+              var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+            </script>
+      </head>
+      <body>
+        <a class="page prev nav" href="Report%2b-%2bCommon%2bTechniques.html">
+            <span class="space">&nbsp;</span>
+            <span class="flip">❧</span>
+          </a><a class="page next nav" href="Workspace%2baka%2bDashboards.html">
+            <span class="space">&nbsp;</span>
+            <span>❧</span>
+          </a>
+        <div class="container">
+          <div class="span-16 prepend-1 append-1">
+            <div class="top nav span-16 title">
+              <span>Cognos Express Cookbook</span> — Report - with Some Scripting
+            </div>
+          </div>
+          <div class="span-16 prepend-1 append-1 contents">
+            <h1 id="Report+-+with+Some+Scripting">Report - with Some Scripting</h1><h2 id="The+Problem">The Problem</h2><p>Retrieve the top ten customers that bought the most units in 1997 and also find out if promotions had any effect.
+</p><h2 id="The+Solution">The Solution</h2><ul><li><a  href="Tools%2bof%2bthe%2bTrade.html#report_studio">Report Studio</a>
+</li></ul><h3 id="The+Steps">The Steps</h3><ol><li><a  href="#step1">Starting Report Studio</a>
+</li><li><a  href="#step2">Build the List</a>
+</li><li><a  href="#step3">Top 10 Customers</a>
+</li><li><a  href="#step4">Drill-Through Reporting</a>
+</li><li><a  href="#step5">Master Detail Relationship</a>
+</li><li><a  href="#step6">Inline Prompt</a>
+</li></ol><div id="step1"></div>
+<h3 id="Step+1%3A+Starting+Report+Studio">Step 1: Starting Report Studio</h3><ol><li>Launch Internet Explorer and go to <em>http://127.0.0.1:19300/cognos_express/manager/welcome.html</em>. Log in if prompted. 
+</li><li><p>Click <em>Create professional reports with Report Studio</em>
+</p><p><img alt="rs01"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/rs01.png"></img>
+</p></li><li><p>Cognos Connections will open. Look in your <em>My Folder</em> directory and choose the <em>foodmart</em> package to start reporting.
+</p><p><img alt="rs02"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/rs02.png"></img>
+</p></li><li><p>After it’s done loading, click on <em>Create new</em>. Pick <em>List</em> as your template.
+</p><p><img alt="rs03"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/rs03.png"></img>
+</p></li></ol><div id="step2"></div>
+<h3 id="Step+2%3A+Build+the+List">Step 2: Build the List</h3><ol><li>To the left, you’ll see query items. Select or Ctrl+Click <em>Name</em> under <em>Customer</em> and <em>Unit Sales</em>.
+</li><li><p>Drag and drop query items to list.
+</p><p><img alt="p9"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p9.png"></img>
+</p><p>If you <em>Run</em> your report, you should see the following: 
+</p><p><img alt="p10"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p10.png"></img>
+</p></li></ol><div id="step3"></div>
+<h3 id="Step+3%3A+List+Top+10+Customers">Step 3: List Top 10 Customers</h3><ol><li><p>First, sort. Single click <em>Unit Sales</em> column header to select it and click the sort icon and choose <em>Descending</em>.
+</p><p><img alt="p11"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p11.png"></img>
+</p><p>Run the report. List should now show the top customers with the most <em>Unit Sales</em>.
+</p><p><img alt="p12"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p12.png"></img>
+</p></li><li><p>Second, filter. Lay cursor on <em>Query Explorer</em> icon until panel expands and click on <em>Query1</em>
+</p><p><img alt="p13"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p13.png"></img>
+</p></li><li><p>Click <em>Toolbar</em> tab.
+</p><p><img alt="p14"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p14.png"></img>
+</p><p>Drag a <em>Data Item</em> in <em>Toolbox</em> and drop it in the list of data items.
+</p><p><img alt="p15"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p15.png"></img>
+</p></li><li><p><em>Detail Filter Expression</em> dialog will open. Here you write the expression on what you want to filter. The Expression is:
+</p><pre><code class="prettyprint lang-c">    running-count( rank( [Name] ) )
+</code></pre><p>Test with green checkmark button on top. No errors should appear. Click <em>OK</em>
+</p><p><img alt="p16"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p16.png"></img>
+</p></li><li><p>Drag <em>Data Item1</em> and drop it in <em>Detail Filters</em> section.
+</p><p><img alt="p17"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p17.png"></img>
+</p><p><em>Detail Filter Expression</em> dialog will open. Enter expression: 
+</p><pre><code class="prettyprint lang-c">    [Data Item1] &lt;= 10
+</code></pre><p>Test it. Click <em>OK</em>. Run it. You should have your top 10 customers with the most unit sales.
+</p><p><img alt="p18"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p18.png"></img>
+</p></li></ol><div id="step4"></div>
+<h3 id="Step+4%3A+Drill-Through+Reporting">Step 4: Drill-Through Reporting</h3><p>Drill through is the process of clicking a cell in a report to be redirected to another report. This allows one to make simpler reports and keep overhead information in seperate reports. The way it works is that there’s a source and target report. The target report takes a parameter; the parameter can be an identifier or attribute. When you click on a cell from the cell report, the source report sends the cell value to the target report and filters the content by that parameter.
+</p><ol><li>Save the current report to <em>top10_customers by unit sales</em>. Start a new report. And choose List when it prompts you for what kind of reports.
+</li><li><p>When your new report is ready to use, Ctrl+Click each query item in the <em>Customer</em> query subject. Then drag them over to the list.
+</p><p><img alt="p1"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p1.png"></img>
+</p><p>You should have the following:
+</p><p><img alt="p2"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p2.png"></img>
+</p></li><li><p>Lay your cursor on the <em>Query Explorer</em> icon until panel expands. You’ll see a list of queries. Double click on <em>Query1</em>.
+</p><p><img alt="p3"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p3.png"></img>
+</p></li><li><p>In the <em>Data Items</em> section, drag <em>Name</em> and drop it in <em>Detail Filters</em> section to the right.
+</p><p><img alt="p4"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p4.png"></img>
+<img alt="p5"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p5.png"></img>
+</p></li><li><p><em>Detail Filter Expression</em> dialog will open. Enter expression:
+</p><pre><code class="prettyprint lang-c">    [Name] = ?p_Name?
+</code></pre><p>The surrounding question marks declares p_Name to be a parameter. The paramater value will be assigned to the data item, <em>Name</em>. Every time the report opens, it requires a value so that it’ll filter in that value. The equal sign means there should only be one result. Test it with the green checkmark button on top and another window should open with a dropdown of all the customers’ names. After choosing a name, click <em>OK</em> at the very bottom.
+</p><p><img alt="p6"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p6.png"></img>
+</p><p>Now you should be back where you were before. Under <em>Information</em>, it should say no errors. Click <em>OK</em>
+</p><p><img alt="p7"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p7.png"></img>
+</p></li><li><p>Lay your cursor on <em>Page Explorer</em> icon until panel expands. Double click on <em>Page1</em>. 
+</p><p><img alt="p8"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p8.png"></img>
+</p><p>Edit the title to “Customer” and save it. You’re done building your target report. Reopen <em>top10_customers by unit sales</em> report.
+</p></li><li><p>Now to prepare the source report. Right click the cells of <em>Name</em> column and choose <em>Drill-Through Definitions…</em>
+</p><p><img alt="p19"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p19.png"></img>
+</p><p>Create a new definition.
+</p><p><img alt="p20"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p20.png"></img>
+</p><p>Set <em>Report</em> to the target report: <em>customer</em>; <em>Action</em> as <em>Run the report</em>, and <em>Format</em> as <em>HTML</em>. Check <em>Open in new window</em>. Then click the edit button (pencil icon).
+</p><p><img alt="p21"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p21.png"></img>
+</p><p>Dialog will open listing all of the parameters of the target report. In this case, it’s only <em>p_Name</em>. Set <em>Method</em> to <em>Pass data item value</em> and <em>Value</em> to <em>Name</em>. Click <em>OK</em>
+</p><p><img alt="p22"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p22.png"></img>
+</p><p>Click <em>OK</em> to save definition.
+</p><p><img alt="p23"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p23.png"></img>
+</p></li><li><p>Run and test it.
+</p><p><img alt="p24"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p24.png"></img>
+</p><p><img alt="p25"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p25.png"></img>
+</p></li></ol><div id="step5"></div>
+<h3 id="Step+5%3A+Master+Detail+Relationship">Step 5: Master Detail Relationship</h3><p>Master detail relationships link two data containers together within a report: a master data container and detail data container. We’ll add <em>Promotion Name</em> as the detail for the customers’ unit sales.
+</p><ol><li><p>Click the <em>Toolbar</em> tab and drag <em>List</em> and drop it between <em>Name</em> and <em>Unit Sales</em>.
+</p><p><img alt="p26"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p26.png"></img>
+</p></li><li><p>There should be a list in a column named <em>List</em>. Double click the column title and rename it to <em>Promotions</em>.
+</p><p><img alt="p27"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p27.png"></img>
+</p></li><li><p>Select or Ctrl+Click <em>Name</em> under <em>Customer</em>, <em>Promotion Name</em> and <em>Unit Sales</em>. Drop it in the new list under <em>Promotions</em> column.
+</p><p><img alt="p28"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p28.png"></img>
+</p><p>Run it. You’ll see that the results are not correct. That’s because we haven’t created a relationship among them.
+</p><p><img alt="p29"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p29.png"></img>
+</p></li><li><p>Select the inner (Promotion) list by clicking the three orange dots in the corner.
+</p><p><img alt="p30"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p30.png"></img>
+</p><p>Right click and choose <em>Master Detail Relationship…</em>
+</p><p><img alt="p31"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p31.png"></img>
+</p><p>Click on the <em>New Link</em> button. Link <em>Name</em> to <em>Name</em>. Click <em>OK</em>
+</p><p><img alt="p32"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p32.png"></img>
+</p></li><li><p>Run it. 
+</p><p><img alt="p33"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p33.png"></img>
+</p><p>If you group <em>Name</em> and sort <em>Unit Sales</em>, it’ll look better.
+</p><p><img alt="p34"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p34.png"></img>
+</p></li></ol><div id="step6"></div>
+<h3 id="Step+6%3A+Inline+Prompt">Step 6: Inline Prompt</h3><p>Our goal here is to provide a textfield that allows the user to enter a number that limits how many promotions to display per customer.
+</p><ol><li><p>Lay your cursor on <em>Query Explorer</em> icon until panel expands. Click on <em>Query2</em>. 
+</p><p><img alt="p38"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p38.png"></img>
+</p><p>In <em>Toolbox</em>, drag <em>Query Calculation</em> to the list of of data items.
+</p><p><img alt="p39"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p39.png"></img>
+</p></li><li><p>Enter expression: 
+</p><pre><code class="prettyprint lang-c">    running-count( rank([Unit Sales] for [Promotion Name]) )
+</code></pre><p>Test with green checkmark button on top. No errors should appear. Click <em>OK</em>
+</p><p><img alt="p40"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p39.png"></img>
+</p></li><li><p>Go back to <em>Page1</em> from <em>Page Explorer</em>. In <em>Toolbox</em>, drag and drop a <em>Text Item</em> above the list in the page.
+</p><p><img alt="p35"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p35.png"></img>
+</p><p><em>Text</em> dialog will appear. Enter “Specify the Maximum number of Promotions to view.”
+</p></li><li><p>Add a <em>Block</em> under the text item you just created and add a <em>Text Box Prompt</em> under that block.
+</p><p><img alt="p36"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p36.png"></img>
+</p><p><em>Prompt Wizard</em> dialog will appear. Adding a text box creates a parameter for the report. Name the parameter <em>promotions_rank</em>. Click <em>Finish</em>
+</p><p><img alt="p37"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p37.png"></img>
+</p></li><li><p>Add a <em>Prompt Button</em> beside text box prompt you just added.
+</p><p><img alt="p41"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p41.png"></img>
+</p><p>Select the button, and in the <em>Properties</em> pane (lower right side of Report Studio), set the <em>Type</em> to <em>Reprompt</em> so that the button re-runs the report when clicked.
+</p><p><img alt="p42"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p42.png"></img>
+</p></li><li><p>Select <em>promotions_rank</em> text box and in <em>Properties</em> pane set: <em>Required</em>=<em>No</em>, <em>Numbers Only</em>=<em>Yes</em>, <em>Default Selections</em>=<em>Yes</em>
+</p><p><img alt="p43"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p43.png"></img>
+</p></li><li><p>Lay cursor on <em>Query Explorer</em> icon and click <em>Query2</em>. In the list of <em>Data Items</em>, drag and drop <em>Data Item1</em> to <em>Detail Filters</em>. Enter expression:
+</p><pre><code class="prettyprint lang-c">    [Data Item1] &lt;= ?promotions_rank?
+</code></pre><p>Test with green checkmark button on top. No errors should appear. Click <em>OK</em>
+</p><p><img alt="p44"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p44.png"></img>
+</p><p>Select the newly created detail filter and in <em>Properties</em> pane, <em>Application</em> property to <em>After Auto Aggregate</em> so that rank is determined before the filter is applied.
+</p><p><img alt="p45"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p45.png"></img>
+</p></li><li><p>Run it and voila!
+</p><p><img alt="p46"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p46.png"></img>
+</p><p><img alt="p47"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p47.png"></img>
+</p></li></ol><div class="bottom nav">
+                        <em>Next Page</em>
+                        <span class="arrow">❧</span>
+                        <a href="Workspace%2baka%2bDashboards.html"> Workspace aka Dashboards </a>
+                      </div><div class="tocwrapper show">
+      <a class="tochead nav" style="display: none" href="#toc">❦</a>
+      <a name="toc"></a>
+      <h4 class="toctitle">Contents</h4>
+      <div class="tocbody">
+      <div><a href="Cognos%2bExpress%2bCookbook.html">Cognos Express Cookbook</a></div><ol class="toc"> <li><div><a href="About%2bthis%2btext.html">About this text</a></div></li><li><div><a href="Setting%2bUp%2bData%2bSource.html">Setting Up Data Source</a></div></li><li><div><a href="Relational%2bModels.html">Relational Models</a></div><ol class="toc"> <li><div><a href="DMR%2b-%2bDimensionally%2bModeled%2bRelational%2bModel.html">DMR - Dimensionally Modeled Relational Model</a></div></li><li><div><a href="Simple%2bReport%2bwith%2bGraph.html">Simple Report with Graph</a></div></li><li><div><a href="Report%2b-%2bCommon%2bTechniques.html">Report - Common Techniques</a></div></li><li><div class="current">Report - with Some Scripting</div></li><li><div><a href="Workspace%2baka%2bDashboards.html">Workspace aka Dashboards</a></div></li> </ol></li><li><div><a href="Dimensional%2bModels.html">Dimensional Models</a></div><ol class="toc"> <li><div><a href="Create%2bTM1%2bServer.html">Create TM1 Server</a></div></li><li><div><a href="Manual%2bCube%2bCreation.html">Manual Cube Creation</a></div></li><li><div><a href="Loading%2bData%2binto%2bCubes.html">Loading Data into Cubes</a></div></li><li><div><a href="Dimensional%2bReport.html">Dimensional Report</a></div></li> </ol></li><li><div><a href="Tools%2bof%2bthe%2bTrade.html">Tools of the Trade</a></div></li><li class="generated"><div><a href="Contents%2bin%2bDepth.html">Contents in Depth</a></div></li><li class="generated"><div><a href="Combined%2bPages.html">Combined Pages</a></div></li> </ol></div></div>
+          </div>
+        </div>
+        
+      </body>
+    
+<!-- Mirrored from 127.0.0.1:39734/Report+-+with+Some+Scripting.html by HTTrack Website Copier/3.x [XR&CO'2010], Sat, 25 Aug 2012 09:15:51 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+</html>

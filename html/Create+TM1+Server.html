@@ -1,0 +1,121 @@
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+<html>
+      
+<!-- Mirrored from 127.0.0.1:39734/Create+TM1+Server.html by HTTrack Website Copier/3.x [XR&CO'2010], Sat, 25 Aug 2012 09:15:51 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+<head>
+        <title>Cognos Express Cookbook — Create TM1 Server</title>
+        <link type="text/css" media="screen, projection" rel="stylesheet" href="css/blueprint/screen.css"></link>
+        <link type="text/css" media="screen and (min-device-width: 800px), projection" rel="stylesheet" href="css/blueprint/grid.css"></link>
+        <link type="text/css" media="print" rel="stylesheet" href="css/blueprint/print.css"></link> 
+        <!--[if lt IE 8]>
+          <link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection"/>
+        <![endif]-->
+        <link type="text/css" media="screen, projection" rel="stylesheet" href="css/pamflet.css"></link>
+        <link type="text/css" media="print" rel="stylesheet" href="css/pamflet-print.css"></link>
+        <link type="text/css" media="screen and (min-device-width: 800px), projection" rel="stylesheet" href="css/pamflet-grid.css"></link>
+        <link type="text/css" media="screen, projection" rel="stylesheet" href="css/custom.css"></link>
+        <script src="js/jquery-1.6.2.min.js"></script>
+        <script src="js/jquery.collapse.js"></script>
+        <script src="js/pamflet.js"></script>
+        <script type="text/javascript" src="js/prettify/prettify.js"></script><link type="text/css" rel="stylesheet" href="css/prettify.css"></link><script type="text/javascript"><!--
+        window.onload=function() { prettyPrint(); };
+      --></script>
+        <meta charset="utf-8"></meta>
+        <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-34336749-1']);
+            _gaq.push(['_trackPageview']);
+            (function() {
+              var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+              ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+              var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+            </script>
+      </head>
+      <body>
+        <a class="page prev nav" href="Dimensional%2bModels.html">
+            <span class="space">&nbsp;</span>
+            <span class="flip">❧</span>
+          </a><a class="page next nav" href="Manual%2bCube%2bCreation.html">
+            <span class="space">&nbsp;</span>
+            <span>❧</span>
+          </a>
+        <div class="container">
+          <div class="span-16 prepend-1 append-1">
+            <div class="top nav span-16 title">
+              <span>Cognos Express Cookbook</span> — Create TM1 Server
+            </div>
+          </div>
+          <div class="span-16 prepend-1 append-1 contents">
+            <h1 id="Create+TM1+Server">Create TM1 Server</h1><h2 id="The+Problem">The Problem</h2><p>You want to create a TM1 Server, aka ICAS (IBM Cognos Analytic Server).
+</p><h2 id="The+Solution">The Solution</h2><ul><li><a  href="Tools%2bof%2bthe%2bTrade.html#architect">Architect</a>
+</li></ul><h3 id="The+Steps">The Steps</h3><ol><li><a  href="#step1">Setting Up tm1s.cgf File</a>
+</li><li><a  href="#step2">Create TM1 Windows Service</a>
+</li><li><a  href="#step3">Run TM1 Windows Service</a>
+</li><li><a  href="#step4">Login to TM1 Server</a>
+</li></ol><strong>To automate setps 1 through 4, go to <a href="#downloads">downloads</a> and execute create_server file. It'll ask you for server name and port number you wish to use for the TM1 server. </strong> 
+<br><br>
+<div class="note"><b>Note</b>: 
+This tutorial assumes your Cognos installation is in <b>C:\Program Files (x86)\IBM\Cognos Express</b> and you are signed in as the local Administrator for your Windows machine. And in some cases, you need to execute commands in command prompt which is located in:
+</div>
+<pre><code class="prettyprint lang-c">Start &gt; All Programs &gt; Accessories &gt; Command Prompt
+</code></pre><br>
+<div id="step1"></div>
+<h3 id="Step+1%3A+Setting+Up+tm1s.cgf+File">Step 1: Setting Up tm1s.cgf File</h3><ol><li>Create a folder called <em>foodmart</em> in C:\Program Files (x86)\IBM\Cognos Express\Xcelerator\Custom\TM1Data\
+</li><li>Inside the foodmart directory, create a file called <strong><em>tm1s.cfg</em></strong>
+</li><li><p>Open <em>tm1s.cfg</em> and input the following:
+</p><div class="textcode">
+[TM1S]<br>
+<br>
+AllowSeparateNandCRules = T<br>
+CAMPortalVariableFile = portal/variables_TM1.xml<br>
+ServerCAMURI = http://<b>[hostname]</b>:19300/p2pd/servlet/dispatch<br>
+IntegratedSecurityMode = 1<br>
+DataBaseDirectory = .<br>
+UseSSL = T<br>
+ClientCAMURI = http://<b>[hostname]</b>:19300/p2pd/servlet/dispatch<br>
+PortNumber = <b>[port number]</b><br>
+ClientPingCAMPassport = 900<br>
+ServerName = foodmart<br>
+</div>
+</li></ol><p>The text in bold need to be changed:
+</p><ul><li>hostname: the name of your computer. Execute the following in command prompt to find the computer name.
+</li></ul><pre><code class="prettyprint lang-c">echo %computername%
+</code></pre><ul><li>port number: port number has to be unused and in the range that Cognos can access. By default, range is 19301-19500.
+</li></ul><p><img alt="tm1_1"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/createtm1_1.png"></img>
+</p><div id="step2"></div>
+<h3 id="Step+2%3A+Create+TM1+Windows+Service">Step 2: Create TM1 Windows Service</h3><p>In command prompt, execute:
+</p><pre><code class="prettyprint lang-c">&quot;C:\Program Files (x86)\IBM\Cognos Express\bin64\tm1sd.exe&quot; -install -n foodmart 
+-z &quot;C:\Program Files (x86)\IBM\Cognos Express\Xcelerator\Custom\TM1Data\foodmart&quot;
+</code></pre><p><img alt="tm1_2"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/createtm1_2.png"></img>
+</p><div id="step3"></div>
+<h3 id="Step+3%3A+Run+TM1+Windows+Service">Step 3: Run TM1 Windows Service</h3><p>In command prompt, execute:
+</p><pre><code class="prettyprint lang-c">net start &quot;IBM Cognos TM1 Server x64 / foodmart&quot;
+</code></pre><p><img alt="tm1_3"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/createtm1_3.png"></img>
+</p><div id="step4"></div>
+<h3 id="Step+4%3A+Login+to+TM1+Server">Step 4: Login to TM1 Server</h3><p>Open Architect.
+</p><pre><code class="prettyprint lang-c">Start &gt; All Programs &gt; IBM Cognos Express &gt; Architect
+</code></pre><p>Collapse <em>Servers</em> and double click <em>foodmart</em>. Login as <em>admin</em> with no password and you should be able to see the objects in the server.
+</p><p><img alt="tm1_4"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/createtm1_4.png"></img>
+</p><div id="downloads"></div>
+<h2 id="Downloads">Downloads</h2><ul><li><a  href="https://docs.google.com/open?id=0B8bnF9QulzZgMFN2d3BVLUVuejg">TM1-Server-Create-Remove.zip</a>
+</li></ul><hr><div class="bottom nav">
+                        <em>Next Page</em>
+                        <span class="arrow">❧</span>
+                        <a href="Manual%2bCube%2bCreation.html"> Manual Cube Creation </a>
+                      </div><div class="tocwrapper show">
+      <a class="tochead nav" style="display: none" href="#toc">❦</a>
+      <a name="toc"></a>
+      <h4 class="toctitle">Contents</h4>
+      <div class="tocbody">
+      <div><a href="Cognos%2bExpress%2bCookbook.html">Cognos Express Cookbook</a></div><ol class="toc"> <li><div><a href="About%2bthis%2btext.html">About this text</a></div></li><li><div><a href="Setting%2bUp%2bData%2bSource.html">Setting Up Data Source</a></div></li><li><div><a href="Relational%2bModels.html">Relational Models</a></div><ol class="toc"> <li><div><a href="DMR%2b-%2bDimensionally%2bModeled%2bRelational%2bModel.html">DMR - Dimensionally Modeled Relational Model</a></div></li><li><div><a href="Simple%2bReport%2bwith%2bGraph.html">Simple Report with Graph</a></div></li><li><div><a href="Report%2b-%2bCommon%2bTechniques.html">Report - Common Techniques</a></div></li><li><div><a href="Report%2b-%2bwith%2bSome%2bScripting.html">Report - with Some Scripting</a></div></li><li><div><a href="Workspace%2baka%2bDashboards.html">Workspace aka Dashboards</a></div></li> </ol></li><li><div><a href="Dimensional%2bModels.html">Dimensional Models</a></div><ol class="toc"> <li><div class="current">Create TM1 Server</div></li><li><div><a href="Manual%2bCube%2bCreation.html">Manual Cube Creation</a></div></li><li><div><a href="Loading%2bData%2binto%2bCubes.html">Loading Data into Cubes</a></div></li><li><div><a href="Dimensional%2bReport.html">Dimensional Report</a></div></li> </ol></li><li><div><a href="Tools%2bof%2bthe%2bTrade.html">Tools of the Trade</a></div></li><li class="generated"><div><a href="Contents%2bin%2bDepth.html">Contents in Depth</a></div></li><li class="generated"><div><a href="Combined%2bPages.html">Combined Pages</a></div></li> </ol></div></div>
+          </div>
+        </div>
+        
+      </body>
+    
+<!-- Mirrored from 127.0.0.1:39734/Create+TM1+Server.html by HTTrack Website Copier/3.x [XR&CO'2010], Sat, 25 Aug 2012 09:15:51 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+</html>

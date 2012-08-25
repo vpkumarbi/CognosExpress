@@ -1,0 +1,1318 @@
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+<html>
+      
+<!-- Mirrored from 127.0.0.1:39734/Combined+Pages.html by HTTrack Website Copier/3.x [XR&CO'2010], Sat, 25 Aug 2012 09:15:54 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+<head>
+        <title>Cognos Express Cookbook — Combined Pages</title>
+        <link type="text/css" media="screen, projection" rel="stylesheet" href="css/blueprint/screen.css"></link>
+        <link type="text/css" media="screen and (min-device-width: 800px), projection" rel="stylesheet" href="css/blueprint/grid.css"></link>
+        <link type="text/css" media="print" rel="stylesheet" href="css/blueprint/print.css"></link> 
+        <!--[if lt IE 8]>
+          <link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection"/>
+        <![endif]-->
+        <link type="text/css" media="screen, projection" rel="stylesheet" href="css/pamflet.css"></link>
+        <link type="text/css" media="print" rel="stylesheet" href="css/pamflet-print.css"></link>
+        <link type="text/css" media="screen and (min-device-width: 800px), projection" rel="stylesheet" href="css/pamflet-grid.css"></link>
+        <link type="text/css" media="screen, projection" rel="stylesheet" href="css/custom.css"></link>
+        <script src="js/jquery-1.6.2.min.js"></script>
+        <script src="js/jquery.collapse.js"></script>
+        <script src="js/pamflet.js"></script>
+        <script type="text/javascript" src="js/prettify/prettify.js"></script><link type="text/css" rel="stylesheet" href="css/prettify.css"></link><script type="text/javascript"><!--
+        window.onload=function() { prettyPrint(); };
+      --></script>
+        <meta charset="utf-8"></meta>
+        <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-34336749-1']);
+            _gaq.push(['_trackPageview']);
+            (function() {
+              var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+              ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+              var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+            </script>
+      </head>
+      <body>
+        <a class="page prev nav" href="Contents%2bin%2bDepth.html">
+            <span class="space">&nbsp;</span>
+            <span class="flip">❧</span>
+          </a>
+        <div class="container">
+          <div class="span-16 prepend-1 append-1">
+            <div class="top nav span-16 title">
+              <span>Cognos Express Cookbook</span> — Combined Pages
+            </div>
+          </div>
+          <div class="span-16 prepend-1 append-1 contents">
+            <div class="tocwrapper show">
+      <a class="tochead nav" style="display: none" href="#toc">❦</a>
+      <a name="toc"></a>
+      <h4 class="toctitle">Contents</h4>
+      <div class="tocbody">
+      <div><a href="#Cognos+Express+Cookbook">Cognos Express Cookbook</a></div><ol class="toc"> <li><div><a href="#About+this+text">About this text</a></div></li><li><div><a href="#Setting+Up+Data+Source">Setting Up Data Source</a></div></li><li><div><a href="#Relational+Models">Relational Models</a></div><ol class="toc"> <li><div><a href="#DMR+-+Dimensionally+Modeled+Relational+Model">DMR - Dimensionally Modeled Relational Model</a></div></li><li><div><a href="#Simple+Report+with+Graph">Simple Report with Graph</a></div></li><li><div><a href="#Report+-+Common+Techniques">Report - Common Techniques</a></div></li><li><div><a href="#Report+-+with+Some+Scripting">Report - with Some Scripting</a></div></li><li><div><a href="#Workspace+aka+Dashboards">Workspace aka Dashboards</a></div></li> </ol></li><li><div><a href="#Dimensional+Models">Dimensional Models</a></div><ol class="toc"> <li><div><a href="#Create+TM1+Server">Create TM1 Server</a></div></li><li><div><a href="#Manual+Cube+Creation">Manual Cube Creation</a></div></li><li><div><a href="#Loading+Data+into+Cubes">Loading Data into Cubes</a></div></li><li><div><a href="#Dimensional+Report">Dimensional Report</a></div></li> </ol></li><li><div><a href="#Tools+of+the+Trade">Tools of the Trade</a></div></li> </ol></div></div><h1 id="Cognos+Express+Cookbook">Cognos Express Cookbook</h1><h1 id="About+this+text">About this text</h1><p>This cookbook was originally made for <a  href="http://www.marist.edu/compscimath/facviewer.html?uid=60">Dr. Eitel J.M. Lauria’s</a> class. The aim is to teach students how to use <a  href="http://www-01.ibm.com/software/analytics/cognos/express/">IBM’s Cognos Express</a> (v10.1.0) in an intuitive way with almost 300 images. Each recipe contains a:
+</p><ul><li>Problem: what needs to be done.
+</li><li>Solution: full step-by-step of how it can be done.
+</li><li>Do-it-yourself: different problem with a similar solution for a different data set.
+</li></ul><h2 id="Assumption">Assumption</h2><p>This cookbook assumes you know what is a relational database, star schema, normalization, data warehousing, OLAP, ROLAP, MOLAP, etc. This only explains how Cognos works, how to use it, and how it relates to those concepts. 
+<br>
+</p><h2 id="Data+Sets">Data Sets</h2><p>The data sets are back ups of SQL Server databases. After downloading, you need to restore them.
+</p><ul><li>The problems and solutions are based on <a  href="https://docs.google.com/open?id=0B8bnF9QulzZgU0tUcWJzMENjUjA">foodmart-reduced</a>
+</li><li>The Do it yourself are based on <a  href="https://docs.google.com/open?id=0B8bnF9QulzZgUnVLY3ljQW9fbkE">foodmart 2008</a>
+</li></ul><h2 id="Source">Source</h2><p>The source is on <a  href="https://github.com/jcabrra/CognosExpress">github</a>. If you find errors or suggest improvements, pull request or <a  href="&#x6d;&#97;&#x69;&#108;&#116;&#x6f;&#58;&#106;&#x75;&#x6c;&#x69;&#x6f;&#x2e;&#x63;&#97;&#98;&#x72;&#x65;&#x72;&#x61;&#x32;&#x40;&#109;&#x61;&#114;&#105;&#x73;&#x74;&#x2e;&#x65;&#100;&#117;&#x3f;&#x53;&#117;&#98;&#106;&#x65;&#99;&#x74;&#x3d;&#x43;&#111;&#103;&#x6e;&#111;&#x73;&#37;&#x32;&#x30;&#69;&#x78;&#x70;&#114;&#x65;&#115;&#x73;&#37;&#50;&#x30;&#67;&#111;&#111;&#107;&#98;&#x6f;&#111;&#x6b;">email me</a>.
+</p><h1 id="Setting+Up+Data+Source">Setting Up Data Source</h1><h2 id="The+Problem">The Problem</h2><p>You need to connect Microsoft SQL Server database to Cognos.
+</p><h2 id="The+Solution">The Solution</h2><ul><li><a  href="http://en.wikipedia.org/wiki/ODBC">ODBC</a>
+</li></ul><h3 id="The+Steps">The Steps</h3><ol><li><a  href="#step1">Run ODBC</a>
+</li><li><a  href="#step2">Add System Data Source</a>
+</li><li><a  href="#step3">Connect Cognos to Data Source</a>
+</li></ol><div id="step1"></div>
+<h3 id="Step+1%3A+Run+ODBC">Step 1: Run ODBC</h3><p>This step can be confusing if you’re using a 64-bit machine because there’s two ODBC drivers in Windows:  
+<br/>
+32-bit:
+</p><pre><code class="prettyprint lang-c">%WINDIR%\SysWOW64\odbcad32.exe
+</code></pre><p>64-bit:
+</p><pre><code class="prettyprint lang-c">%WINDIR%\System32\odbcad32.exe
+</code></pre><p>The problem is that all shortcuts in 64-bit Windows machines point to the 64-bit ODBC driver by default, and that’s fine, but Cognos ignores the 64-bit driver. Instead it only accepts 32-bit so we have to set up SQL Server with that.
+</p><ol><li><p>Go to <em>Start</em> and type <em>run</em> and execute the <em>Run</em> application. Or enter Alt+F2.
+</p><p><img alt="data1"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/data1.png"></img>
+</p></li><li><p>Execute the 32-bit ODBC driver.
+</p><p><img alt="data2"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/data2.png"></img>
+</p></li></ol><div id="step2"></div>
+<h3 id="Step+2%3A+Add+System+Data+Source">Step 2: Add System Data Source</h3><ol><li><p>Click <em>Add</em> button under <em>System DSN</em> tab to create ODBC data source name (DSN).
+</p><p><img alt="data3"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/data3.png"></img>
+</p><div class="note"><b>Note</b>: There's three kinds of DSN: User, System, and File. If created under User, only the user currently creating the ODBC can access it, but this is a problem because Informix (Cogno's content store) runs under icognosexpress user, not as you. File is for networking purposes, but you're on a single machine so we can ignore that. System allows all users in your machine to use that data source.</div>
+</li><li><p><em>Create New Data Source</em> dialog will open. Choose <em>SQL Server</em> from the list of available drivers.
+</p><p><img alt="data4"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/data4.png"></img>    
+</p></li><li><p>In <em>Create New Data Source to SQL Server</em>, give it a name and point to the SQL Server you want to connect to. Click <em>Next</em>
+</p><p><img alt="data5"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/data5.png"></img>
+</p></li><li><p>If you’re using Windows Authentication to access SQL Server, click <em>Next</em>, otherwise, enter the username and password.
+</p><p><img alt="data6"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/data6.png"></img>
+</p></li><li><p>Change the default database to the one you want to analyze. In this case, <em>foodmart-reduced</em>. Click <em>Next</em>
+</p><p><img alt="data7"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/data7.png"></img>
+</p><p>Click <em>Finish</em>.
+</p><p><img alt="data8"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/data8.png"></img> 
+</p></li><li><p>Click <em>Test Data Source…</em> to check if it connects.
+</p><p><img alt="data9"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/data9.png"></img>
+</p><p>Should say <em>TESTS COMPLETED SUCCESSFULLY!</em> Click <em>OK</em> until you exit out of ODBC.
+</p><p><img alt="data10"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/data10.png"></img>
+</p></li></ol><div id="step3"></div>
+<h3 id="Step+3%3A+Connect+Cognos+to+Data+Source">Step 3: Connect Cognos to Data Source</h3><ol><li>Open Internet Explorer, and go to Cognos Express Manager <em>http://127.0.0.1:19300/cognos_express/manager</em>.
+</li><li>Log in as <em>administrator</em>
+</li><li><p>Go to <em>Data</em> tab under <em>Administrator</em> and click <em>Add…</em> at the bottom of the window.
+</p><p><img alt="data11"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/data11.png"></img>
+</p></li><li><p>Set the textfield attributes to the following:
+</p><table>
+  <tr>
+    <th>Data Source Type</th>
+    <td>Microsoft SQL Server (ODBC)</td>
+  </tr>
+  <tr>
+    <th>Name</th>
+    <td>foodmart-reduced</td>
+  </tr>
+  <tr>
+    <th>ODBC Data Source</th>
+    <td>foodmart-reduced</td>
+  </tr>
+  <tr>
+    <th>Database Name</th>
+    <td>foodmart-reduced</td>
+  </tr>
+  <tr>
+    <th>User ID</th>
+    <td>Enter the username to log in to SQL Server</td>
+  </tr>
+  <tr>
+    <th>Password</th>
+    <td>Enter the password to log in to SQL Server</td>
+  </tr>
+</table>
+<p>Click <em>Retrieve Database Objects</em>
+</p><div class="note"><b>Note</b>: If you get an exception, it may be that Cognos does not have permission to access foodmart-reduced database. I don't know a lot about configuring SQL, but since you're running Cognos on a stand alone server, we can get away with weak security. Launch SQL Server Management Studio, log in, right click foodmart-reduced database, go to properties, go to Permissions, add guest as a user, and grant him access to all the explicit permissions. Click ok and try again.</div>
+<p><img alt="data12"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/data12.png"></img>
+</p></li><li><p>Then for <em>Database Object</em>, select <em>foodmart-reduced</em>. Click <em>OK</em>
+</p><p><img alt="data13"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/data13.png"></img>
+</p></li></ol><p>Now you can connect to the <em>foodmart-reduced</em> data source connection when creating models.
+</p><h2 id="Do+It+Yourself">Do It Yourself</h2><p>Connect Foodmart-2008 SQL Server to Cognos Express.
+</p><hr>
+<h1 id="Relational+Models">Relational Models</h1><h1 id="DMR+-+Dimensionally+Modeled+Relational+Model">DMR - Dimensionally Modeled Relational Model</h1><h2 id="The+Problem">The Problem</h2><p>You want to create a dimensionally modeled relational model from a relational data source so you can publish the data for your business users to query.  
+</p><h2 id="The+Solution">The Solution</h2><ul><li><a  href="Tools%2bof%2bthe%2bTrade.html#framework_manager">Framework Manager</a>
+</li></ul><h3 id="The+Steps">The Steps</h3><ol><li><a  href="#step1">Create a Project</a>
+</li><li><a  href="#step2">Learn the Components</a>
+</li><li><a  href="#step3">Create Relationships</a>
+</li><li><a  href="#step4">Build Business View </a>
+</li><li><a  href="#step5">Build Presentation View</a>
+</li><li><a  href="#step6">Publish Package</a> 
+</li></ol><div id="step1"></div>
+<h3 id="Step+1%3A+Create+a+Project">Step 1: Create a Project</h3><p>Start Framework Manager from your Windows Start Menu:
+</p><pre><code class="prettyprint lang-c">Start &gt; All Programs &gt; IBM Cognos Express &gt; Framework Manager
+</code></pre><ol><li><p>Click <em>Create a new project…</em>. 
+</p><div class="note"><b>Note</b>: We can jumpstart a new project with the Model Design Accelerator (MDA) wizard to create a single-fact star-schema model, but it may contain errors that's difficult to catch.</div>
+<p><img alt="s01"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/fm_screenshot01.png"></img>
+</p></li><li>A <em>New Project</em> dialog opens. Give your project a name. Click <em>OK</em>.
+</li><li><p>After logging in and selecting a language, the <em>Metadata Wizard</em> will start. In <em>Select Metadata Source</em>, choose <em>Data Sources</em>.
+</p><p><img alt="s02"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/fm_screenshot02.png"></img>
+</p></li><li>In <em>Select Data Source</em>, there will be a list of data sources that was configured in Cognos. Choose <em>foodmart-reduced</em>. Click <em>Next</em>.
+</li><li><p>In <em>Select Objects</em>, expand <em>dbo</em>, and check <em>Tables</em>. In this example, we’ll choose all tables.
+</p><div class="note">Usually, you would only pick the tables necessary for the query or star schema, but the foodmart-reduced data source is small enough.</div>
+<p><img alt="s03"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/fm_screenshot03.png"></img>
+</p></li><li><p>In <em>Generate Relationships</em>, uncheck <em>Use primary and foreign keys</em> so you can manually create the model. Click <em>Import</em>. 
+</p><div class="note"><b>Note</b>: The wizard can create relationships with the joins and cardinality from the data source, but it will still need manual adjustments, and it's possible for one to miss a detail because the lack of knowledge about the model. So it's recommended to take the manual route.</div>
+<p><img alt="s04"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/fm_screenshot04.png"></img>
+</p></li><li>When the wizard completes the import process, there should be 8 query subjects (one per table). Click <em>Finish</em>. Congratulations. You created a project. Now it’s time to get familiar with the different kinds of objects and components so we can improve the model.
+</li></ol><div id="step2"></div>
+<h3 id="Step+2%3A+Learn+the+Components">Step 2: Learn the Components</h3><p>So you just created a project which is a set of components that defines metadata from one or multiple data sources. Those components include:
+</p><table>
+  <tr>
+    <th>Namespace</th>
+    <td>location that contains all the metadata.</td>
+  </tr>
+  <tr>
+    <th>Data Sources</th>
+    <td>references to data sources defined in Cognos Manager</td>
+  </tr>
+  <tr>
+   <th>Parameter Maps</th>
+   <td>key-value pairs that link query items to relational data sources.</td>
+ </tr>
+  <tr>
+   <th>Packages</th>
+   <td>collections of objects from the project's namespace that is published for business users to query.</td>
+ </tr>
+</table>
+<p><img alt="s05"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/fm_screenshot05.png"></img>  
+<br/>
+A Namespace is an object that uniquely identifies stored and organized objects that are found in your model.
+</p><div class="note"><b>Note</b>: Uniquely identifies means that a namespace has its own scope so two different namespaces can have an object with the same name and there won't be any conflict because they do not affect one another. You can link one object to an object in another namespace though. It'll hopefully make more sense by the end of this recipe.</div>
+<p>A Namespace can contain:
+</p><table>
+  <tr>
+    <th>Query Subjects</th>
+    <td>they're like tables in relational data sources and usually contains Query Items (which are like columns in a table).</td>
+  </tr>
+  <tr>
+   <th>Relationships</th>
+   <td>join and cardinality between two Query Items; similar to relationaships in SQL databases.</td>
+ </tr>
+  <tr>
+   <th>Folders</th>
+   <td>nothing special. Just  for organization.</td>
+ </tr>
+  <tr>
+    <th>And More Namespaces</th>
+  </tr>
+</table> 
+<p><img alt="s06"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/fm_screenshot06.png"></img>  
+<br/>
+<div id="step3"></div>
+</p><h3 id="Step+3%3A+Create+Relationships">Step 3: Create Relationships</h3><p>In <a  href="#step1">Step 1</a>, query subjects were imported. Now we need to create relationships and join the query items with the correct cardinality. It’s important to join query items correctly so business users will have the correct results. Since we imported all tables, creating relationships in Framework Manager would be as simple as copying the database schema.
+</p><p><img alt="s07"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/fm_screenshot07.png"></img>
+</p><ol><li>Expand <em>promotion</em> and <em>sales_fact 1997</em> query subjects.
+</li><li>Both <em>promotion</em> and <em>sales_fact 1997</em> query subjects have a <em>promotion_id</em> query item. Single click <em>promotion_id</em> in either query subject and single click the other <em>promotion_id</em> query item while holding down the Ctrl key.
+</li><li><p>Right click either <em>promotion_id</em> query item that’s selected. Go to <em>Create</em> &gt; <em>Relationship</em>.
+</p><p><img alt="s08"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/fm_screenshot08.png"></img>
+</p></li><li><p>Under <em>sales_fact 1997</em>, change the cardinality to <em>1..n</em> and leave promotion’s cardinality as <em>1..1</em>. You can check the database schema, and notice that <em>sales_fact 1997</em> reuses the same promotion_id so it’s one-to-many and for <em>promotion</em>, <em>promotion id</em> is the primary key so it’s one-to-one. 
+</p><p><img alt="s09"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/fm_screenshot09.png"></img>
+</p></li><li><p>To see sample results of a SQL statement using the relationship, click <em>Relationship SQL</em> tab. It should validate automatically. On the top, you’ll see the SQL statement Cognos generated. Click on <em>Test</em> and you should get the top n rows specified. If nothing shows, something is wrong with your relationship.
+</p><p><img alt="s10"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/fm_screenshot10.png"></img>
+</p></li><li>Do the same for the rest of the query items. Your end result should be the following: 
+</li></ol><p><table>
+  <tr>
+    <td>sales_fact_1997.promotion_id (1..n)</td>
+    <td>promotion.promotion_id (1..1)</td>
+  </tr>
+  <tr>
+    <td>sales_fact_1997.customer_id (1..n)</td>
+    <td>customer.customer_id (1..1)</td>
+  </tr>
+  <tr>
+   <td>sales_fact_1997.store_id (1..n)</td>
+   <td>store.store_id (1..1)</td>
+  </tr>
+  <tr>
+   <td>sales_fact_1997.product_id (1..n)</td>
+   <td>product.product_id (1..1)</td>
+  </tr>
+  <tr>
+   <td>sales_fact_1997.time_id (1..n)</td>
+   <td>time_by_day.time_id (1..1) </td>
+  </tr>
+  <tr>
+   <td>product.product_class_id (1..n)</td>
+   <td>product_class.product_class_id (1..1)</td>
+  </tr>
+  <tr>
+   <td>store.region_id (1..n)</td>
+   <td>region.region_id (1..1)</td>
+  </tr>
+  <tr>
+   <td>customer.customer_region_id (1..n)</td>
+   <td>region.region_id (1..1)</td>
+  </tr>
+</table>  
+<br/>
+That was easy! You should now have 8 valid relationships.
+</p><p><img alt="s11"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/fm_screenshot11.png"></img>
+</p><p>And your schema should look like the following:
+</p><p><img alt="s12"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/fm_screenshot12.png"></img>
+</p><div class="note"><b>Note</b>: The foodmart-reduced data source schema is not the same from the one we have now. That's because customer has a customer_region_id that is obviously a foreign key of region. Also, some tables have a foreign key for a table named district, but it's not in the data source. That's okay. You can just delete it in the next step.</div>
+<div id="step4"></div>
+<h3 id="Step+4%3A+Build+Business+View">Step 4: Build Business View</h3><p>In step 3, you created almost the same schema as what you will find in your database schema, and that’s okay, but not for your business users. You don’t want them to work with a database schema. You want to provide a very basic layout of query subjects for business users so they can comfortably create queries, and produce reports or workspaces. Hence the guys at Cognos recommend the:   
+<br/>
+<br>
+<table>
+  <tr><th>Three Tier Design</th></tr>
+  <tr>
+    <td>Physical View</td>
+    <td>holds the query subjects and relationships used to build the model. Query subjects should be unmodified views of the source tables. It's what you have now.</td>
+  </tr>
+  <tr>
+    <td>Business View</td>
+    <td>contains optimized query subjects for use by business users. Query subjects can be by renamed, moved around, consolidated, merged, etc.</td>
+  </tr>
+  <tr>
+   <td>Presentation View</td>
+   <td>this view will be presented to the business user. Query subjects are organized in a way that business users can understand.</td>
+ </tr>
+</table>  
+<br/>
+Lets try this with Foodmart-reduced.
+</p><ol><li>Right click on the only namespace in the project <em>foodmart-reduced</em>, and <em>Create</em> &gt; <em>Namespace</em>. Name the namespace, “Physical View”.
+</li><li><p>Move all subject queries into <em>Physical View</em> namespace. Your project should be structured like the following:
+</p><p><img alt="s13"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/fm_screenshot13.png"></img>
+</p></li><li>Right click on <em>foodmart-reduced</em> namespace, and <em>Create</em> &gt; <em>Namespace</em>. Name the namespace, “Business View”.
+</li><li><p>Right click <em>Business View</em>, and <em>Create</em> &gt; <em>Query Subject</em>.
+</p><p><img alt="s14"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/fm_screenshot14.png"></img>
+</p><p>A dialog will appear. Name the subject query, “Time” and mark it as a <em>Model</em> query subject. Click <em>OK</em>. 
+</p><p><img alt="s15"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/fm_screenshot15.png"></img>
+</p><div class="note"><b>Note</b>: The subject queries that were created at the beginning of this recipe are known as data source query subject which is comparable to a table in SQL. In the other hand, model query subjects are made from one or more data source subject queries. This means the query subjects in Physical View should be data source while the query subjects in Business View should be model.</div>
+</li><li>A dialog will open. To the left you will find your project hierarchy. Collapse <em>Physical View</em> and drag <em>time by day</em> to the white area on the right. 
+</li><li><p>Make adjustments like renaming or removing query items for simplicity. You can do the following:
+</p><table>
+  <tr><th>Remove the following</th></tr>
+  <tr><td>month_of_year</td></tr>
+  <tr><td>fiscal_period</td></tr>
+  <tr><td>SSMA_TimeStamp</td></tr>
+</table>
+<table>
+  <tr><th>Rename the following</th></tr>
+  <tr>
+    <td>the_date</td>
+    <td>Date</td>
+  </tr>
+  <tr>
+    <td>the_day</td>
+    <td>Day of the Week</td>
+  </tr>
+  <tr>
+    <td>the_month</td>
+    <td>Month</td>
+  </tr>
+  <tr>
+    <td>the_year</td>
+    <td>Year</td>
+  </tr>
+  <tr>
+    <td>day_of_month</td>
+    <td>Day of the Month</td>
+  </tr>
+  <tr>
+    <td>week_of_year</td>
+    <td>Week of the Year</td>
+  </tr>
+  <tr>
+    <td>quarter</td>
+    <td>Quarter</td>
+  </tr>
+</table>
+<p><img alt="s16"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/fm_screenshot16.png"></img>
+</p></li><li><p>For <em>Customer</em> repeat step #4, but name the subject query, “Customer”. Repeat step #5, but drag  <em>customer</em> to the white area on the right and then at the bottom right-hand corner, click on <em>Add</em> to add a new Query Item. Name it, “Name”. From the <em>Available Components</em> white area, drag <em>fname</em> query item from <em>customer</em> in <em>Physical View</em> to <em>Express Definition</em> white area to the right. And then drag <em>lname</em> after <em>fname</em>, separated by ” + ’ ’ + ” (excluding double quotes). You can do a lot with expressions in Cognos. You can check all of their many functions and parameters by clicking on the tabs on the lower left-hand corner, but we will cover that some other time. Your final expression definition should be:  
+</p><pre><code class="prettyprint lang-c">    [Physical View].[customer].[fname] + ' ' + [Physical View].[customer].[lname]
+</code></pre><p>To test it, click on the blue play button and it should show you the correct results like in the picture below:
+</p><p><img alt="s17"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/fm_screenshot17.png"></img>
+</p><p>In <em>Customer</em> from <em>Business View</em> namespace:
+</p><table>
+  <tr><th>Remove the following</th></tr>
+  <tr><td>fname</td></tr>
+  <tr><td>lname</td></tr>
+  <tr><td>mi</td></tr>
+  <tr><td>address2</td></tr>
+  <tr><td>address3</td></tr>
+  <tr><td>address4</td></tr>
+  <tr><td>SSMA_TimeStamp</td></tr>
+</table>
+<table>
+  <tr><th>Rename the following</th></tr>
+  <tr>
+    <td>account_num</td>
+    <td>Account Number</td>
+  </tr>
+  <tr>
+    <td>address1</td>
+    <td>Address</td>
+  </tr>
+  <tr>
+    <td>state_province</td>
+    <td>State / Province</td>
+  </tr>
+  <tr>
+    <td>postal_code</td>
+    <td>Postal Code</td>
+  </tr>
+  <tr>
+    <td>country</td>
+    <td>Country</td>
+  </tr>
+  <tr>
+    <td>phone1</td>
+    <td>Phone #1</td>
+  </tr>
+  <tr>
+    <td>phone2</td>
+    <td>Phone #2</td>
+  </tr>
+  <tr>
+    <td>birthdate</td>
+    <td>Date of Birth</td>
+  </tr>
+  <tr>
+    <td>marital_status</td>
+    <td>Marital Status</td>
+  </tr>
+  <tr>
+    <td>yearly_income</td>
+    <td>Annual Income</td>
+  </tr>
+  <tr>
+    <td>gender</td>
+    <td>Gender</td>
+  </tr>
+  <tr>
+    <td>total_children</td>
+    <td>Total Children</td>
+  </tr>
+  <tr>
+    <td>num_children_at_home</td>
+    <td>Number of Children at Home</td>
+  </tr>
+  <tr>
+    <td>education</td>
+    <td>Education</td>
+  </tr>
+  <tr>
+    <td>date_accnt_opened</td>
+    <td>Date Account Opened</td>
+  </tr>
+  <tr>
+    <td>member_card</td>
+    <td>Member Card</td>
+  </tr>
+  <tr>
+    <td>occupation</td>
+    <td>Occupation</td>
+  </tr>
+  <tr>
+    <td>houseowner</td>
+    <td>House Owner</td>
+  </tr>
+  <tr>
+    <td>num_cars_owned</td>
+    <td>Number of Cars Owned</td>
+  </tr>
+</table>
+</li><li><p>We know the schema in the <em>Physical View</em> namespace is a snowflake, but we want it simpler and faster. This means less joins: Star schema. Customer is joined to region, lets merge them. In <em>Query Subject Definition</em>, collapse <em>Physical View</em> from <em>Available Model Objects</em> and drag <em>region</em> to <em>Query Items and Calculations</em>. Now you can remove query items: <em>customer region id</em> and <em>region id</em> since they’re not needed anymore. Rename the newly imported query items and test to see if it works.<br><br>
+</p><p>For organizational purposes, you can put the merged query items in a folder. The scope still remains the same. Ctrl + Click all merged query items and then right click on a selected items: <em>New Parent</em> &gt; <em>Query Item Folder</em>. In this case, you can name it “Region”.
+</p></li><li><p>Before we continue to the other data source query subjects, lets fix the properties for the query items in our Business View. We will focus on one property setting for query item which is <em>Usage</em>. There are other important properties that we can talk about on another recipe like <em>Regular Aggregate</em>, <em>Format</em>, <em>Precision</em>, etc.
+</p><p>A query item can have one of four different usage types:
+</p><table>
+  <tr>
+    <th>Icon</th>
+    <th>Type</th>
+    <th>When to Use</th>
+  </tr>
+  <tr>
+    <td> <img src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/fm_screenshot19.png" alt="s19" /> </td>
+    <td>Identifier</td>
+    <td>Database key, date/datetime</td>
+  </tr>
+  <tr>
+    <td> <img src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/fm_screenshot20.png" alt="s20" /> </td>
+    <td>Fact</td>
+    <td>Numeric value that can be calculated</td>
+  </tr>
+  <tr>
+    <td> <img src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/fm_screenshot21.png" alt="s21" /> </td>
+    <td>Attribute / Unknown</td>
+    <td>Is not an Identifier or Fact, it's an attribute.</td>
+  </tr>
+</table>
+<p>With the rule of thumb table above, try to correct the usage type for all query items in Customer. Some of them are correct already. Property settings can be found at the bottom of Framework Manager after selecting a query item.
+</p><p><img alt="s18"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/fm_screenshot18.png"></img> 
+</p><p>Take a look at my Customer’s query item icons and see if it matches yours:
+</p><p><img alt="s22"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/fm_screenshot22.png"></img> 
+</p></li><li>Do steps 4-9 for the rest of the query subjects.
+</li></ol><div id="step5"></div>
+<h3 id="Step+5%3A+Build+Presentation+View">Step 5: Build Presentation View</h3><p>Now that we have created all query subjects for <em>Business View</em>, lets finish up by creating the Presentation View. In <em>Presentation View</em>, there will only be shortcut links that point to the query subjects in <em>Business View</em>. Then we’ll group the shortcut links in a star schema. This allows you to easily modify what business users see without modifying any of the query subjects, and when query subjects are modified in the Business View, changes take effect in the Presentation View as well. 
+</p><ol><li><p>Ctrl + Click fact and all dimension subject queries. When all are selected, right click on one of them, and choose <em>Create Star Schema Grouping…</em>
+</p><p><img alt="s23"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/fm_screenshot23.png"></img>
+</p></li><li><p><em>Create Star Schema Grouping</em> Dialog will appear. Accept default settings and name the namespace, “1997 Sales”.
+</p><p><img alt="s24"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/fm_screenshot24.png"></img>
+</p></li><li><p>Right click <em>foodmart-reduced</em> namespace and <em>Create</em> &gt; <em>Namespace</em>. Name it “Presentation View” and move <em>1997 Sales</em> to <em>Presentation View</em>.
+</p><p><img alt="s25"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/fm_screenshot25.png"></img>
+</p></li></ol><div id="step6"></div>
+<h3 id="Step+6%3A+Publish+Package">Step 6: Publish Package</h3><p>The content is now ready for the business user to use in the form of a star schema grouping. Let’s publish the Presentation View:
+</p><ol><li><p>Right click on <em>Packages</em> and <em>Create</em> &gt; <em>Package</em>
+</p><p><img alt="s26"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/fm_screenshot26.png"></img>
+</p></li><li><p><em>Create Package</em> dialog will appear. Name your package “foodmart”. Click <em>Next</em>.
+</p><p><img alt="s27"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/fm_screenshot27.png"></img>
+</p></li><li><p>Now you have to define your objects. The green checkmark means the object will be included, red X means it will be excluded, and the third option means it’s included, but it’s hidden. We only want business users to have access to Presentation View, not Physical or Business View, but we cannot exclude Physical or Business because Presentation depends on it. Your setting should look like the following image:
+</p><p><img alt="s28"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/fm_screenshot28.png"></img>
+</p></li><li><p>Remember when we created the expression to concatenate first and last name to a full name query item? There’s a list of functions that you can use to create more sophisticated expressions when you click the <em>functions</em> tab. There’s also vendor specific functions that we won’t be using at all except for SQL Server. By default, they’re all included, lets just keep SQL Server specific functions. Click the top most option in the list, Shift + Click the bottom most option in the list, Ctrl + Click <em>SQL Server</em>. Then click the arrow pointing to the left. The lists should look like the following image and click <em>Finish</em>.
+</p><p><img alt="s29"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/fm_screenshot29.png"></img>
+</p></li><li><p>You created your package, now you should get a prompt asking if you want to open the <em>Publishing Package Wizard</em>. Click <strong><em>Yes</em></strong>.
+</p><p><img alt="s30"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/fm_screenshot30.png"></img>
+</p></li><li><p>In <em>Select Location Type</em> window, you need to choose where you’re going to store your package. The typical place to store packages is in Cognos Content Store. There are two folders in the Content Store you can save your package or pretty much any file type:  
+</p><table>
+  <tr>
+    <td>Public Folders</td>
+    <td>stores files, packages, and folders that is viewable to ALL users.</td>
+  </tr>
+  <tr>
+    <td>My Folder</td>
+    <td>stores files, packages, and folders that is viewable to ONLY you and the administrator.</td>
+  </tr>
+</table>  
+<p>To save it in your <em>My Folder</em>, open the Cogno’s Content Store explorer:
+</p><p><img alt="s31"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/fm_screenshot31.png"></img>
+</p><p>Click on Cognos on the top left corner and choose <em>My Folder</em>:
+</p><p><img alt="s32"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/fm_screenshot32.png"></img>
+</p><p>Click <em>Next</em> twice.
+</p></li><li><p>Click <em>Publish</em>.
+</p><p><img alt="s33"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/fm_screenshot33.png"></img>
+</p></li><li>By default, Framework Manager verifies packages when they’re published and alerts you if any errors or warning were found. If you didn’t get any warnings or errors, Congratulations! You successfully published your first, no-error package!
+</li></ol><h2 id="Downloads">Downloads</h2><ul><li><a  href="https://docs.google.com/open?id=0B8bnF9QulzZgbzlVNTlFelFsejQ">Framework Manager Project Example Above</a>
+</li></ul><h2 id="Do+It+Yourself">Do It Yourself</h2><p>Create a DMR Model with the FoodMart 2008 db. FoodMart 2008 has lots of more tables, but don’t worry. As long as you create a snowflake or star schema that has relationships of many-to-one from the inside out, clean things up, denormalize it, and etc, you should be okay.  
+<br/>
+<br>
+<strong>Fact Table</strong>: <em>inventory_fact 1997</em> 
+<br><br>
+<strong>Other Tables</strong>: <em>product, product_class, warehouse,</em> and <em>time_by day</em>.
+</p><hr><h1 id="Simple+Report+with+Graph">Simple Report with Graph</h1><h2 id="The+Problem">The Problem</h2><p>Create a report showing which of the following types of stores sold the most units in 1997, separated by quarters.
+</p><h2 id="The+Solution">The Solution</h2><ul><li><a  href="Tools%2bof%2bthe%2bTrade.html#report_studio">Report Studio</a>
+</li></ul><h3 id="The+Steps">The Steps</h3><ol><li><a  href="#step1">Start a Report Studio Project</a>
+</li><li><a  href="#step2">Fill Crosstab with Data</a>
+</li><li><a  href="#step3">Add Chart</a>
+</li></ol><div id="step1"></div>
+<h3 id="Step+1%3A+Start+a+Report+Studio+Project">Step 1: Start a Report Studio Project</h3><ol><li>Launch Internet Explorer and go to <em>http://127.0.0.1:19300/cognos_express/manager/welcome.html</em>. Log in if prompted. 
+</li><li><p>Click <em>Create professional reports with Report Studio</em>
+</p><p><img alt="rs01"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/rs01.png"></img>
+</p></li><li><p>Cognos Connections will open. Look in your <em>My Folder</em> directory and choose the <em>foodmart</em> package to start reporting.
+</p><p><img alt="rs02"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/rs02.png"></img>
+</p></li><li><p>After it’s done loading, click on <em>Create new</em>.
+</p><p><img alt="rs03"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/rs03.png"></img>
+</p></li><li><p>Next window allows you to pick a template so you don’t have to start from blank. We’re going to pick <em>Crosstab</em>. Crosstab allows you to view summarized information at the intersecting point of a column and row.
+</p><p><img alt="rs04"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/rs04.png"></img>
+</p></li></ol><div id="step2"></div>
+<h3 id="Step+2%3A+Fill+Crosstab+with+Data">Step 2: Fill Crosstab with Data</h3><ol><li><p>You should now see the following screen below with the query subjects to the left.
+</p><p><img alt="rs05"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/rs05.png"></img>
+</p></li><li><p>We already have the Sales Facts from 1997 so we simply collapse <em>1997 Sales Fact</em> and drag the fact, <em>Unit Sales</em> to <em>Measures</em> in the crosstab table. 
+</p><p><img alt="rs06"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/rs06.png"></img>
+</p><p>And then drop it, and you should see the following.
+</p><p><img alt="rs07"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/rs07.png"></img>
+</p></li><li><p>Your boss specified the time interval to be in the year 1997 so let’s drag <em>Year</em> in <em>Columns</em> so the report can show the unit sales are from 1997.
+</p><p><img alt="rs08"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/rs08.png"></img>
+</p><p>And then drop it, and you should see the following.
+</p><p><img alt="rs09"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/rs09.png"></img>
+</p></li><li><p>We chose crosstab so we could display the <em>Quarters</em> of the year under <em>Year</em>. Drag <em>Quarter</em> under <em>Year</em> in the <em>Columns section</em>. When you see a black bar like in the following image, drop it.
+</p><p><img alt="rs10"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/rs10.png"></img>
+</p><p><img alt="rs11"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/rs11.png"></img>
+</p></li><li><p>In the <em>Rows</em> area, drag and drop <em>Store Type</em> so your end result should be:
+</p><p><img alt="rs12"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/rs12.png"></img>
+</p></li><li><p>Click on the <em>Run Report</em> button.
+</p><p><img alt="rs13"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/rs13.png"></img>
+</p><p>By looking at the numbers, you can see that Supermarkets are selling the most units.
+</p><p><img alt="rs14"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/rs14.png"></img>
+</p></li></ol><div id="step3"></div>
+<h3 id="Step+3%3A+Add+Chart">Step 3: Add Chart</h3><ol><li><p>To make it easier for your boss to view the information, lets add a pie chart per quarter. Go to the <em>Toolbox</em> tab.
+</p><p><img alt="rs15"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/rs15.png"></img>
+</p></li><li><p>Drag and drop <em>Chart</em> object from the Toolbox list to a white space under your crosstab.
+</p><p><img alt="rs16"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/rs16.png"></img>
+</p></li><li><p>In the <em>Insert Chart</em> dialog, pick a pie chart. And at the bottom of the dialog, there will be a checkbox that says <em>Fill with data</em>. This will allow you to automatically fill the chart with data from an object that’s already on the page. In this case, there’s only one crosstab on the page. Click <em>OK</em>.
+</p><p><img alt="rs17"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/rs17.png"></img>
+</p></li><li><p>Click on the <em>Run Report</em> button.
+</p><p><img alt="rs18"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/rs18.png"></img>
+</p></li><li>Double click the title of the report, <em>Double-click to edit text</em>, and name it “Units Sold in 1997 by Store Type”. Click <em>OK</em>.
+</li><li>Click the save button on the top-left corner, and you can save the report in public folders with the name “Units sold in 1997 by store type”. So your boss can later see it.
+</li></ol><h2 id="Do+It+Yourself">Do It Yourself</h2><p>Create a report that shows and answers the following questions: 
+</p><ol><li>Which warehouse shipped the most units in 1998?
+</li><li>In what quarter did all warehouses combined ship the least?
+</li><li>In what quarter did all warehouses combined ship the most?
+</li></ol><p>Include a chart and a note that explicitly answers questions 1,2,3.
+</p><hr><h1 id="Report+-+Common+Techniques">Report - Common Techniques</h1><h2 id="The+Problem">The Problem</h2><p>Show a list of the success and failures of the types of supermarkets in 1997. Show the <em>Store Sales</em>, <em>Store Cost</em>, and <em>Unit Sales</em> and make it presentable.
+</p><h2 id="The+Solution">The Solution</h2><ul><li><a  href="Tools%2bof%2bthe%2bTrade.html#query_studio">Query Studio</a>
+</li><li><a  href="Tools%2bof%2bthe%2bTrade.html#report_studio">Report Studio</a>
+</li></ul><h3 id="The+Steps">The Steps</h3><ol><li><a  href="#step1">Starting Query Studio</a>
+</li><li><a  href="#step2">Build the List</a>
+</li><li><a  href="#step3">Aggregate</a>
+</li><li><a  href="#step4">Grouping</a>
+</li><li><a  href="#step5">Filtering</a>
+</li><li><a  href="#step6">Sorting</a>
+</li><li><a  href="#step7">Formatting</a>
+</li><li><a  href="#step8">Conditional Highlighting</a>
+</li><li><a  href="#step9">Prettify</a>
+</li></ol><div id="step1"></div>
+<h3 id="Step+1%3A+Starting+Query+Studio">Step 1: Starting Query Studio</h3><ol><li>Launch Internet Explorer and go to <em>http://127.0.0.1:19300/cognos_express/manager/welcome.html</em>. Log in if prompted.
+</li><li><p>Click <em>Query my business data with Query Studio</em>
+</p><p><img alt="q1"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/q1.png"></img>
+</p></li><li><p>Find and open <em>foodmart</em> package. Query Studio should now open a blank project.
+</p><p><img alt="q2"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/q2.png"></img>
+</p></li></ol><div id="step2"></div>
+<h3 id="Step+2%3A+Build+the+List">Step 2: Build the List</h3><ol><li>To the left, you’ll see query items. Select or Ctrl+Click <em>Sales Region</em>, <em>Store Type</em>, <em>Store Name</em>, <em>Store Sales</em>, <em>Store Cost</em>, <em>Unit Sales</em>. 
+</li><li><p>Under the list of query items, click <em>Insert</em> button with green left pointing arrow. This should build a list.
+</p><p><img alt="q3"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/q3.png"></img>
+</p></li></ol><div id="step3"></div>
+<h3 id="Step+3%3A+Aggregate">Step 3: Aggregate</h3><p>You may notice there’s a <em>Summary</em> row. Summary aggregates facts and displays the result. The question is, how does it aggregate it? There’s many ways of aggregating: total, average, maximum, etc. If you didn’t configure the aggregate value from Framework Manager, your aggregation results may be undesirable. Quickly check how it’s aggregating.
+</p><ol><li><p>Right click <em>Store Sales</em> column header and choose <em>Summarize…</em>
+</p><p><img alt="q7"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/q7.png"></img>
+</p></li><li><p>It’s <em>Total</em> or sum so we’ll leave it that way. Just click <em>Cancel</em>.
+</p><p><img alt="q8"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/q8.png"></img>
+</p></li><li>If you do the same for <em>Store Cost</em> and <em>Unit Sales</em>, you’ll see they’re <em>Total</em> as well. 
+</li></ol><div id="step4"></div>
+<h3 id="Step+4%3A+Grouping">Step 4: Grouping</h3><p>One can select a column and group the data so it can be more visually appealing and easier to locate. Lets group <em>Sales Region</em>.
+</p><ol><li><p>Click on the <em>Sales Region</em> column header (the blue part). After selecting, it should turn orange.
+</p><p><img alt="q4"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/q4.png"></img>
+</p></li><li><p>The toolbar on the top with all the icons. Find <em>Group</em> and click it. Look at the image below if you can’t find it.
+</p><p><img alt="q5"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/q5.png"></img>
+</p><p>And you should see the following:
+</p><p><img alt="q6"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/q6.png"></img>
+</p></li></ol><div id="step5"></div>
+<h3 id="Step+5%3A+Filtering">Step 5: Filtering</h3><p>Filtering unnecessary data allows one to minimize the amount of information that is returned. For example, maybe you only want to see stores that sold under 10,000 units. But we only want to analyze results from the types of supermarkets which include <em>Supermarket</em>, <em>Gourmet Supermarket</em>, and <em>Deluxe Supermarket</em>.
+</p><ol><li><p>Right click <em>Store Type</em> column header and choose <em>Filter…</em>
+Report Studio
+</p><p><img alt="q9"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/q9.png"></img>
+</p></li><li><p>You should now see bottom panel, <em>Filter (Pick values from a list)</em>. Leave the condition as <em>Show only the following</em> and from the list, choose the three types of supermarkets. Click <em>OK</em>
+</p><p><img alt="q10"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/q10.png"></img>
+</p><p>You should now have the following list.
+</p><p><img alt="q11"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/q11.png"></img>
+</p></li></ol><div id="step6"></div>
+<h3 id="Step+6%3A+Sorting">Step 6: Sorting</h3><p>You can sort a fact column in ascending or descending order. We’ll sort <em>Store Sales</em> in descending order.
+</p><ol><li><p>Right click <em>Store Sales</em> column header and choose <em>Sort…</em>
+</p><p><img alt="q12"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/q12.png"></img>
+</p></li><li><p>Bottom panel will open. Choose <em>Descending (9 to 1)</em> and click <em>OK</em>
+</p><p><img alt="q13"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/q13.png"></img>
+</p><p>Result should be the following:
+</p><p><img alt="q14"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/q14.png"></img>
+</p></li></ol><div id="step7"></div>
+<h3 id="Step+7%3A+Formatting">Step 7: Formatting</h3><p>Data may sometimes not be formatted how you want it, but we can help it. Lets format <em>Store Cost</em> and <em>Store Sales</em>.
+</p><ol><li><p>Right click <em>Store Sales</em> column header and choose <em>Format Data…</em>
+</p><p><img alt="q15"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/q15.png"></img>
+</p></li><li><p>Truncate the value to a whole. Under <em>Category</em>, choose <em>Number</em>. Under <em>Number of decimal places</em>, choose <em>0</em>. Under <em>Thousands separator</em>, choose <em>Yes</em>. Click <em>OK</em>
+</p><p><img alt="q16"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/q16.png"></img>
+</p></li><li><p>Do the same for <em>Store Cost</em>, but choose <em>Currency</em> for <em>Category</em> and keep <em>2</em> for <em>Number of decimal places</em>. Your end result should be the following:
+</p><p><img alt="q17"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/q17.png"></img>
+</p></li></ol><div id="step8"></div>
+<h3 id="Step+8%3A+Conditional+Highlighting">Step 8: Conditional Highlighting</h3><p>Store sales that didn’t meet expected rates and those that surpassed expectations should be identified quickly. This task is perfect for conditional highlighting. In this case, expected sales are between 50,000 and 80,000 so anything below 50,000 will be highlighted in red and anything above 80,000 will be highlighted in green.
+</p><ol><li><p>Click on any of the individual cells under the <em>Store Sales</em> column. They should be highlighted in orange.
+</p><p><img alt="q18"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/q18.png"></img>
+</p></li><li><p>On the left panel, click <em>Change Layout</em> and choose <em>Define Conditional Styles…</em>
+</p><p><img alt="q19"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/q19.png"></img>
+</p></li><li>In <em>Define conditional styles</em> bottom panel, under <em>New Value</em>, enter 80000. Click the <em>Insert</em> button with green left pointing arrow.
+</li><li><p>Clear the textfield under <em>New Value</em> and enter 50000. Click the <em>Insert</em>. 
+</p><p><img alt="q20"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/q20.png"></img>
+</p></li><li><p>There are three sections that are in default style. The top section will have the green highlight and the bottom section will have the red highlight. We can create custom styles, but we’ll stick with the template they have for now. Choose <em>Excellent</em> from the style dropdown for the top section. Choose <em>Poor</em> from the style dropdown for the bottom section. Click <em>OK</em>
+</p><p><img alt="q21"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/q21.png"></img>
+</p><p><img alt="q22"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/q22.png"></img>
+</p></li></ol><div id="step9"></div>
+<h3 id="Step+9%3A+Prettify">Step 9: Prettify</h3><p>Lets make a pretty report in Report Studio.
+</p><ol><li>For reference, save the query studio project in Cogno’s content store. Name it “query facts 1997 for supermarkets”.
+</li><li><p>On the left panel, click <em>Manage File</em> and choose <em>Open in Report Studio</em>
+</p><p><img alt="q23"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/q23.png"></img>
+</p></li><li>In Report Studio, double click the title and name it <em>1997 Facts for Supermarkets</em>
+</li><li><p>Select all the parts of the page and center it.
+</p><p><img alt="q25"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/q25.png"></img>
+</p></li><li><p>Select the topmost part of the page (where the title is). Click the bucket fill button, select <em>Custom Color</em> tab at the bottom of the dialog. Uncheck <em>Hexadecimal values</em> and set Red=102, Green=102, Blue=204. Click <em>Apply</em>
+</p><p><img alt="q26"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/q26.png"></img>
+</p></li><li><p>Set the font to size 20pt with color white.
+</p><p><img alt="q28"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/q28.png"></img>
+</p></li><li><p>Select the two page sections under the topmost section and give it a background color of red=204, green=204, blue=255.
+</p><p><img alt="q29"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/q29.png"></img>
+</p></li></ol><p>I think you get the idea. Here’s my final look. It’s pretty, right?
+</p><p><img alt="q30"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/q30.png"></img>
+</p><p>Save your report as “facts 1997 for supermarkets”
+</p><hr><h1 id="Report+-+with+Some+Scripting">Report - with Some Scripting</h1><h2 id="The+Problem">The Problem</h2><p>Retrieve the top ten customers that bought the most units in 1997 and also find out if promotions had any effect.
+</p><h2 id="The+Solution">The Solution</h2><ul><li><a  href="Tools%2bof%2bthe%2bTrade.html#report_studio">Report Studio</a>
+</li></ul><h3 id="The+Steps">The Steps</h3><ol><li><a  href="#step1">Starting Report Studio</a>
+</li><li><a  href="#step2">Build the List</a>
+</li><li><a  href="#step3">Top 10 Customers</a>
+</li><li><a  href="#step4">Drill-Through Reporting</a>
+</li><li><a  href="#step5">Master Detail Relationship</a>
+</li><li><a  href="#step6">Inline Prompt</a>
+</li></ol><div id="step1"></div>
+<h3 id="Step+1%3A+Starting+Report+Studio">Step 1: Starting Report Studio</h3><ol><li>Launch Internet Explorer and go to <em>http://127.0.0.1:19300/cognos_express/manager/welcome.html</em>. Log in if prompted. 
+</li><li><p>Click <em>Create professional reports with Report Studio</em>
+</p><p><img alt="rs01"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/rs01.png"></img>
+</p></li><li><p>Cognos Connections will open. Look in your <em>My Folder</em> directory and choose the <em>foodmart</em> package to start reporting.
+</p><p><img alt="rs02"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/rs02.png"></img>
+</p></li><li><p>After it’s done loading, click on <em>Create new</em>. Pick <em>List</em> as your template.
+</p><p><img alt="rs03"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/rs03.png"></img>
+</p></li></ol><div id="step2"></div>
+<h3 id="Step+2%3A+Build+the+List">Step 2: Build the List</h3><ol><li>To the left, you’ll see query items. Select or Ctrl+Click <em>Name</em> under <em>Customer</em> and <em>Unit Sales</em>.
+</li><li><p>Drag and drop query items to list.
+</p><p><img alt="p9"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p9.png"></img>
+</p><p>If you <em>Run</em> your report, you should see the following: 
+</p><p><img alt="p10"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p10.png"></img>
+</p></li></ol><div id="step3"></div>
+<h3 id="Step+3%3A+List+Top+10+Customers">Step 3: List Top 10 Customers</h3><ol><li><p>First, sort. Single click <em>Unit Sales</em> column header to select it and click the sort icon and choose <em>Descending</em>.
+</p><p><img alt="p11"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p11.png"></img>
+</p><p>Run the report. List should now show the top customers with the most <em>Unit Sales</em>.
+</p><p><img alt="p12"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p12.png"></img>
+</p></li><li><p>Second, filter. Lay cursor on <em>Query Explorer</em> icon until panel expands and click on <em>Query1</em>
+</p><p><img alt="p13"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p13.png"></img>
+</p></li><li><p>Click <em>Toolbar</em> tab.
+</p><p><img alt="p14"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p14.png"></img>
+</p><p>Drag a <em>Data Item</em> in <em>Toolbox</em> and drop it in the list of data items.
+</p><p><img alt="p15"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p15.png"></img>
+</p></li><li><p><em>Detail Filter Expression</em> dialog will open. Here you write the expression on what you want to filter. The Expression is:
+</p><pre><code class="prettyprint lang-c">    running-count( rank( [Name] ) )
+</code></pre><p>Test with green checkmark button on top. No errors should appear. Click <em>OK</em>
+</p><p><img alt="p16"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p16.png"></img>
+</p></li><li><p>Drag <em>Data Item1</em> and drop it in <em>Detail Filters</em> section.
+</p><p><img alt="p17"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p17.png"></img>
+</p><p><em>Detail Filter Expression</em> dialog will open. Enter expression: 
+</p><pre><code class="prettyprint lang-c">    [Data Item1] &lt;= 10
+</code></pre><p>Test it. Click <em>OK</em>. Run it. You should have your top 10 customers with the most unit sales.
+</p><p><img alt="p18"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p18.png"></img>
+</p></li></ol><div id="step4"></div>
+<h3 id="Step+4%3A+Drill-Through+Reporting">Step 4: Drill-Through Reporting</h3><p>Drill through is the process of clicking a cell in a report to be redirected to another report. This allows one to make simpler reports and keep overhead information in seperate reports. The way it works is that there’s a source and target report. The target report takes a parameter; the parameter can be an identifier or attribute. When you click on a cell from the cell report, the source report sends the cell value to the target report and filters the content by that parameter.
+</p><ol><li>Save the current report to <em>top10_customers by unit sales</em>. Start a new report. And choose List when it prompts you for what kind of reports.
+</li><li><p>When your new report is ready to use, Ctrl+Click each query item in the <em>Customer</em> query subject. Then drag them over to the list.
+</p><p><img alt="p1"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p1.png"></img>
+</p><p>You should have the following:
+</p><p><img alt="p2"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p2.png"></img>
+</p></li><li><p>Lay your cursor on the <em>Query Explorer</em> icon until panel expands. You’ll see a list of queries. Double click on <em>Query1</em>.
+</p><p><img alt="p3"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p3.png"></img>
+</p></li><li><p>In the <em>Data Items</em> section, drag <em>Name</em> and drop it in <em>Detail Filters</em> section to the right.
+</p><p><img alt="p4"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p4.png"></img>
+<img alt="p5"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p5.png"></img>
+</p></li><li><p><em>Detail Filter Expression</em> dialog will open. Enter expression:
+</p><pre><code class="prettyprint lang-c">    [Name] = ?p_Name?
+</code></pre><p>The surrounding question marks declares p_Name to be a parameter. The paramater value will be assigned to the data item, <em>Name</em>. Every time the report opens, it requires a value so that it’ll filter in that value. The equal sign means there should only be one result. Test it with the green checkmark button on top and another window should open with a dropdown of all the customers’ names. After choosing a name, click <em>OK</em> at the very bottom.
+</p><p><img alt="p6"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p6.png"></img>
+</p><p>Now you should be back where you were before. Under <em>Information</em>, it should say no errors. Click <em>OK</em>
+</p><p><img alt="p7"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p7.png"></img>
+</p></li><li><p>Lay your cursor on <em>Page Explorer</em> icon until panel expands. Double click on <em>Page1</em>. 
+</p><p><img alt="p8"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p8.png"></img>
+</p><p>Edit the title to “Customer” and save it. You’re done building your target report. Reopen <em>top10_customers by unit sales</em> report.
+</p></li><li><p>Now to prepare the source report. Right click the cells of <em>Name</em> column and choose <em>Drill-Through Definitions…</em>
+</p><p><img alt="p19"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p19.png"></img>
+</p><p>Create a new definition.
+</p><p><img alt="p20"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p20.png"></img>
+</p><p>Set <em>Report</em> to the target report: <em>customer</em>; <em>Action</em> as <em>Run the report</em>, and <em>Format</em> as <em>HTML</em>. Check <em>Open in new window</em>. Then click the edit button (pencil icon).
+</p><p><img alt="p21"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p21.png"></img>
+</p><p>Dialog will open listing all of the parameters of the target report. In this case, it’s only <em>p_Name</em>. Set <em>Method</em> to <em>Pass data item value</em> and <em>Value</em> to <em>Name</em>. Click <em>OK</em>
+</p><p><img alt="p22"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p22.png"></img>
+</p><p>Click <em>OK</em> to save definition.
+</p><p><img alt="p23"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p23.png"></img>
+</p></li><li><p>Run and test it.
+</p><p><img alt="p24"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p24.png"></img>
+</p><p><img alt="p25"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p25.png"></img>
+</p></li></ol><div id="step5"></div>
+<h3 id="Step+5%3A+Master+Detail+Relationship">Step 5: Master Detail Relationship</h3><p>Master detail relationships link two data containers together within a report: a master data container and detail data container. We’ll add <em>Promotion Name</em> as the detail for the customers’ unit sales.
+</p><ol><li><p>Click the <em>Toolbar</em> tab and drag <em>List</em> and drop it between <em>Name</em> and <em>Unit Sales</em>.
+</p><p><img alt="p26"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p26.png"></img>
+</p></li><li><p>There should be a list in a column named <em>List</em>. Double click the column title and rename it to <em>Promotions</em>.
+</p><p><img alt="p27"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p27.png"></img>
+</p></li><li><p>Select or Ctrl+Click <em>Name</em> under <em>Customer</em>, <em>Promotion Name</em> and <em>Unit Sales</em>. Drop it in the new list under <em>Promotions</em> column.
+</p><p><img alt="p28"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p28.png"></img>
+</p><p>Run it. You’ll see that the results are not correct. That’s because we haven’t created a relationship among them.
+</p><p><img alt="p29"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p29.png"></img>
+</p></li><li><p>Select the inner (Promotion) list by clicking the three orange dots in the corner.
+</p><p><img alt="p30"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p30.png"></img>
+</p><p>Right click and choose <em>Master Detail Relationship…</em>
+</p><p><img alt="p31"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p31.png"></img>
+</p><p>Click on the <em>New Link</em> button. Link <em>Name</em> to <em>Name</em>. Click <em>OK</em>
+</p><p><img alt="p32"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p32.png"></img>
+</p></li><li><p>Run it. 
+</p><p><img alt="p33"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p33.png"></img>
+</p><p>If you group <em>Name</em> and sort <em>Unit Sales</em>, it’ll look better.
+</p><p><img alt="p34"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p34.png"></img>
+</p></li></ol><div id="step6"></div>
+<h3 id="Step+6%3A+Inline+Prompt">Step 6: Inline Prompt</h3><p>Our goal here is to provide a textfield that allows the user to enter a number that limits how many promotions to display per customer.
+</p><ol><li><p>Lay your cursor on <em>Query Explorer</em> icon until panel expands. Click on <em>Query2</em>. 
+</p><p><img alt="p38"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p38.png"></img>
+</p><p>In <em>Toolbox</em>, drag <em>Query Calculation</em> to the list of of data items.
+</p><p><img alt="p39"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p39.png"></img>
+</p></li><li><p>Enter expression: 
+</p><pre><code class="prettyprint lang-c">    running-count( rank([Unit Sales] for [Promotion Name]) )
+</code></pre><p>Test with green checkmark button on top. No errors should appear. Click <em>OK</em>
+</p><p><img alt="p40"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p39.png"></img>
+</p></li><li><p>Go back to <em>Page1</em> from <em>Page Explorer</em>. In <em>Toolbox</em>, drag and drop a <em>Text Item</em> above the list in the page.
+</p><p><img alt="p35"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p35.png"></img>
+</p><p><em>Text</em> dialog will appear. Enter “Specify the Maximum number of Promotions to view.”
+</p></li><li><p>Add a <em>Block</em> under the text item you just created and add a <em>Text Box Prompt</em> under that block.
+</p><p><img alt="p36"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p36.png"></img>
+</p><p><em>Prompt Wizard</em> dialog will appear. Adding a text box creates a parameter for the report. Name the parameter <em>promotions_rank</em>. Click <em>Finish</em>
+</p><p><img alt="p37"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p37.png"></img>
+</p></li><li><p>Add a <em>Prompt Button</em> beside text box prompt you just added.
+</p><p><img alt="p41"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p41.png"></img>
+</p><p>Select the button, and in the <em>Properties</em> pane (lower right side of Report Studio), set the <em>Type</em> to <em>Reprompt</em> so that the button re-runs the report when clicked.
+</p><p><img alt="p42"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p42.png"></img>
+</p></li><li><p>Select <em>promotions_rank</em> text box and in <em>Properties</em> pane set: <em>Required</em>=<em>No</em>, <em>Numbers Only</em>=<em>Yes</em>, <em>Default Selections</em>=<em>Yes</em>
+</p><p><img alt="p43"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p43.png"></img>
+</p></li><li><p>Lay cursor on <em>Query Explorer</em> icon and click <em>Query2</em>. In the list of <em>Data Items</em>, drag and drop <em>Data Item1</em> to <em>Detail Filters</em>. Enter expression:
+</p><pre><code class="prettyprint lang-c">    [Data Item1] &lt;= ?promotions_rank?
+</code></pre><p>Test with green checkmark button on top. No errors should appear. Click <em>OK</em>
+</p><p><img alt="p44"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p44.png"></img>
+</p><p>Select the newly created detail filter and in <em>Properties</em> pane, <em>Application</em> property to <em>After Auto Aggregate</em> so that rank is determined before the filter is applied.
+</p><p><img alt="p45"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p45.png"></img>
+</p></li><li><p>Run it and voila!
+</p><p><img alt="p46"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p46.png"></img>
+</p><p><img alt="p47"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/p47.png"></img>
+</p></li></ol><h1 id="Workspace+aka+Dashboards">Workspace aka Dashboards</h1><h2 id="The+Problem">The Problem</h2><p>Put together the reports you’ve created and present the results in a working dashboard. 
+</p><h2 id="The+Solution">The Solution</h2><ul><li><a  href="Tools%2bof%2bthe%2bTrade.html#business_insight">Business Insight</a>
+</li><li><a  href="Tools%2bof%2bthe%2bTrade.html#business_insight_advanced">Business Insight Advanced</a>
+</li></ul><h3 id="The+Steps">The Steps</h3><ol><li><a  href="#step1">Starting Cognos Business Insight</a>
+</li><li><a  href="#step2">Dragging Reports to the Workspace</a>
+</li><li><a  href="#step3">The Toolbox</a>
+</li><li><a  href="#step4">Cleanup</a>
+</li></ol><div id="step1"></div>
+<h3 id="Step+1%3A+Starting+Cognos+Business+Insight">Step 1: Starting Cognos Business Insight</h3><ol><li>Launch Internet Explorer and go to <em>http://127.0.0.1:19300/cognos_express/manager/welcome.html</em>. Log in if prompted. 
+</li><li><p>Click <em>Create my workspaces with Business Insight</em>
+</p><p><img alt="bi1"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/bi1.png"></img>
+</p></li><li><p>Click <em>Create New</em> button to create new project.
+</p><p><img alt="bi2"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/bi2.png"></img>
+</p></li><li><p>A blank workspace is created. To the right is a panel where you can drag and drop <em>Content</em> and items from the <em>Toolbox</em> into the workspace.
+</p><p><img alt="bi3"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/bi3.png"></img>
+</p></li><li><p>Go to <em>Content</em>, and expand <em>My Folders</em> and <em>foodmart</em>. You should now see all the reports and queries that have been saved in <em>foodmart</em> package.
+</p><p><img alt="bi4"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/bi4.png"></img>
+</p></li></ol><div id="step2"></div>
+<h3 id="Step+2%3A+Dragging+Reports+to+the+Workspace">Step 2: Dragging Reports to the Workspace</h3><p>If you’ve completed the previous recipes from this cookbook, you should have at least 3 reports inside of <em>foodmart</em> package: <em>facts 1997 for supermarkets</em>, <em>top10 customers by unit sales</em>, and <em>Units sold in 1997 by store type</em>. 
+</p><ol><li><p>Drag and drop <em>top10 customers by unit sales</em> to the canvas.
+</p><p><img alt="bi5"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/bi5.png"></img>
+<img alt="bi6"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/bi6.png"></img>
+</p></li><li><p>Drag and drop <em>facts 1997 for supermarkets</em> to the canvas.
+</p><p><img alt="bi7"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/bi7.png"></img>
+<img alt="bi8"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/bi8.png"></img>
+</p></li><li><p>In the right hand content pane, expand <em>Units sold in 1997 by store type</em>.
+</p><p><img alt="bi9"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/bi9.png"></img>
+</p></li><li><p>Drag and drop <em>Crosstab1</em> to the canvas.
+</p><p><img alt="bi10"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/bi10.png"></img>
+</p></li><li><p>Drag and drop <em>Pie Chart1</em> to the canvas.
+</p><p><img alt="bi11"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/bi11.png"></img>
+</p></li></ol><div id="step3"></div>
+<h3 id="Step+3%3A+The+Toolbox">Step 3: The Toolbox</h3><p>If you’ve used Report or Query Studio already, you probably already know about the <em>Toolbox</em>. They’re simply objects that one can drag and drop on the canvas and do something cool. Take the <em>Slider Filter</em> for example. It links a query item from one of the reports on the dashboard and creates a range or single filter on that query.
+</p><ol><li><p>Click the <em>Toolbox</em> tab.
+</p><p><img alt="bi11-1"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/bi11-1.png"></img>
+</p></li><li><p>Drag and drop <em>Slider Filter</em> to the canvas.
+</p><p><img alt="bi12"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/bi12.png"></img>
+</p></li><li>In <em>Properties - Slider Filter</em> dialog, choose <em>Quarter</em> under the list of data items. <em>Quarter</em> links <em>Crosstab1</em> and <em>Pie Chart1</em> widgets on the canvas because they’re all part of <em>Units sold in 1997 by store type</em> report.
+</li><li><p>For <em>Show descriptive text</em> textfield, type “Select a range of Quarters”. Click <em>OK</em>
+</p><p><img alt="bi13"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/bi13.png"></img>
+</p><p>You should see the following:
+</p><p><img alt="bi14"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/bi14.png"></img>
+</p></li><li><p>To make it look better expand the slider widget to fill in the square gap.
+</p><p><img alt="bi15"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/bi15.png"></img>
+<img alt="bi16"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/bi16.png"></img>
+</p><p>Test it out.
+</p><p><img alt="bi17"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/bi17.png"></img>
+<img alt="bi18"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/bi18.png"></img>
+</p></li></ol><div id="step4"></div>
+<h3 id="Step+4%3A+Cleanup">Step 4: Cleanup</h3><p>Some personal modifications:
+</p><ol><li><p>Click <em>Layout and Style</em> drop down located in top bar of Business Insight, and choose <em>Edit Workspace Style…</em>
+</p><p><img alt="bi19"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/bi19.png"></img>
+</p></li><li><p>In <em>Edit Workspace Style</em> dialog, choose the color white for the background.
+</p><p><img alt="bi20"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/bi20.png"></img>
+<img alt="bi21"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/bi21.png"></img>
+</p></li><li><p>Go to Widgets tab
+</p><p><img alt="bi22"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/bi22.png"></img>
+</p></li><li><p>Uncheck <em>Borders</em> and click <em>OK</em>
+</p><p><img alt="bi23"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/bi23.png"></img>
+</p></li></ol><p>The <em>facts 1997 for supermarkets</em> report does not vertically fit the canvas. 
+</p><ol><li><p>Click on the <em>top10 customers by unit sales</em> report and expand it to the right height.
+</p><p><img alt="bi24"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/bi24.png"></img>
+</p></li></ol><p>Now everything fits perfectly. One more minor tweak. Apparently I forgot to change the summary rows’ color to purple in the <em>facts 1997 for supermarkets</em> report. 
+</p><ol><li><p>Click the <em>Do More…</em> button for that widget.
+</p><p><img alt="bi25"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/bi25.png"></img>
+</p></li><li><p>Business Insight Advanced will be launched. Select all the grouped summary rows (North West and South West). Click the Bucket Fill drop down, and go to <em>Custom Color</em> tab, uncheck <em>Hexadecimal values</em> and enter red=99, green=101, blue=206. Click <em>Apply</em>
+</p><p><img alt="bi26"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/bi26.png"></img>
+</p></li><li><p>Set the font color to white.
+</p><p><img alt="bi27"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/bi27.png"></img>
+</p></li><li><p>Select the entire Summary row (last row). Repeat step 2 and 3, but set the background color to red=0, green=0, blue=132. Click <em>Done</em>.
+</p><p><img alt="bi28"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/bi28.png"></img>
+</p><p>Final Result.
+</p><p><img alt="bi29"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/bi29.png"></img>
+</p><p>Save the workspace in foodmart-reduced package and name it dashboard.
+</p><p><img alt="bi30"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/bi30.png"></img>
+</p></li></ol><h1 id="Dimensional+Models">Dimensional Models</h1><h1 id="Create+TM1+Server">Create TM1 Server</h1><h2 id="The+Problem">The Problem</h2><p>You want to create a TM1 Server, aka ICAS (IBM Cognos Analytic Server).
+</p><h2 id="The+Solution">The Solution</h2><ul><li><a  href="Tools%2bof%2bthe%2bTrade.html#architect">Architect</a>
+</li></ul><h3 id="The+Steps">The Steps</h3><ol><li><a  href="#step1">Setting Up tm1s.cgf File</a>
+</li><li><a  href="#step2">Create TM1 Windows Service</a>
+</li><li><a  href="#step3">Run TM1 Windows Service</a>
+</li><li><a  href="#step4">Login to TM1 Server</a>
+</li></ol><strong>To automate setps 1 through 4, go to <a href="#downloads">downloads</a> and execute create_server file. It'll ask you for server name and port number you wish to use for the TM1 server. </strong> 
+<br><br>
+<div class="note"><b>Note</b>: 
+This tutorial assumes your Cognos installation is in <b>C:\Program Files (x86)\IBM\Cognos Express</b> and you are signed in as the local Administrator for your Windows machine. And in some cases, you need to execute commands in command prompt which is located in:
+</div>
+<pre><code class="prettyprint lang-c">Start &gt; All Programs &gt; Accessories &gt; Command Prompt
+</code></pre><br>
+<div id="step1"></div>
+<h3 id="Step+1%3A+Setting+Up+tm1s.cgf+File">Step 1: Setting Up tm1s.cgf File</h3><ol><li>Create a folder called <em>foodmart</em> in C:\Program Files (x86)\IBM\Cognos Express\Xcelerator\Custom\TM1Data\
+</li><li>Inside the foodmart directory, create a file called <strong><em>tm1s.cfg</em></strong>
+</li><li><p>Open <em>tm1s.cfg</em> and input the following:
+</p><div class="textcode">
+[TM1S]<br>
+<br>
+AllowSeparateNandCRules = T<br>
+CAMPortalVariableFile = portal/variables_TM1.xml<br>
+ServerCAMURI = http://<b>[hostname]</b>:19300/p2pd/servlet/dispatch<br>
+IntegratedSecurityMode = 1<br>
+DataBaseDirectory = .<br>
+UseSSL = T<br>
+ClientCAMURI = http://<b>[hostname]</b>:19300/p2pd/servlet/dispatch<br>
+PortNumber = <b>[port number]</b><br>
+ClientPingCAMPassport = 900<br>
+ServerName = foodmart<br>
+</div>
+</li></ol><p>The text in bold need to be changed:
+</p><ul><li>hostname: the name of your computer. Execute the following in command prompt to find the computer name.
+</li></ul><pre><code class="prettyprint lang-c">echo %computername%
+</code></pre><ul><li>port number: port number has to be unused and in the range that Cognos can access. By default, range is 19301-19500.
+</li></ul><p><img alt="tm1_1"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/createtm1_1.png"></img>
+</p><div id="step2"></div>
+<h3 id="Step+2%3A+Create+TM1+Windows+Service">Step 2: Create TM1 Windows Service</h3><p>In command prompt, execute:
+</p><pre><code class="prettyprint lang-c">&quot;C:\Program Files (x86)\IBM\Cognos Express\bin64\tm1sd.exe&quot; -install -n foodmart 
+-z &quot;C:\Program Files (x86)\IBM\Cognos Express\Xcelerator\Custom\TM1Data\foodmart&quot;
+</code></pre><p><img alt="tm1_2"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/createtm1_2.png"></img>
+</p><div id="step3"></div>
+<h3 id="Step+3%3A+Run+TM1+Windows+Service">Step 3: Run TM1 Windows Service</h3><p>In command prompt, execute:
+</p><pre><code class="prettyprint lang-c">net start &quot;IBM Cognos TM1 Server x64 / foodmart&quot;
+</code></pre><p><img alt="tm1_3"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/createtm1_3.png"></img>
+</p><div id="step4"></div>
+<h3 id="Step+4%3A+Login+to+TM1+Server">Step 4: Login to TM1 Server</h3><p>Open Architect.
+</p><pre><code class="prettyprint lang-c">Start &gt; All Programs &gt; IBM Cognos Express &gt; Architect
+</code></pre><p>Collapse <em>Servers</em> and double click <em>foodmart</em>. Login as <em>admin</em> with no password and you should be able to see the objects in the server.
+</p><p><img alt="tm1_4"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/createtm1_4.png"></img>
+</p><div id="downloads"></div>
+<h2 id="Downloads">Downloads</h2><ul><li><a  href="https://docs.google.com/open?id=0B8bnF9QulzZgMFN2d3BVLUVuejg">TM1-Server-Create-Remove.zip</a>
+</li></ul><hr><h1 id="Manual+Cube+Creation">Manual Cube Creation</h1><h2 id="Problem">Problem</h2><p>Learn how cubes work in TM1 by manually creating a cube.
+</p><h2 id="Solution">Solution</h2><ul><li><a  href="Tools%2bof%2bthe%2bTrade.html#architect">Architect</a>
+</li></ul><h3 id="The+Steps">The Steps</h3><ol><li><a  href="#step1">First Dimension</a>
+</li><li><a  href="#step2">Second Dimension</a>
+</li><li><a  href="#step3">Build Cube</a>
+</li><li><a  href="#step4">Explore the Cube</a>
+</li><li><a  href="#step5">Fiddling with Attributes</a>
+</li><li><a  href="#step6">Subsets</a>
+</li></ol><div id="step1"></div>
+<h3 id="Step+1%3A+First+Dimension">Step 1: First Dimension</h3><p>Before creating a cube, you need to have at least two dimensions. This first dimension will be a time dimension called <em>Months</em>. Months will have elements with the 12 months of the year that will roll up to quarters, and quarters will roll up to year.
+</p><ol><li><p>Launch Cognos Architect.
+</p><pre><code class="prettyprint lang-c">    Start &gt; All Programs &gt; IBM Cognos Express &gt; Architect
+</code></pre></li><li><p>Login to the <em>foodmart</em> TM1 server.
+</p><p><img alt="sc1"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc1.png"></img>
+</p></li><li><p>Right click <em>Dimensions</em> and choose <em>Create New Dimension</em>.
+</p><p><img alt="sc2"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc2.png"></img>
+</p></li><li><p>In <em>Dimension Editor</em>, go to <em>Edit</em> &gt; <em>Insert Element</em>
+</p><p><img alt="sc3"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc3.png"></img>
+</p></li><li>In <em>Insert Element Name</em>, type <em>Jan</em>. 
+</li><li><p>Dimension elements have one type out of three:
+</p><table>
+  <tr>
+    <td>Simple</td>
+    <td>The very last child node in the hierarchy. It has no child elements.</td>
+  </tr>
+  <tr>
+    <td>Consolidated</td>
+    <td>Contains child nodes.</td>
+  </tr>
+  <tr>
+    <td>String</td>
+    <td>Elements in the measure dimension that have string data. ie. "New York"</td>
+  </tr>
+</table>
+</li><li><p>Set <em>Jan</em> and all the following to <em>Simple</em>, and click <em>Add</em> until you have all of the following:
+</p><table>
+  <tr><td>Jan</td></tr>
+  <tr><td>Feb</td></tr>
+  <tr><td>Mar</td></tr>
+  <tr><td>Apr</td></tr>
+  <tr><td>May</td></tr>
+  <tr><td>Jun</td></tr>
+  <tr><td>Jul</td></tr>
+  <tr><td>Aug</td></tr>
+  <tr><td>Sep</td></tr>
+  <tr><td>Oct</td></tr>
+  <tr><td>Nov</td></tr>
+  <tr><td>Dec</td></tr>
+  <tr><td>Q1</td></tr>
+  <tr><td>Q2</td></tr>
+  <tr><td>Q3</td></tr>
+  <tr><td>Q4</td></tr>
+  <tr><td>Total Year</td></tr>
+</table>
+</li><li><p>Click <em>OK</em>
+</p><p><img alt="sc4"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc4.png"></img>
+</p></li><li><p>Next step is to drag and drop elements around so we can construct the hierarchy we want. Select all quarters and drag and drop it into <em>Total Year</em>.
+</p><p><img alt="sc5"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc5.png"></img>
+</p><p><img alt="sc6"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc6.png"></img>
+</p></li><li><p>Drag and drop the months to their appropriate quarter. Final result should be the following:
+</p><p><img alt="sc7"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc7.png"></img>
+</p></li><li><p>Click <em>OK</em> and name the dimension <em>Months</em>. Click <em>OK</em> one more time to save the dimension.
+</p><p><img alt="sc8"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc8.png"></img>
+</p></li></ol><div id="step2"></div>
+<h3 id="Step+2%3A+Second+Dimension">Step 2: Second Dimension</h3><p>The second dimension will be a common one: <em>Region</em>. Cities will roll up to states, and states will roll up to country.
+</p><p><br>
+Repeat steps 3-11 when creating first dimension except, the elements will be the following:
+</p><table>
+      <tr><td>United States</td></tr>
+      <tr><td>New York</td></tr>
+      <tr><td>Florida</td></tr>
+      <tr><td>New York City</td></tr>
+      <tr><td>Poughkeepsie</td></tr>
+      <tr><td>Miami</td></tr>
+      <tr><td>Orlando</td></tr>
+</table>
+<p>And final result:
+</p><p><img alt="sc9"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc9.png"></img>
+</p><p>Name the dimension <em>Cities</em>
+</p><p><img alt="sc10"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc10.png"></img>
+</p><div id="step3"></div>
+<h3 id="Step+3%3A+Build+Cube">Step 3: Build Cube</h3><p>Now that we have at least two dimensions we can create a cube (with no data).
+</p><ol><li><p>Right click on <em>Cubes</em> and choose <em>Create New Cube</em>
+</p><p><img alt="sc11"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc11.png"></img>
+</p></li><li><p>Under <em>Available Dimensions</em>, select the two available dimensions we just created and click on the right-pointing arrow.
+</p><p><img alt="sc12"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc12.png"></img>
+</p><p><img alt="sc13"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc13.png"></img>
+</p></li><li><p>Click <em>Properties…</em> button.
+</p><p><img alt="sc14"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc14.png"></img>
+</p></li><li><p>Leave <em>Measures Dimension</em> blank since we haven’t created one yet. For <em>Time Dimension</em>, choose <em>Months</em>. Click <em>OK</em>
+</p><p><img alt="sc15"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc15.png"></img>
+</p></li><li><p>Under <em>Cube Name</em>, name it <em>Test</em> and Click <em>Create Cube</em> button.
+</p><p><img alt="sc16"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc16.png"></img>
+</p></li></ol><div id="step4"></div>
+<h3 id="Step+4%3A+Explore+the+Cube">Step 4: Explore the Cube</h3><ol><li>Double click on <em>Test</em>, the newly created cube.
+</li><li><p><em>Cube Viewer</em> opens. Click on the <em>Recalculate</em> button. 
+</p><p><img alt="sc17"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc17.png"></img>
+</p><p>Recalculate will generate the latest numbers that are stored in memory. You can expand cities and months.
+</p><p><img alt="sc18"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc18.png"></img>
+</p><p>They’re all zeros because we have nothing to measure.
+</p></li><li><p>Exit out of cube viewer. A pop up will ask you to save changes. If you save, Tm1 will save the instance you’re currently viewing (all the zeros) as a view (aka virtual cube) so you can come back to it later.
+</p><p><img alt="sc19"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc19.png"></img>
+</p><p>Name the view as <em>Zeros</em> and click <em>OK</em>
+</p><p><img alt="sc20"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc20.png"></img>
+</p></li></ol><div id="step5"></div>
+<h3 id="Step+5%3A+Fiddling+with+Attributes">Step 5: Fiddling with Attributes</h3><p>Attributes describe elements, while elements describe the data. ie. The car type can be a string element, and its attribute may be the color of the car. Attributes are convenient, but if you find yourself creating multiple attributes for an element, consider creating a new element so you can measure data against that attribute. ie. You can measure car sales by car type and car sales by car color.
+</p><p><br>
+Let’s create a <em>Next</em> attribute for the elements in the <em>Month</em> dimension. It should match the following
+:
+</p><table>
+  <tr>
+    <th>Elements</th>
+    <th>Next Attribute</th>
+  </tr>
+  <tr>
+    <td>Jan</td>
+    <td>Feb</td>
+  </tr>
+  <tr>
+    <td>Feb</td>
+    <td>Mar</td>
+  </tr>
+  <tr>
+    <td>Mar</td>
+    <td>Apr</td>
+  </tr>
+  <tr>
+    <td>Apr</td>
+    <td>May</td>
+  </tr>
+  <tr>
+    <td>etc.</td>
+  </tr>
+</table>
+<ol><li><p>Right click on <em>Months</em> dimension and choose <em>Edit Element Attributes…</em>
+</p><p><img alt="sc21"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc21.png"></img>
+</p></li><li><p>In <em>Attributes Editor</em> window, go to <em>Edit</em> &gt; <em>Add New Attribute</em>
+</p><p><img alt="sc22"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc22.png"></img>
+</p></li><li><p>Under <em>Name</em> type <em>Next</em> and leave the type as <em>Text</em>. Click <em>OK</em>
+</p><p><img alt="sc23"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc23.png"></img>
+</p></li><li><p>Under the Next column, fill in each space with the appropriate values and click <em>OK</em>
+</p><p><img alt="sc24"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc24.png"></img>
+</p></li></ol><div id="step6"></div>
+<h3 id="Step+6%3A+Subsets">Step 6: Subsets</h3><p>To test the new attribute we created in our previous step, let’s create a subset of the <em>Months</em> dimension that filters by attribute. A subset is simply a portion of the elements in a dimension.
+</p><ol><li><p>Right click <em>Months</em> dimension and choose <em>Insert New Subset…</em>
+</p><p><img alt="sc25"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc25.png"></img>
+</p></li><li><p>In <em>Subset Editor</em> window, click on <em>Filter By Attribute</em> button.
+</p><p><img alt="sc26"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc26.png"></img>
+</p></li><li><p>Under <em>Attribute</em>, choose <em>Next</em>, and <em>Q1</em> as the attribute value. Click <em>OK</em>
+</p><p><img alt="sc27"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc27.png"></img>
+</p><p>And the result should be the key element to the value attribute which is the consolidated <em>Q4</em>. 
+</p><p>KEY -&gt; VALUE
+</p><p>Q4  -&gt; Q1
+</p><p><img alt="sc28"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc28.png"></img>
+</p></li><li><p>In <em>Subset Editor</em>, click on the <em>Save Subset</em> button.
+</p><p><img alt="sc29"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc29.png"></img>
+</p><p>Name it <em>Quarter4</em> and click <em>OK</em> 
+</p><p><img alt="sc30"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc30.png"></img>
+</p><p><img alt="sc31"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc31.png"></img>  
+</p></li></ol><h1 id="Loading+Data+into+Cubes">Loading Data into Cubes</h1><h2 id="Problem">Problem</h2><p>Create a process that creates a cube with its required dimensions. Time dimension <em>Months</em> will contain <em>the_month</em> element that rolls up to <em>quarter</em>, and <em>quarter</em> rolls up to <em>the_year</em>. Dimension <em>Products</em> contains <em>product_name</em> that rolls up to <em>total_products</em>. Dimension <em>Stores</em> contains <em>store_name</em> that rolls up to <em>store_type</em>, and <em>store_type</em> rolls up to <em>total_stores</em>. The measure will be the store sales.
+</p><h2 id="Solution">Solution</h2><ul><li><a  href="Tools%2bof%2bthe%2bTrade.html#architect">Architect</a>
+</li><li><a  href="Tools%2bof%2bthe%2bTrade.html#turbo_integrator">Turbo Integrator</a>
+</li></ul><h3 id="The+Steps">The Steps</h3><ol><li><a  href="#step1">Launch Turbo Integrator</a>
+</li><li><a  href="#step2">Create the Query</a>
+</li><li><a  href="#step3">Set the Variables</a>
+</li><li><a  href="#step4">Map the Variables</a>
+</li><li><a  href="#step5">Run Process</a>
+</li><li><a  href="#step6">View the Data</a>
+</li></ol><div id="step1"></div>
+<h3 id="Step+1%3A+Launch+Turbo+Integrator">Step 1: Launch Turbo Integrator</h3><ol><li><p>Launch Cognos Architect.
+</p><pre><code class="prettyprint lang-c">    Start &gt; All Programs &gt; IBM Cognos Express &gt; Architect
+</code></pre></li><li><p>Login to the <em>foodmart</em> TM1 server.
+</p><p><img alt="sc1"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc1.png"></img>
+</p></li><li><p>Right click <em>Processes</em> and choose <em>Create New Process</em>
+</p><p><img alt="lc1"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc1.png"></img>
+</p></li></ol><p>Turbo Integrator should now be open.
+</p><p><img alt="lc2"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc2.png"></img>
+</p><div id="step2"></div>
+<h3 id="Step+2%3A+Create+the+Query">Step 2: Create the Query</h3><p>Our goal here is to create a SQL query that’ll group all the data we need into one big table. That way, we can separate each column to its correct dimension and have a fully built cube as an end result.
+</p><ol><li><p>Under <em>Datasource Type</em>, pick <em>ODBC</em>.
+</p><p><img alt="lc3"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc3.png"></img>
+</p></li><li><p>Click the <em>Browse</em> button beside the <em>Data Source Name</em> textfield.
+</p><p><img alt="lc4"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc4.png"></img>
+</p><p>And pick <em>foodmart-reduced</em> as the data source. Click <em>OK</em>
+</p><p><img alt="lc5"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc5.png"></img>
+</p><div class="note"><b>Note</b>: If you get an error that says something about not finding any datasources or it doesn't list foodmart-reduced, make sure you set up a foodmart-reduced ODBC with the 32-bit driver since Turbo Integrator only searches there. <a href="Setting%2bUp%2bData%2bSource.html">More Info</a></div>
+</li><li>If you log in to your server with Windows authentication, you can leave the <em>UserName</em> and <em>Password</em> textfields blank if you’re logged in with a priveleged user already. If not, enter the credentials.
+</li><li>Now for the most important part: the query.
+</li></ol><p><strong>Months Dimension</strong>: Our cube will contain a time dimension in a hierarchy from year, quarter, and month. So we select <em>the_year</em>, <em>quarter</em>, and <em>the_month</em> columns from the <em>time<em>by</em>day</em> table. Also, let’s just retrieve the data from the year 1997.
+</p><p><img alt="lc7"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc7.png"></img>
+</p><p><strong>Products Dimension</strong>: This dimension will just have a long list of all the products, but for the sake of calculating something for all products, we need something to represent the total of all products. Hence, we have the statement <em>’total product’ AS ‘total_products‘</em>.
+</p><p><img alt="lc8"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc8.png"></img>
+</p><p><strong>Stores Dimension</strong>: Very similar to products dimension except it’ll have an extra level in its hierarchy to consolidate individual stores by the store type. And remove the <em>HQ</em> store_name because it contains nothing but nulls.
+</p><p><img alt="lc9"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc9.png"></img>
+</p><p><strong>Measure</strong> will be the store sales that is located in the <em>sales<em>fact</em>1997</em> so that’ll be in the query as well. It’s in a SUM function so that the numbers will add up when we roll up.
+</p><p><img alt="lc10"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc10.png"></img>
+</p><p>Finally, in the query, we’ll connect the foreign keys with the primary keys and group all columns together into one big table. Here’s our final query:
+</p><p><img alt="lc6"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc6.png"></img>
+</p><p>Click the <em>Preview</em> 
+</p><p><img alt="lc11"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc11.png"></img>
+</p><p>and you should see the following table:
+</p><p><img alt="lc12"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc12.png"></img>
+</p><div id="step3"></div>
+<h3 id="Step+3%3A+Set+the+Variables">Step 3: Set the Variables</h3><ol><li><p>Click on the <em>Variables</em> tab.
+</p><p><img alt="lc13"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc13.png"></img>
+</p><p>You should now see a list of all the variables (or columns) that were imported.
+</p><p><img alt="lc14"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc14.png"></img>
+</p></li><li><p>Each variable is in a row and two columns that need to be editted are <em>Variable Type</em> and <em>Contents</em>. For Variable type, the only change we need to make is for <em>the_year</em> variable. TI thought it was a numeric because it detected digits, but in reality, <em>the_year</em> will not be calculated, it’ll be used as a consolidation element so we’ll change it to a string.
+</p><p><img alt="lc15"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc15.png"></img>
+</p></li><li><p>For <em>Contents</em>, there are more options:
+</p><table>
+  <tr>
+    <td>Element</td>
+    <td>Single element in the hierarchy that has no children.</td>
+  </tr>
+  <tr>
+    <td>Consolidation</td>
+    <td>Element in the hierarchy that has children. Can be drilled down.</td>
+  </tr>
+  <tr>
+    <td>Data</td>
+    <td>Value that can be calculated.</td>
+  </tr>
+  <tr>
+    <td>Attribute</td>
+    <td>An element's variable. So it's a variable of a variable.</td>
+  </tr>
+</table>
+</li><li><p>End result should be:
+</p><p><img alt="lc16"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc16.png"></img>
+</p></li></ol><div id="step4"></div>
+<h3 id="Step+4%3A+Map+the+Variables">Step 4: Map the Variables</h3><ol><li><p>Click on the <em>Maps</em> tab.
+</p><p><img alt="lc17"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc17.png"></img>
+</p></li><li><p>Now you should see more tabs (Cube, Dimensions, Data, Consolidations, Attributes). In <em>Cube</em> tab, under the <em>Cube Action</em> section, pick <em>Create Cube</em> and name the cube “Store Sales”.
+</p><p><img alt="lc18"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc18.png"></img>
+</p></li><li><p>Click <em>Dimensions</em> tab. You should see a list of all the variables you labeled as “Element”. For each element, create a new dimension so under Dimension column, double click on the blank space and enter the following dimension names for each of the following elements:
+</p><table>
+  <tr>
+    <th>Element</th>
+    <th>Dimension Name</th>
+  </tr>
+  <tr>
+    <td>store_name</td>
+    <td>Stores</td>
+  </tr>
+  <tr>
+    <td>product_name</td>
+    <td>Products</td>
+  </tr>
+  <tr>
+    <td>the_month</td>
+    <td>Months</td>
+  </tr>
+</table>
+<p><img alt="lc19"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc19.png"></img>
+</p><div class="note"><b>Note</b>: Action column automatically converts to *Create* since you entered the name of a dimension that doesn't exist.</div>
+</li><li><p>Click <em>Consolidations</em> tab. You should see a list of all the variables you labeled as “Consolidation”
+</p><p><img alt="lc20"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc20.png"></img>
+</p><div class="note"><b>Note</b>: Data tab is unselectable because we only have one data variable.</div>
+</li><li><p>Our goal here is to place each consolidation element to their appropriate dimension and give it a child element. Click on the blue arrow to show a list of the possible choices for each blank space.
+</p><p><img alt="lc21"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc21.png"></img>
+</p><p><em>total_stores</em> consolidation element should be in the Stores dimension. Select <em>Stores</em> and click <em>OK</em>
+</p><p><img alt="lc22"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc22.png"></img>
+</p><p>Do the same for all blank spaces, and the following should be your end result.
+</p><p><img alt="lc23"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc23.png"></img>
+</p></li><li><p>Click the save button.
+</p><p><img alt="lc24"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc24.png"></img>
+</p><p>And name it, “Create Cube Store Sales”. Click <em>OK</em> and exit out of Turbo Integrator.
+</p><p><img alt="lc25"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc25.png"></img>
+</p></li></ol><div id="step5"></div>
+<h3 id="Step+5%3A+Run+Process">Step 5: Run Process</h3><p>Go to Architect. In <em>foodmart server</em>, expand <em>Processes</em>. Right click <em>Create Cube Store Sales</em> and select <em>Run</em>
+</p><p><img alt="lc26"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc26.png"></img>
+</p><p>Wait for a few seconds, and you should get a prompt that says, “Process Completed Successfully”. Click <em>OK</em>
+</p><div class="note"><b>Note</b>: If you get errors, double check that you followed the steps correctly. You can look at the log errors as well. It will point to you where the error is occuring so you won't spend hours wondering what's wrong.</div>
+<div id="step6"></div>
+<h3 id="Step+6%3A+View+the+Data">Step 6: View the Data</h3><ol><li><p>Go to Architect. In <em>foodmart server</em>, expand <em>Cubes</em>. Double click <em>Store Sales</em>.
+</p><p><img alt="lc28"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc28.png"></img>
+</p></li><li><p><em>Cube Viewer</em> window should open now. The data pane is blank because we need to recalculate. Click on the recalculate button.
+</p><p><img alt="lc29"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc29.png"></img>
+</p><p>You should now see the sum of store sales in 1997 for all products.
+</p><p><img alt="lc30"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc30.png"></img> 
+</p></li><li><p>Expand Months and Products dimension to get more detailed data.
+</p><p><img alt="lc31"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc31.png"></img>
+</p></li><li><p>You also have the 3rd dimension, <em>Stores</em>, in the top left corner. It currently shows <em>total_store</em>, but you can change it and get data for only a specific store type.
+</p><p><img alt="lc32"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc32.png"></img>
+</p><p>You will need to recalculate or you can click <em>Automatic Recalculate</em> button so you don’t have to do it manually.
+</p><p><img alt="lc33"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc33.png"></img>
+</p><p><img alt="lc34"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc34.png"></img>
+</p></li><li><p>You can close cube viewer and save it as a view if you like; lets call it “Supermarkets”
+</p><p><img alt="lc35"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc35.png"></img>
+</p><p><img alt="lc36"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc36.png"></img>
+</p></li></ol><h2 id="Downloads">Downloads</h2><ul><li><a  href="https://docs.google.com/open?id=0B8bnF9QulzZgMW4wZVFGMVBESnc">tm1server-foodmart-reduced.zip</a>
+</li></ul><hr><h1 id="Dimensional+Report">Dimensional Report</h1><h2 id="The+Problem">The Problem</h2><p>Create a chart that compares supermarkets with the rest of the store types in regards of the products that have of over 800 store sales.
+</p><h2 id="The+Solution">The Solution</h2><ul><li><a  href="Tools%2bof%2bthe%2bTrade.html#framework_manager">Framework Manager</a>
+</li><li><a  href="Tools%2bof%2bthe%2bTrade.html#query_studio">Query Studio</a>
+</li><li><a  href="Tools%2bof%2bthe%2bTrade.html#architect">Architect</a>
+</li></ul><h3 id="The+Steps">The Steps</h3><ol><li><a  href="#step1">Fix Cube</a>
+</li><li><a  href="#step2">Build Data Source</a>
+</li><li><a  href="#step3">Publish Package</a>
+</li><li><a  href="#step4">Query Data</a>
+</li><li><a  href="#step5">Create Chart</a>
+</li></ol><div id="step1"></div>
+<h3 id="Step+1%3A+Fix+Cube">Step 1: Fix Cube</h3><p>In this recipe, we’ll be using the cube that was created in the <a  href="Loading%2bData%2binto%2bCubes.html">previous recipe</a>. Before we do anything, we need to assign a Time and Measure dimension to the cube directly since that was never done or else when building a package, Cognos will start complaining that there’s missing data.
+</p><ol><li><p>Launch Cognos Architect.
+</p><pre><code class="prettyprint lang-c">    Start &gt; All Programs &gt; IBM Cognos Express &gt; Architect
+</code></pre></li><li><p>Login to the <em>foodmart</em> TM1 server.
+</p><p><img alt="sc1"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc1.png"></img>
+</p></li><li>Right click <em>Store Sales</em> cube and choose <em>Properties…</em>
+</li><li>We never created a measure dimension because we only had one data variable so we could get away with it. For <em>measures dimension</em>, I put <em>Stores</em> but it won’t matter because the data remains in the cube. Put <em>Months</em> for time dimension. Click <em>OK</em>
+</li></ol><div id="step2"></div>
+<h3 id="Step+2%3A+Build+Data+Source">Step 2: Build Data Source</h3><p>The first step is to connect the TM1 server connection in Cognos Express so it can be used by other tools like Report Studio, Query Studio, and Business Insight Advanced. We’ll do this through Framework Manager because we need to publish a package in <a  href="#step3">Step 3</a>.
+</p><ol><li><p>Start Framework Manager from your Windows Start Menu:
+</p><pre><code class="prettyprint lang-c">    Start &gt; All Programs &gt; IBM Cognos Express &gt; Framework Manager
+</code></pre></li><li><p>Click <em>Create a new project…</em>.
+</p><p><img alt="dr1"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/dr1.png"></img>
+</p></li><li><p>A <em>New Project</em> dialog opens. Give your project a name, “TM1-foodmart”. Click <em>OK</em>.
+</p><p><img alt="dr2"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/dr2.png"></img>
+</p></li><li><p>After logging in and selecting a language, the <em>Metadata Wizard</em> will start. In <em>Select Metadata Source</em>, choose <em>Data Sources</em>.
+</p><p><img alt="s02"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/fm_screenshot02.png"></img>
+</p></li><li><p>In <em>Select Data Source</em>, there will be a list of data sources that was configured in Cognos. We haven’t configured one for the foodmart TM1 server yet. Let’s do that now. Click <em>New</em> button.
+</p><p><img alt="dr3"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/dr3.png"></img>
+</p><div class="note"><b>Note</b>: You must be logged in as a Cognos Administrator user to have the privelege of creating a data source connection.</div>
+</li><li><p><em>New Data Source Wizard</em> window opens. Click <em>Next</em>. Give the data source a name, “tm1-foodmart”. Click <em>Next</em>
+</p><p><img alt="dr4"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/dr4.png"></img>
+</p></li><li><p>For <em>Type</em>, choose <em>IBM Cognos TM1</em>. Click <em>Next</em>
+</p><p><img alt="dr5"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/dr5.png"></img>
+</p></li><li>For <em>Administration Host</em>, enter “localhost” since there’s no networking involved in our Cognos setup.
+</li><li>For <em>Server Name</em>, enter “foodmart”; that’s the name of the tm1 server we’re connecing to.
+</li><li>For <em>Sign On</em>, enter the credentials of the TM1 foodmart server.
+</li><li><p>Click <em>Test Connection…</em>
+</p><p><img alt="dr6"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/dr6.png"></img>
+</p></li><li><p>Click <em>Test</em> button.
+</p><p><img alt="dr7"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/dr7.png"></img>
+</p></li><li><p>The status should be <em>Succeeded</em>. Click <em>Close</em>.
+</p><p><img alt="dr8"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/dr8.png"></img>
+</p></li><li><p>Click <em>Finish</em> to complete the new data source.
+</p><p><img alt="dr9"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/dr9.png"></img>
+</p></li></ol><div id="step3"></div>
+<h3 id="Step+3%3A+Publish+Package">Step 3: Publish Package</h3><p>Publishing a package that contains a cube allows the data to be accessed from any application that can open a package so it can be analyzed with its extra dimensional features such as drill down, roll up, etc.
+</p><ol><li><p>To publish a package, continue with the <em>metadata wizard</em> that we left off from <a  href="#step2">Step 2</a>. In <em>Select Data</em>, select <em>tm1-foodmart</em>. Click <em>Next</em>
+</p><p><img alt="dr10"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/dr10.png"></img>
+</p></li><li><p>In <em>Select Objects</em>, select <em>Store Sales</em>. since that is our only cube. Click <em>Next</em>
+</p><p><img alt="dr11"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/dr11.png"></img>
+</p></li><li>In <em>Select Locales</em>, click <em>Next</em>; we don’t have any locales.
+</li><li><p>Check <em>Create a default package</em> so we can publish one right away. And click <em>Finish</em>
+</p><p><img alt="dr12"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/dr12.png"></img>
+</p></li><li><p><em>Create Package</em> window opens. It automatically filled out the name as <em>Store Sales</em>. Click <em>Finish</em>
+</p><p><img alt="dr13"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/dr13.png"></img>
+</p><p>Click <em>Yes</em>
+</p><p><img alt="dr14"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/dr14.png"></img>
+</p></li><li><p><em>Publish Wizard</em> window opens. It’ll store the package in the content store by default, and in my case, I’m saving it in <em>My Folders</em>. Click <em>Next</em>
+</p><p><img alt="dr15"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/dr15.png"></img>
+</p></li><li>In <em>Add Security</em>, click <em>Next</em>; that’s not necessary now.
+</li><li><p>Finally, click <em>Publish</em> and everything will be verified and then click <em>Finish</em> to exit out.
+</p><p><img alt="dr16"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/dr16.png"></img>
+</p></li></ol><div id="step4"></div>
+<h3 id="Step+4%3A+Query+Data">Step 4: Query Data</h3><ol><li>Launch Internet Explorer and go to <em>http://127.0.0.1:19300/cognos_express/manager/welcome.html</em>. Log in if prompted.
+</li><li><p>Click <em>Query my business data with Query Studio</em>
+</p><p><img alt="q1"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/q1.png"></img>
+</p></li><li><p>Find and open <em>Store Sales</em> package. Query Studio should now open a blank project.
+</p><p><img alt="dr17"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/dr17.png"></img>
+</p></li><li><p>Query Studio should now be open with your Store Sales data.
+</p><p><img alt="dr18"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/dr18.png"></img>
+</p></li><li><p>Select <em>Products</em> and click the <em>Insert</em> button with the left, green pointing arrow.
+</p><p><img alt="dr19"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/dr19.png"></img>
+</p><p><img alt="dr20"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/dr20.png"></img>
+</p></li><li><p>Expand <em>Stores</em>, select <em>total store</em> and click <em>Insert</em>.
+</p><p><img alt="dr21"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/dr21.png"></img>
+</p><p><img alt="dr22"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/dr22.png"></img>
+</p></li><li><p>Expand <em>total store</em>, select <em>Supermarket</em> and click <em>Insert</em>
+</p><p><img alt="dr23"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/dr23.png"></img>
+</p><p><img alt="dr24"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/dr24.png"></img>
+</p></li><li><p>Select one of total store’s data, right click, and select <em>Sort…</em> 
+</p><p><img alt="dr25"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/dr25.png"></img>
+</p></li><li><p>In <em>Sort Order</em>, choose <em>Descending (9 to 1)</em> and click <em>OK</em>
+</p><p><img alt="dr26"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/dr26.png"></img>
+</p></li><li><p>Select one of total store’s data, right click, and select <em>Filter…</em>
+</p><p><img alt="dr27"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/dr27.png"></img>
+</p><p>Condition should be: <em>Show only the following</em>, from 800 to Highest value. Click <em>OK</em>
+</p><p><img alt="dr28"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/dr28.png"></img>
+</p><p><img alt="dr29"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/dr29.png"></img>
+</p></li></ol><div id="step5"></div>
+<h3 id="Step+5%3A+Create+Chart">Step 5: Create Chart</h3><ol><li><p>Click the chart button.
+</p><p><img alt="dr30"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/dr30.png"></img>
+</p></li><li>Under <em>Chart Type</em>, choose <em>Bar</em> and pick <em>100 Percent Stacked</em>. Check <em>Show values on the chart</em>. Click <em>OK</em>
+</li></ol><p><img alt="dr31"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/dr31.png"></img>
+</p><p><img alt="dr32"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/dr32.png"></img>
+</p><h1 id="Tools+of+the+Trade">Tools of the Trade</h1><div id="framework_manager"></div>
+<h2 id="Framework+Manager">Framework Manager</h2><p>Desktop-based
+</p><p>Framework Manager is a metadata modeler. One imports data from a relational source to build a model of query objects, usually in the structure of a star schema for faster and more efficient queries, and publishes packages so other can build reports from that model.
+</p><div id="report_studio"></div>
+<h2 id="Report+Studio">Report Studio</h2><p>Web-based
+</p><p>Report Studio allows one to create simple to complex reports that summarizes data from packages published through Framework Manager.
+</p><div id="query_studio"></div>
+<h2 id="Query+Studio">Query Studio</h2><p>Web-based
+</p><p>Query Studio has similar functions to Report Studio but data is loaded instantly. It’s like building a report and previewing it at the same time.
+</p><div id="cognos_connection"></div>
+<h2 id="Cognos+Connection">Cognos Connection</h2><p>Web-based
+</p><p>The content store. It can store all kinds of file types from metadata models to reports. It’s built on top of Informix database. The content store is broken up to two parts: <em>My Folders</em>, files are private, and <em>Public Folders</em>, files are available for everyone to see and analyze.
+</p><div id="business_insight"></div>
+<h2 id="Business+Insight">Business Insight</h2><p>Web-based
+</p><p>Business Insight allows you to create dashboards or what is now called workspaces. A Workspace is a single view of information that is put together with widgets. Widgets can be existing reports or objects from the Toolbox. Put it together, style it, and make a very nice presentation.
+</p><div id="business_insight_advanced"></div>
+<h2 id="Business+Insight+Advanced">Business Insight Advanced</h2><p>Web-based
+</p><p>Just like Report Studio and Query Studio, Business Insight Advanced allows one to create reports with relational or dimensional data sources, and show data in lists, crosstabs, and charts.
+</p><div id="architect"></div>
+<h2 id="Architect">Architect</h2><p>Desktop-based
+</p><p>Architect is a TM1 server explorer that allows you to connect to all the TM1 servers that are connected to an admin host so you can create, read, update, or delete cubes, processes, and dimensions in any server.
+</p><div id="turbo_integrator"></div>
+<h2 id="Turbo+Integrator">Turbo Integrator</h2><p>Desktop-based
+</p><p>The ETL (extract, transform, load) tool in TM1. It can be used to create dimensions, cubes, and populate cubes.
+</p>
+          </div>
+        </div>
+        
+      </body>
+    
+<!-- Mirrored from 127.0.0.1:39734/Combined+Pages.html by HTTrack Website Copier/3.x [XR&CO'2010], Sat, 25 Aug 2012 09:15:54 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+</html>

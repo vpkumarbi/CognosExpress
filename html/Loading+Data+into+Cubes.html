@@ -1,0 +1,200 @@
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+<html>
+      
+<!-- Mirrored from 127.0.0.1:39734/Loading+Data+into+Cubes.html by HTTrack Website Copier/3.x [XR&CO'2010], Sat, 25 Aug 2012 09:15:51 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+<head>
+        <title>Cognos Express Cookbook — Loading Data into Cubes</title>
+        <link type="text/css" media="screen, projection" rel="stylesheet" href="css/blueprint/screen.css"></link>
+        <link type="text/css" media="screen and (min-device-width: 800px), projection" rel="stylesheet" href="css/blueprint/grid.css"></link>
+        <link type="text/css" media="print" rel="stylesheet" href="css/blueprint/print.css"></link> 
+        <!--[if lt IE 8]>
+          <link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection"/>
+        <![endif]-->
+        <link type="text/css" media="screen, projection" rel="stylesheet" href="css/pamflet.css"></link>
+        <link type="text/css" media="print" rel="stylesheet" href="css/pamflet-print.css"></link>
+        <link type="text/css" media="screen and (min-device-width: 800px), projection" rel="stylesheet" href="css/pamflet-grid.css"></link>
+        <link type="text/css" media="screen, projection" rel="stylesheet" href="css/custom.css"></link>
+        <script src="js/jquery-1.6.2.min.js"></script>
+        <script src="js/jquery.collapse.js"></script>
+        <script src="js/pamflet.js"></script>
+        
+        <meta charset="utf-8"></meta>
+        <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-34336749-1']);
+            _gaq.push(['_trackPageview']);
+            (function() {
+              var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+              ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+              var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+            </script>
+      </head>
+      <body>
+        <a class="page prev nav" href="Manual%2bCube%2bCreation.html">
+            <span class="space">&nbsp;</span>
+            <span class="flip">❧</span>
+          </a><a class="page next nav" href="Dimensional%2bReport.html">
+            <span class="space">&nbsp;</span>
+            <span>❧</span>
+          </a>
+        <div class="container">
+          <div class="span-16 prepend-1 append-1">
+            <div class="top nav span-16 title">
+              <span>Cognos Express Cookbook</span> — Loading Data into Cubes
+            </div>
+          </div>
+          <div class="span-16 prepend-1 append-1 contents">
+            <h1 id="Loading+Data+into+Cubes">Loading Data into Cubes</h1><h2 id="Problem">Problem</h2><p>Create a process that creates a cube with its required dimensions. Time dimension <em>Months</em> will contain <em>the_month</em> element that rolls up to <em>quarter</em>, and <em>quarter</em> rolls up to <em>the_year</em>. Dimension <em>Products</em> contains <em>product_name</em> that rolls up to <em>total_products</em>. Dimension <em>Stores</em> contains <em>store_name</em> that rolls up to <em>store_type</em>, and <em>store_type</em> rolls up to <em>total_stores</em>. The measure will be the store sales.
+</p><h2 id="Solution">Solution</h2><ul><li><a  href="Tools%2bof%2bthe%2bTrade.html#architect">Architect</a>
+</li><li><a  href="Tools%2bof%2bthe%2bTrade.html#turbo_integrator">Turbo Integrator</a>
+</li></ul><h3 id="The+Steps">The Steps</h3><ol><li><a  href="#step1">Launch Turbo Integrator</a>
+</li><li><a  href="#step2">Create the Query</a>
+</li><li><a  href="#step3">Set the Variables</a>
+</li><li><a  href="#step4">Map the Variables</a>
+</li><li><a  href="#step5">Run Process</a>
+</li><li><a  href="#step6">View the Data</a>
+</li></ol><div id="step1"></div>
+<h3 id="Step+1%3A+Launch+Turbo+Integrator">Step 1: Launch Turbo Integrator</h3><ol><li><p>Launch Cognos Architect.
+</p><pre><code class="prettyprint lang-c">    Start &gt; All Programs &gt; IBM Cognos Express &gt; Architect
+</code></pre></li><li><p>Login to the <em>foodmart</em> TM1 server.
+</p><p><img alt="sc1"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/sc1.png"></img>
+</p></li><li><p>Right click <em>Processes</em> and choose <em>Create New Process</em>
+</p><p><img alt="lc1"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc1.png"></img>
+</p></li></ol><p>Turbo Integrator should now be open.
+</p><p><img alt="lc2"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc2.png"></img>
+</p><div id="step2"></div>
+<h3 id="Step+2%3A+Create+the+Query">Step 2: Create the Query</h3><p>Our goal here is to create a SQL query that’ll group all the data we need into one big table. That way, we can separate each column to its correct dimension and have a fully built cube as an end result.
+</p><ol><li><p>Under <em>Datasource Type</em>, pick <em>ODBC</em>.
+</p><p><img alt="lc3"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc3.png"></img>
+</p></li><li><p>Click the <em>Browse</em> button beside the <em>Data Source Name</em> textfield.
+</p><p><img alt="lc4"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc4.png"></img>
+</p><p>And pick <em>foodmart-reduced</em> as the data source. Click <em>OK</em>
+</p><p><img alt="lc5"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc5.png"></img>
+</p><div class="note"><b>Note</b>: If you get an error that says something about not finding any datasources or it doesn't list foodmart-reduced, make sure you set up a foodmart-reduced ODBC with the 32-bit driver since Turbo Integrator only searches there. <a href="Setting%2bUp%2bData%2bSource.html">More Info</a></div>
+</li><li>If you log in to your server with Windows authentication, you can leave the <em>UserName</em> and <em>Password</em> textfields blank if you’re logged in with a priveleged user already. If not, enter the credentials.
+</li><li>Now for the most important part: the query.
+</li></ol><p><strong>Months Dimension</strong>: Our cube will contain a time dimension in a hierarchy from year, quarter, and month. So we select <em>the_year</em>, <em>quarter</em>, and <em>the_month</em> columns from the <em>time<em>by</em>day</em> table. Also, let’s just retrieve the data from the year 1997.
+</p><p><img alt="lc7"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc7.png"></img>
+</p><p><strong>Products Dimension</strong>: This dimension will just have a long list of all the products, but for the sake of calculating something for all products, we need something to represent the total of all products. Hence, we have the statement <em>’total product’ AS ‘total_products‘</em>.
+</p><p><img alt="lc8"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc8.png"></img>
+</p><p><strong>Stores Dimension</strong>: Very similar to products dimension except it’ll have an extra level in its hierarchy to consolidate individual stores by the store type. And remove the <em>HQ</em> store_name because it contains nothing but nulls.
+</p><p><img alt="lc9"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc9.png"></img>
+</p><p><strong>Measure</strong> will be the store sales that is located in the <em>sales<em>fact</em>1997</em> so that’ll be in the query as well. It’s in a SUM function so that the numbers will add up when we roll up.
+</p><p><img alt="lc10"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc10.png"></img>
+</p><p>Finally, in the query, we’ll connect the foreign keys with the primary keys and group all columns together into one big table. Here’s our final query:
+</p><p><img alt="lc6"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc6.png"></img>
+</p><p>Click the <em>Preview</em> 
+</p><p><img alt="lc11"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc11.png"></img>
+</p><p>and you should see the following table:
+</p><p><img alt="lc12"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc12.png"></img>
+</p><div id="step3"></div>
+<h3 id="Step+3%3A+Set+the+Variables">Step 3: Set the Variables</h3><ol><li><p>Click on the <em>Variables</em> tab.
+</p><p><img alt="lc13"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc13.png"></img>
+</p><p>You should now see a list of all the variables (or columns) that were imported.
+</p><p><img alt="lc14"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc14.png"></img>
+</p></li><li><p>Each variable is in a row and two columns that need to be editted are <em>Variable Type</em> and <em>Contents</em>. For Variable type, the only change we need to make is for <em>the_year</em> variable. TI thought it was a numeric because it detected digits, but in reality, <em>the_year</em> will not be calculated, it’ll be used as a consolidation element so we’ll change it to a string.
+</p><p><img alt="lc15"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc15.png"></img>
+</p></li><li><p>For <em>Contents</em>, there are more options:
+</p><table>
+  <tr>
+    <td>Element</td>
+    <td>Single element in the hierarchy that has no children.</td>
+  </tr>
+  <tr>
+    <td>Consolidation</td>
+    <td>Element in the hierarchy that has children. Can be drilled down.</td>
+  </tr>
+  <tr>
+    <td>Data</td>
+    <td>Value that can be calculated.</td>
+  </tr>
+  <tr>
+    <td>Attribute</td>
+    <td>An element's variable. So it's a variable of a variable.</td>
+  </tr>
+</table>
+</li><li><p>End result should be:
+</p><p><img alt="lc16"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc16.png"></img>
+</p></li></ol><div id="step4"></div>
+<h3 id="Step+4%3A+Map+the+Variables">Step 4: Map the Variables</h3><ol><li><p>Click on the <em>Maps</em> tab.
+</p><p><img alt="lc17"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc17.png"></img>
+</p></li><li><p>Now you should see more tabs (Cube, Dimensions, Data, Consolidations, Attributes). In <em>Cube</em> tab, under the <em>Cube Action</em> section, pick <em>Create Cube</em> and name the cube “Store Sales”.
+</p><p><img alt="lc18"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc18.png"></img>
+</p></li><li><p>Click <em>Dimensions</em> tab. You should see a list of all the variables you labeled as “Element”. For each element, create a new dimension so under Dimension column, double click on the blank space and enter the following dimension names for each of the following elements:
+</p><table>
+  <tr>
+    <th>Element</th>
+    <th>Dimension Name</th>
+  </tr>
+  <tr>
+    <td>store_name</td>
+    <td>Stores</td>
+  </tr>
+  <tr>
+    <td>product_name</td>
+    <td>Products</td>
+  </tr>
+  <tr>
+    <td>the_month</td>
+    <td>Months</td>
+  </tr>
+</table>
+<p><img alt="lc19"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc19.png"></img>
+</p><div class="note"><b>Note</b>: Action column automatically converts to *Create* since you entered the name of a dimension that doesn't exist.</div>
+</li><li><p>Click <em>Consolidations</em> tab. You should see a list of all the variables you labeled as “Consolidation”
+</p><p><img alt="lc20"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc20.png"></img>
+</p><div class="note"><b>Note</b>: Data tab is unselectable because we only have one data variable.</div>
+</li><li><p>Our goal here is to place each consolidation element to their appropriate dimension and give it a child element. Click on the blue arrow to show a list of the possible choices for each blank space.
+</p><p><img alt="lc21"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc21.png"></img>
+</p><p><em>total_stores</em> consolidation element should be in the Stores dimension. Select <em>Stores</em> and click <em>OK</em>
+</p><p><img alt="lc22"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc22.png"></img>
+</p><p>Do the same for all blank spaces, and the following should be your end result.
+</p><p><img alt="lc23"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc23.png"></img>
+</p></li><li><p>Click the save button.
+</p><p><img alt="lc24"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc24.png"></img>
+</p><p>And name it, “Create Cube Store Sales”. Click <em>OK</em> and exit out of Turbo Integrator.
+</p><p><img alt="lc25"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc25.png"></img>
+</p></li></ol><div id="step5"></div>
+<h3 id="Step+5%3A+Run+Process">Step 5: Run Process</h3><p>Go to Architect. In <em>foodmart server</em>, expand <em>Processes</em>. Right click <em>Create Cube Store Sales</em> and select <em>Run</em>
+</p><p><img alt="lc26"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc26.png"></img>
+</p><p>Wait for a few seconds, and you should get a prompt that says, “Process Completed Successfully”. Click <em>OK</em>
+</p><div class="note"><b>Note</b>: If you get errors, double check that you followed the steps correctly. You can look at the log errors as well. It will point to you where the error is occuring so you won't spend hours wondering what's wrong.</div>
+<div id="step6"></div>
+<h3 id="Step+6%3A+View+the+Data">Step 6: View the Data</h3><ol><li><p>Go to Architect. In <em>foodmart server</em>, expand <em>Cubes</em>. Double click <em>Store Sales</em>.
+</p><p><img alt="lc28"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc28.png"></img>
+</p></li><li><p><em>Cube Viewer</em> window should open now. The data pane is blank because we need to recalculate. Click on the recalculate button.
+</p><p><img alt="lc29"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc29.png"></img>
+</p><p>You should now see the sum of store sales in 1997 for all products.
+</p><p><img alt="lc30"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc30.png"></img> 
+</p></li><li><p>Expand Months and Products dimension to get more detailed data.
+</p><p><img alt="lc31"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc31.png"></img>
+</p></li><li><p>You also have the 3rd dimension, <em>Stores</em>, in the top left corner. It currently shows <em>total_store</em>, but you can change it and get data for only a specific store type.
+</p><p><img alt="lc32"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc32.png"></img>
+</p><p>You will need to recalculate or you can click <em>Automatic Recalculate</em> button so you don’t have to do it manually.
+</p><p><img alt="lc33"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc33.png"></img>
+</p><p><img alt="lc34"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc34.png"></img>
+</p></li><li><p>You can close cube viewer and save it as a view if you like; lets call it “Supermarkets”
+</p><p><img alt="lc35"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc35.png"></img>
+</p><p><img alt="lc36"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/lc36.png"></img>
+</p></li></ol><h2 id="Downloads">Downloads</h2><ul><li><a  href="https://docs.google.com/open?id=0B8bnF9QulzZgMW4wZVFGMVBESnc">tm1server-foodmart-reduced.zip</a>
+</li></ul><hr><div class="bottom nav">
+                        <em>Next Page</em>
+                        <span class="arrow">❧</span>
+                        <a href="Dimensional%2bReport.html"> Dimensional Report </a>
+                      </div><div class="tocwrapper show">
+      <a class="tochead nav" style="display: none" href="#toc">❦</a>
+      <a name="toc"></a>
+      <h4 class="toctitle">Contents</h4>
+      <div class="tocbody">
+      <div><a href="Cognos%2bExpress%2bCookbook.html">Cognos Express Cookbook</a></div><ol class="toc"> <li><div><a href="About%2bthis%2btext.html">About this text</a></div></li><li><div><a href="Setting%2bUp%2bData%2bSource.html">Setting Up Data Source</a></div></li><li><div><a href="Relational%2bModels.html">Relational Models</a></div><ol class="toc"> <li><div><a href="DMR%2b-%2bDimensionally%2bModeled%2bRelational%2bModel.html">DMR - Dimensionally Modeled Relational Model</a></div></li><li><div><a href="Simple%2bReport%2bwith%2bGraph.html">Simple Report with Graph</a></div></li><li><div><a href="Report%2b-%2bCommon%2bTechniques.html">Report - Common Techniques</a></div></li><li><div><a href="Report%2b-%2bwith%2bSome%2bScripting.html">Report - with Some Scripting</a></div></li><li><div><a href="Workspace%2baka%2bDashboards.html">Workspace aka Dashboards</a></div></li> </ol></li><li><div><a href="Dimensional%2bModels.html">Dimensional Models</a></div><ol class="toc"> <li><div><a href="Create%2bTM1%2bServer.html">Create TM1 Server</a></div></li><li><div><a href="Manual%2bCube%2bCreation.html">Manual Cube Creation</a></div></li><li><div class="current">Loading Data into Cubes</div></li><li><div><a href="Dimensional%2bReport.html">Dimensional Report</a></div></li> </ol></li><li><div><a href="Tools%2bof%2bthe%2bTrade.html">Tools of the Trade</a></div></li><li class="generated"><div><a href="Contents%2bin%2bDepth.html">Contents in Depth</a></div></li><li class="generated"><div><a href="Combined%2bPages.html">Combined Pages</a></div></li> </ol></div></div>
+          </div>
+        </div>
+        
+      </body>
+    
+<!-- Mirrored from 127.0.0.1:39734/Loading+Data+into+Cubes.html by HTTrack Website Copier/3.x [XR&CO'2010], Sat, 25 Aug 2012 09:15:51 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+</html>

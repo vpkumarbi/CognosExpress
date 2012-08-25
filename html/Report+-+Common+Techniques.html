@@ -1,0 +1,158 @@
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+<html>
+      
+<!-- Mirrored from 127.0.0.1:39734/Report+-+Common+Techniques.html by HTTrack Website Copier/3.x [XR&CO'2010], Sat, 25 Aug 2012 09:15:51 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+<head>
+        <title>Cognos Express Cookbook — Report - Common Techniques</title>
+        <link type="text/css" media="screen, projection" rel="stylesheet" href="css/blueprint/screen.css"></link>
+        <link type="text/css" media="screen and (min-device-width: 800px), projection" rel="stylesheet" href="css/blueprint/grid.css"></link>
+        <link type="text/css" media="print" rel="stylesheet" href="css/blueprint/print.css"></link> 
+        <!--[if lt IE 8]>
+          <link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection"/>
+        <![endif]-->
+        <link type="text/css" media="screen, projection" rel="stylesheet" href="css/pamflet.css"></link>
+        <link type="text/css" media="print" rel="stylesheet" href="css/pamflet-print.css"></link>
+        <link type="text/css" media="screen and (min-device-width: 800px), projection" rel="stylesheet" href="css/pamflet-grid.css"></link>
+        <link type="text/css" media="screen, projection" rel="stylesheet" href="css/custom.css"></link>
+        <script src="js/jquery-1.6.2.min.js"></script>
+        <script src="js/jquery.collapse.js"></script>
+        <script src="js/pamflet.js"></script>
+        
+        <meta charset="utf-8"></meta>
+        <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-34336749-1']);
+            _gaq.push(['_trackPageview']);
+            (function() {
+              var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+              ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+              var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+            </script>
+      </head>
+      <body>
+        <a class="page prev nav" href="Simple%2bReport%2bwith%2bGraph.html">
+            <span class="space">&nbsp;</span>
+            <span class="flip">❧</span>
+          </a><a class="page next nav" href="Report%2b-%2bwith%2bSome%2bScripting.html">
+            <span class="space">&nbsp;</span>
+            <span>❧</span>
+          </a>
+        <div class="container">
+          <div class="span-16 prepend-1 append-1">
+            <div class="top nav span-16 title">
+              <span>Cognos Express Cookbook</span> — Report - Common Techniques
+            </div>
+          </div>
+          <div class="span-16 prepend-1 append-1 contents">
+            <h1 id="Report+-+Common+Techniques">Report - Common Techniques</h1><h2 id="The+Problem">The Problem</h2><p>Show a list of the success and failures of the types of supermarkets in 1997. Show the <em>Store Sales</em>, <em>Store Cost</em>, and <em>Unit Sales</em> and make it presentable.
+</p><h2 id="The+Solution">The Solution</h2><ul><li><a  href="Tools%2bof%2bthe%2bTrade.html#query_studio">Query Studio</a>
+</li><li><a  href="Tools%2bof%2bthe%2bTrade.html#report_studio">Report Studio</a>
+</li></ul><h3 id="The+Steps">The Steps</h3><ol><li><a  href="#step1">Starting Query Studio</a>
+</li><li><a  href="#step2">Build the List</a>
+</li><li><a  href="#step3">Aggregate</a>
+</li><li><a  href="#step4">Grouping</a>
+</li><li><a  href="#step5">Filtering</a>
+</li><li><a  href="#step6">Sorting</a>
+</li><li><a  href="#step7">Formatting</a>
+</li><li><a  href="#step8">Conditional Highlighting</a>
+</li><li><a  href="#step9">Prettify</a>
+</li></ol><div id="step1"></div>
+<h3 id="Step+1%3A+Starting+Query+Studio">Step 1: Starting Query Studio</h3><ol><li>Launch Internet Explorer and go to <em>http://127.0.0.1:19300/cognos_express/manager/welcome.html</em>. Log in if prompted.
+</li><li><p>Click <em>Query my business data with Query Studio</em>
+</p><p><img alt="q1"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/q1.png"></img>
+</p></li><li><p>Find and open <em>foodmart</em> package. Query Studio should now open a blank project.
+</p><p><img alt="q2"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/q2.png"></img>
+</p></li></ol><div id="step2"></div>
+<h3 id="Step+2%3A+Build+the+List">Step 2: Build the List</h3><ol><li>To the left, you’ll see query items. Select or Ctrl+Click <em>Sales Region</em>, <em>Store Type</em>, <em>Store Name</em>, <em>Store Sales</em>, <em>Store Cost</em>, <em>Unit Sales</em>. 
+</li><li><p>Under the list of query items, click <em>Insert</em> button with green left pointing arrow. This should build a list.
+</p><p><img alt="q3"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/q3.png"></img>
+</p></li></ol><div id="step3"></div>
+<h3 id="Step+3%3A+Aggregate">Step 3: Aggregate</h3><p>You may notice there’s a <em>Summary</em> row. Summary aggregates facts and displays the result. The question is, how does it aggregate it? There’s many ways of aggregating: total, average, maximum, etc. If you didn’t configure the aggregate value from Framework Manager, your aggregation results may be undesirable. Quickly check how it’s aggregating.
+</p><ol><li><p>Right click <em>Store Sales</em> column header and choose <em>Summarize…</em>
+</p><p><img alt="q7"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/q7.png"></img>
+</p></li><li><p>It’s <em>Total</em> or sum so we’ll leave it that way. Just click <em>Cancel</em>.
+</p><p><img alt="q8"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/q8.png"></img>
+</p></li><li>If you do the same for <em>Store Cost</em> and <em>Unit Sales</em>, you’ll see they’re <em>Total</em> as well. 
+</li></ol><div id="step4"></div>
+<h3 id="Step+4%3A+Grouping">Step 4: Grouping</h3><p>One can select a column and group the data so it can be more visually appealing and easier to locate. Lets group <em>Sales Region</em>.
+</p><ol><li><p>Click on the <em>Sales Region</em> column header (the blue part). After selecting, it should turn orange.
+</p><p><img alt="q4"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/q4.png"></img>
+</p></li><li><p>The toolbar on the top with all the icons. Find <em>Group</em> and click it. Look at the image below if you can’t find it.
+</p><p><img alt="q5"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/q5.png"></img>
+</p><p>And you should see the following:
+</p><p><img alt="q6"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/q6.png"></img>
+</p></li></ol><div id="step5"></div>
+<h3 id="Step+5%3A+Filtering">Step 5: Filtering</h3><p>Filtering unnecessary data allows one to minimize the amount of information that is returned. For example, maybe you only want to see stores that sold under 10,000 units. But we only want to analyze results from the types of supermarkets which include <em>Supermarket</em>, <em>Gourmet Supermarket</em>, and <em>Deluxe Supermarket</em>.
+</p><ol><li><p>Right click <em>Store Type</em> column header and choose <em>Filter…</em>
+Report Studio
+</p><p><img alt="q9"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/q9.png"></img>
+</p></li><li><p>You should now see bottom panel, <em>Filter (Pick values from a list)</em>. Leave the condition as <em>Show only the following</em> and from the list, choose the three types of supermarkets. Click <em>OK</em>
+</p><p><img alt="q10"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/q10.png"></img>
+</p><p>You should now have the following list.
+</p><p><img alt="q11"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/q11.png"></img>
+</p></li></ol><div id="step6"></div>
+<h3 id="Step+6%3A+Sorting">Step 6: Sorting</h3><p>You can sort a fact column in ascending or descending order. We’ll sort <em>Store Sales</em> in descending order.
+</p><ol><li><p>Right click <em>Store Sales</em> column header and choose <em>Sort…</em>
+</p><p><img alt="q12"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/q12.png"></img>
+</p></li><li><p>Bottom panel will open. Choose <em>Descending (9 to 1)</em> and click <em>OK</em>
+</p><p><img alt="q13"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/q13.png"></img>
+</p><p>Result should be the following:
+</p><p><img alt="q14"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/q14.png"></img>
+</p></li></ol><div id="step7"></div>
+<h3 id="Step+7%3A+Formatting">Step 7: Formatting</h3><p>Data may sometimes not be formatted how you want it, but we can help it. Lets format <em>Store Cost</em> and <em>Store Sales</em>.
+</p><ol><li><p>Right click <em>Store Sales</em> column header and choose <em>Format Data…</em>
+</p><p><img alt="q15"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/q15.png"></img>
+</p></li><li><p>Truncate the value to a whole. Under <em>Category</em>, choose <em>Number</em>. Under <em>Number of decimal places</em>, choose <em>0</em>. Under <em>Thousands separator</em>, choose <em>Yes</em>. Click <em>OK</em>
+</p><p><img alt="q16"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/q16.png"></img>
+</p></li><li><p>Do the same for <em>Store Cost</em>, but choose <em>Currency</em> for <em>Category</em> and keep <em>2</em> for <em>Number of decimal places</em>. Your end result should be the following:
+</p><p><img alt="q17"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/q17.png"></img>
+</p></li></ol><div id="step8"></div>
+<h3 id="Step+8%3A+Conditional+Highlighting">Step 8: Conditional Highlighting</h3><p>Store sales that didn’t meet expected rates and those that surpassed expectations should be identified quickly. This task is perfect for conditional highlighting. In this case, expected sales are between 50,000 and 80,000 so anything below 50,000 will be highlighted in red and anything above 80,000 will be highlighted in green.
+</p><ol><li><p>Click on any of the individual cells under the <em>Store Sales</em> column. They should be highlighted in orange.
+</p><p><img alt="q18"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/q18.png"></img>
+</p></li><li><p>On the left panel, click <em>Change Layout</em> and choose <em>Define Conditional Styles…</em>
+</p><p><img alt="q19"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/q19.png"></img>
+</p></li><li>In <em>Define conditional styles</em> bottom panel, under <em>New Value</em>, enter 80000. Click the <em>Insert</em> button with green left pointing arrow.
+</li><li><p>Clear the textfield under <em>New Value</em> and enter 50000. Click the <em>Insert</em>. 
+</p><p><img alt="q20"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/q20.png"></img>
+</p></li><li><p>There are three sections that are in default style. The top section will have the green highlight and the bottom section will have the red highlight. We can create custom styles, but we’ll stick with the template they have for now. Choose <em>Excellent</em> from the style dropdown for the top section. Choose <em>Poor</em> from the style dropdown for the bottom section. Click <em>OK</em>
+</p><p><img alt="q21"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/q21.png"></img>
+</p><p><img alt="q22"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/q22.png"></img>
+</p></li></ol><div id="step9"></div>
+<h3 id="Step+9%3A+Prettify">Step 9: Prettify</h3><p>Lets make a pretty report in Report Studio.
+</p><ol><li>For reference, save the query studio project in Cogno’s content store. Name it “query facts 1997 for supermarkets”.
+</li><li><p>On the left panel, click <em>Manage File</em> and choose <em>Open in Report Studio</em>
+</p><p><img alt="q23"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/q23.png"></img>
+</p></li><li>In Report Studio, double click the title and name it <em>1997 Facts for Supermarkets</em>
+</li><li><p>Select all the parts of the page and center it.
+</p><p><img alt="q25"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/q25.png"></img>
+</p></li><li><p>Select the topmost part of the page (where the title is). Click the bucket fill button, select <em>Custom Color</em> tab at the bottom of the dialog. Uncheck <em>Hexadecimal values</em> and set Red=102, Green=102, Blue=204. Click <em>Apply</em>
+</p><p><img alt="q26"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/q26.png"></img>
+</p></li><li><p>Set the font to size 20pt with color white.
+</p><p><img alt="q28"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/q28.png"></img>
+</p></li><li><p>Select the two page sections under the topmost section and give it a background color of red=204, green=204, blue=255.
+</p><p><img alt="q29"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/q29.png"></img>
+</p></li></ol><p>I think you get the idea. Here’s my final look. It’s pretty, right?
+</p><p><img alt="q30"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/q30.png"></img>
+</p><p>Save your report as “facts 1997 for supermarkets”
+</p><hr><div class="bottom nav">
+                        <em>Next Page</em>
+                        <span class="arrow">❧</span>
+                        <a href="Report%2b-%2bwith%2bSome%2bScripting.html"> Report - with Some Scripting </a>
+                      </div><div class="tocwrapper show">
+      <a class="tochead nav" style="display: none" href="#toc">❦</a>
+      <a name="toc"></a>
+      <h4 class="toctitle">Contents</h4>
+      <div class="tocbody">
+      <div><a href="Cognos%2bExpress%2bCookbook.html">Cognos Express Cookbook</a></div><ol class="toc"> <li><div><a href="About%2bthis%2btext.html">About this text</a></div></li><li><div><a href="Setting%2bUp%2bData%2bSource.html">Setting Up Data Source</a></div></li><li><div><a href="Relational%2bModels.html">Relational Models</a></div><ol class="toc"> <li><div><a href="DMR%2b-%2bDimensionally%2bModeled%2bRelational%2bModel.html">DMR - Dimensionally Modeled Relational Model</a></div></li><li><div><a href="Simple%2bReport%2bwith%2bGraph.html">Simple Report with Graph</a></div></li><li><div class="current">Report - Common Techniques</div></li><li><div><a href="Report%2b-%2bwith%2bSome%2bScripting.html">Report - with Some Scripting</a></div></li><li><div><a href="Workspace%2baka%2bDashboards.html">Workspace aka Dashboards</a></div></li> </ol></li><li><div><a href="Dimensional%2bModels.html">Dimensional Models</a></div><ol class="toc"> <li><div><a href="Create%2bTM1%2bServer.html">Create TM1 Server</a></div></li><li><div><a href="Manual%2bCube%2bCreation.html">Manual Cube Creation</a></div></li><li><div><a href="Loading%2bData%2binto%2bCubes.html">Loading Data into Cubes</a></div></li><li><div><a href="Dimensional%2bReport.html">Dimensional Report</a></div></li> </ol></li><li><div><a href="Tools%2bof%2bthe%2bTrade.html">Tools of the Trade</a></div></li><li class="generated"><div><a href="Contents%2bin%2bDepth.html">Contents in Depth</a></div></li><li class="generated"><div><a href="Combined%2bPages.html">Combined Pages</a></div></li> </ol></div></div>
+          </div>
+        </div>
+        
+      </body>
+    
+<!-- Mirrored from 127.0.0.1:39734/Report+-+Common+Techniques.html by HTTrack Website Copier/3.x [XR&CO'2010], Sat, 25 Aug 2012 09:15:51 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+</html>

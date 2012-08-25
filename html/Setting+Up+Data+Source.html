@@ -1,0 +1,144 @@
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+<html>
+      
+<!-- Mirrored from 127.0.0.1:39734/Setting+Up+Data+Source.html by HTTrack Website Copier/3.x [XR&CO'2010], Sat, 25 Aug 2012 09:15:51 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+<head>
+        <title>Cognos Express Cookbook — Setting Up Data Source</title>
+        <link type="text/css" media="screen, projection" rel="stylesheet" href="css/blueprint/screen.css"></link>
+        <link type="text/css" media="screen and (min-device-width: 800px), projection" rel="stylesheet" href="css/blueprint/grid.css"></link>
+        <link type="text/css" media="print" rel="stylesheet" href="css/blueprint/print.css"></link> 
+        <!--[if lt IE 8]>
+          <link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection"/>
+        <![endif]-->
+        <link type="text/css" media="screen, projection" rel="stylesheet" href="css/pamflet.css"></link>
+        <link type="text/css" media="print" rel="stylesheet" href="css/pamflet-print.css"></link>
+        <link type="text/css" media="screen and (min-device-width: 800px), projection" rel="stylesheet" href="css/pamflet-grid.css"></link>
+        <link type="text/css" media="screen, projection" rel="stylesheet" href="css/custom.css"></link>
+        <script src="js/jquery-1.6.2.min.js"></script>
+        <script src="js/jquery.collapse.js"></script>
+        <script src="js/pamflet.js"></script>
+        <script type="text/javascript" src="js/prettify/prettify.js"></script><link type="text/css" rel="stylesheet" href="css/prettify.css"></link><script type="text/javascript"><!--
+        window.onload=function() { prettyPrint(); };
+      --></script>
+        <meta charset="utf-8"></meta>
+        <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-34336749-1']);
+            _gaq.push(['_trackPageview']);
+            (function() {
+              var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+              ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+              var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+            </script>
+      </head>
+      <body>
+        <a class="page prev nav" href="About%2bthis%2btext.html">
+            <span class="space">&nbsp;</span>
+            <span class="flip">❧</span>
+          </a><a class="page next nav" href="Relational%2bModels.html">
+            <span class="space">&nbsp;</span>
+            <span>❧</span>
+          </a>
+        <div class="container">
+          <div class="span-16 prepend-1 append-1">
+            <div class="top nav span-16 title">
+              <span>Cognos Express Cookbook</span> — Setting Up Data Source
+            </div>
+          </div>
+          <div class="span-16 prepend-1 append-1 contents">
+            <h1 id="Setting+Up+Data+Source">Setting Up Data Source</h1><h2 id="The+Problem">The Problem</h2><p>You need to connect Microsoft SQL Server database to Cognos.
+</p><h2 id="The+Solution">The Solution</h2><ul><li><a  href="http://en.wikipedia.org/wiki/ODBC">ODBC</a>
+</li></ul><h3 id="The+Steps">The Steps</h3><ol><li><a  href="#step1">Run ODBC</a>
+</li><li><a  href="#step2">Add System Data Source</a>
+</li><li><a  href="#step3">Connect Cognos to Data Source</a>
+</li></ol><div id="step1"></div>
+<h3 id="Step+1%3A+Run+ODBC">Step 1: Run ODBC</h3><p>This step can be confusing if you’re using a 64-bit machine because there’s two ODBC drivers in Windows:  
+<br/>
+32-bit:
+</p><pre><code class="prettyprint lang-c">%WINDIR%\SysWOW64\odbcad32.exe
+</code></pre><p>64-bit:
+</p><pre><code class="prettyprint lang-c">%WINDIR%\System32\odbcad32.exe
+</code></pre><p>The problem is that all shortcuts in 64-bit Windows machines point to the 64-bit ODBC driver by default, and that’s fine, but Cognos ignores the 64-bit driver. Instead it only accepts 32-bit so we have to set up SQL Server with that.
+</p><ol><li><p>Go to <em>Start</em> and type <em>run</em> and execute the <em>Run</em> application. Or enter Alt+F2.
+</p><p><img alt="data1"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/data1.png"></img>
+</p></li><li><p>Execute the 32-bit ODBC driver.
+</p><p><img alt="data2"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/data2.png"></img>
+</p></li></ol><div id="step2"></div>
+<h3 id="Step+2%3A+Add+System+Data+Source">Step 2: Add System Data Source</h3><ol><li><p>Click <em>Add</em> button under <em>System DSN</em> tab to create ODBC data source name (DSN).
+</p><p><img alt="data3"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/data3.png"></img>
+</p><div class="note"><b>Note</b>: There's three kinds of DSN: User, System, and File. If created under User, only the user currently creating the ODBC can access it, but this is a problem because Informix (Cogno's content store) runs under icognosexpress user, not as you. File is for networking purposes, but you're on a single machine so we can ignore that. System allows all users in your machine to use that data source.</div>
+</li><li><p><em>Create New Data Source</em> dialog will open. Choose <em>SQL Server</em> from the list of available drivers.
+</p><p><img alt="data4"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/data4.png"></img>    
+</p></li><li><p>In <em>Create New Data Source to SQL Server</em>, give it a name and point to the SQL Server you want to connect to. Click <em>Next</em>
+</p><p><img alt="data5"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/data5.png"></img>
+</p></li><li><p>If you’re using Windows Authentication to access SQL Server, click <em>Next</em>, otherwise, enter the username and password.
+</p><p><img alt="data6"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/data6.png"></img>
+</p></li><li><p>Change the default database to the one you want to analyze. In this case, <em>foodmart-reduced</em>. Click <em>Next</em>
+</p><p><img alt="data7"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/data7.png"></img>
+</p><p>Click <em>Finish</em>.
+</p><p><img alt="data8"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/data8.png"></img> 
+</p></li><li><p>Click <em>Test Data Source…</em> to check if it connects.
+</p><p><img alt="data9"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/data9.png"></img>
+</p><p>Should say <em>TESTS COMPLETED SUCCESSFULLY!</em> Click <em>OK</em> until you exit out of ODBC.
+</p><p><img alt="data10"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/data10.png"></img>
+</p></li></ol><div id="step3"></div>
+<h3 id="Step+3%3A+Connect+Cognos+to+Data+Source">Step 3: Connect Cognos to Data Source</h3><ol><li>Open Internet Explorer, and go to Cognos Express Manager <em>http://127.0.0.1:19300/cognos_express/manager</em>.
+</li><li>Log in as <em>administrator</em>
+</li><li><p>Go to <em>Data</em> tab under <em>Administrator</em> and click <em>Add…</em> at the bottom of the window.
+</p><p><img alt="data11"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/data11.png"></img>
+</p></li><li><p>Set the textfield attributes to the following:
+</p><table>
+  <tr>
+    <th>Data Source Type</th>
+    <td>Microsoft SQL Server (ODBC)</td>
+  </tr>
+  <tr>
+    <th>Name</th>
+    <td>foodmart-reduced</td>
+  </tr>
+  <tr>
+    <th>ODBC Data Source</th>
+    <td>foodmart-reduced</td>
+  </tr>
+  <tr>
+    <th>Database Name</th>
+    <td>foodmart-reduced</td>
+  </tr>
+  <tr>
+    <th>User ID</th>
+    <td>Enter the username to log in to SQL Server</td>
+  </tr>
+  <tr>
+    <th>Password</th>
+    <td>Enter the password to log in to SQL Server</td>
+  </tr>
+</table>
+<p>Click <em>Retrieve Database Objects</em>
+</p><div class="note"><b>Note</b>: If you get an exception, it may be that Cognos does not have permission to access foodmart-reduced database. I don't know a lot about configuring SQL, but since you're running Cognos on a stand alone server, we can get away with weak security. Launch SQL Server Management Studio, log in, right click foodmart-reduced database, go to properties, go to Permissions, add guest as a user, and grant him access to all the explicit permissions. Click ok and try again.</div>
+<p><img alt="data12"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/data12.png"></img>
+</p></li><li><p>Then for <em>Database Object</em>, select <em>foodmart-reduced</em>. Click <em>OK</em>
+</p><p><img alt="data13"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/data13.png"></img>
+</p></li></ol><p>Now you can connect to the <em>foodmart-reduced</em> data source connection when creating models.
+</p><h2 id="Do+It+Yourself">Do It Yourself</h2><p>Connect Foodmart-2008 SQL Server to Cognos Express.
+</p><hr>
+<div class="bottom nav">
+                        <em>Next Page</em>
+                        <span class="arrow">❧</span>
+                        <a href="Relational%2bModels.html"> Relational Models </a>
+                      </div><div class="tocwrapper show">
+      <a class="tochead nav" style="display: none" href="#toc">❦</a>
+      <a name="toc"></a>
+      <h4 class="toctitle">Contents</h4>
+      <div class="tocbody">
+      <div><a href="Cognos%2bExpress%2bCookbook.html">Cognos Express Cookbook</a></div><ol class="toc"> <li><div><a href="About%2bthis%2btext.html">About this text</a></div></li><li><div class="current">Setting Up Data Source</div></li><li><div><a href="Relational%2bModels.html">Relational Models</a></div><ol class="toc"> <li><div><a href="DMR%2b-%2bDimensionally%2bModeled%2bRelational%2bModel.html">DMR - Dimensionally Modeled Relational Model</a></div></li><li><div><a href="Simple%2bReport%2bwith%2bGraph.html">Simple Report with Graph</a></div></li><li><div><a href="Report%2b-%2bCommon%2bTechniques.html">Report - Common Techniques</a></div></li><li><div><a href="Report%2b-%2bwith%2bSome%2bScripting.html">Report - with Some Scripting</a></div></li><li><div><a href="Workspace%2baka%2bDashboards.html">Workspace aka Dashboards</a></div></li> </ol></li><li><div><a href="Dimensional%2bModels.html">Dimensional Models</a></div><ol class="toc"> <li><div><a href="Create%2bTM1%2bServer.html">Create TM1 Server</a></div></li><li><div><a href="Manual%2bCube%2bCreation.html">Manual Cube Creation</a></div></li><li><div><a href="Loading%2bData%2binto%2bCubes.html">Loading Data into Cubes</a></div></li><li><div><a href="Dimensional%2bReport.html">Dimensional Report</a></div></li> </ol></li><li><div><a href="Tools%2bof%2bthe%2bTrade.html">Tools of the Trade</a></div></li><li class="generated"><div><a href="Contents%2bin%2bDepth.html">Contents in Depth</a></div></li><li class="generated"><div><a href="Combined%2bPages.html">Combined Pages</a></div></li> </ol></div></div>
+          </div>
+        </div>
+        
+      </body>
+    
+<!-- Mirrored from 127.0.0.1:39734/Setting+Up+Data+Source.html by HTTrack Website Copier/3.x [XR&CO'2010], Sat, 25 Aug 2012 09:15:51 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+</html>
