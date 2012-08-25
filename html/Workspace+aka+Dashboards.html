@@ -1,0 +1,142 @@
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+<html>
+      
+<!-- Mirrored from 127.0.0.1:39734/Workspace+aka+Dashboards.html by HTTrack Website Copier/3.x [XR&CO'2010], Sat, 25 Aug 2012 09:15:51 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+<head>
+        <title>Cognos Express Cookbook — Workspace aka Dashboards</title>
+        <link type="text/css" media="screen, projection" rel="stylesheet" href="css/blueprint/screen.css"></link>
+        <link type="text/css" media="screen and (min-device-width: 800px), projection" rel="stylesheet" href="css/blueprint/grid.css"></link>
+        <link type="text/css" media="print" rel="stylesheet" href="css/blueprint/print.css"></link> 
+        <!--[if lt IE 8]>
+          <link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection"/>
+        <![endif]-->
+        <link type="text/css" media="screen, projection" rel="stylesheet" href="css/pamflet.css"></link>
+        <link type="text/css" media="print" rel="stylesheet" href="css/pamflet-print.css"></link>
+        <link type="text/css" media="screen and (min-device-width: 800px), projection" rel="stylesheet" href="css/pamflet-grid.css"></link>
+        <link type="text/css" media="screen, projection" rel="stylesheet" href="css/custom.css"></link>
+        <script src="js/jquery-1.6.2.min.js"></script>
+        <script src="js/jquery.collapse.js"></script>
+        <script src="js/pamflet.js"></script>
+        
+        <meta charset="utf-8"></meta>
+        <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-34336749-1']);
+            _gaq.push(['_trackPageview']);
+            (function() {
+              var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+              ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+              var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+            </script>
+      </head>
+      <body>
+        <a class="page prev nav" href="Report%2b-%2bwith%2bSome%2bScripting.html">
+            <span class="space">&nbsp;</span>
+            <span class="flip">❧</span>
+          </a><a class="page next nav" href="Dimensional%2bModels.html">
+            <span class="space">&nbsp;</span>
+            <span>❧</span>
+          </a>
+        <div class="container">
+          <div class="span-16 prepend-1 append-1">
+            <div class="top nav span-16 title">
+              <span>Cognos Express Cookbook</span> — Workspace aka Dashboards
+            </div>
+          </div>
+          <div class="span-16 prepend-1 append-1 contents">
+            <h1 id="Workspace+aka+Dashboards">Workspace aka Dashboards</h1><h2 id="The+Problem">The Problem</h2><p>Put together the reports you’ve created and present the results in a working dashboard. 
+</p><h2 id="The+Solution">The Solution</h2><ul><li><a  href="Tools%2bof%2bthe%2bTrade.html#business_insight">Business Insight</a>
+</li><li><a  href="Tools%2bof%2bthe%2bTrade.html#business_insight_advanced">Business Insight Advanced</a>
+</li></ul><h3 id="The+Steps">The Steps</h3><ol><li><a  href="#step1">Starting Cognos Business Insight</a>
+</li><li><a  href="#step2">Dragging Reports to the Workspace</a>
+</li><li><a  href="#step3">The Toolbox</a>
+</li><li><a  href="#step4">Cleanup</a>
+</li></ol><div id="step1"></div>
+<h3 id="Step+1%3A+Starting+Cognos+Business+Insight">Step 1: Starting Cognos Business Insight</h3><ol><li>Launch Internet Explorer and go to <em>http://127.0.0.1:19300/cognos_express/manager/welcome.html</em>. Log in if prompted. 
+</li><li><p>Click <em>Create my workspaces with Business Insight</em>
+</p><p><img alt="bi1"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/bi1.png"></img>
+</p></li><li><p>Click <em>Create New</em> button to create new project.
+</p><p><img alt="bi2"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/bi2.png"></img>
+</p></li><li><p>A blank workspace is created. To the right is a panel where you can drag and drop <em>Content</em> and items from the <em>Toolbox</em> into the workspace.
+</p><p><img alt="bi3"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/bi3.png"></img>
+</p></li><li><p>Go to <em>Content</em>, and expand <em>My Folders</em> and <em>foodmart</em>. You should now see all the reports and queries that have been saved in <em>foodmart</em> package.
+</p><p><img alt="bi4"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/bi4.png"></img>
+</p></li></ol><div id="step2"></div>
+<h3 id="Step+2%3A+Dragging+Reports+to+the+Workspace">Step 2: Dragging Reports to the Workspace</h3><p>If you’ve completed the previous recipes from this cookbook, you should have at least 3 reports inside of <em>foodmart</em> package: <em>facts 1997 for supermarkets</em>, <em>top10 customers by unit sales</em>, and <em>Units sold in 1997 by store type</em>. 
+</p><ol><li><p>Drag and drop <em>top10 customers by unit sales</em> to the canvas.
+</p><p><img alt="bi5"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/bi5.png"></img>
+<img alt="bi6"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/bi6.png"></img>
+</p></li><li><p>Drag and drop <em>facts 1997 for supermarkets</em> to the canvas.
+</p><p><img alt="bi7"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/bi7.png"></img>
+<img alt="bi8"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/bi8.png"></img>
+</p></li><li><p>In the right hand content pane, expand <em>Units sold in 1997 by store type</em>.
+</p><p><img alt="bi9"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/bi9.png"></img>
+</p></li><li><p>Drag and drop <em>Crosstab1</em> to the canvas.
+</p><p><img alt="bi10"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/bi10.png"></img>
+</p></li><li><p>Drag and drop <em>Pie Chart1</em> to the canvas.
+</p><p><img alt="bi11"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/bi11.png"></img>
+</p></li></ol><div id="step3"></div>
+<h3 id="Step+3%3A+The+Toolbox">Step 3: The Toolbox</h3><p>If you’ve used Report or Query Studio already, you probably already know about the <em>Toolbox</em>. They’re simply objects that one can drag and drop on the canvas and do something cool. Take the <em>Slider Filter</em> for example. It links a query item from one of the reports on the dashboard and creates a range or single filter on that query.
+</p><ol><li><p>Click the <em>Toolbox</em> tab.
+</p><p><img alt="bi11-1"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/bi11-1.png"></img>
+</p></li><li><p>Drag and drop <em>Slider Filter</em> to the canvas.
+</p><p><img alt="bi12"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/bi12.png"></img>
+</p></li><li>In <em>Properties - Slider Filter</em> dialog, choose <em>Quarter</em> under the list of data items. <em>Quarter</em> links <em>Crosstab1</em> and <em>Pie Chart1</em> widgets on the canvas because they’re all part of <em>Units sold in 1997 by store type</em> report.
+</li><li><p>For <em>Show descriptive text</em> textfield, type “Select a range of Quarters”. Click <em>OK</em>
+</p><p><img alt="bi13"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/bi13.png"></img>
+</p><p>You should see the following:
+</p><p><img alt="bi14"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/bi14.png"></img>
+</p></li><li><p>To make it look better expand the slider widget to fill in the square gap.
+</p><p><img alt="bi15"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/bi15.png"></img>
+<img alt="bi16"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/bi16.png"></img>
+</p><p>Test it out.
+</p><p><img alt="bi17"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/bi17.png"></img>
+<img alt="bi18"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/bi18.png"></img>
+</p></li></ol><div id="step4"></div>
+<h3 id="Step+4%3A+Cleanup">Step 4: Cleanup</h3><p>Some personal modifications:
+</p><ol><li><p>Click <em>Layout and Style</em> drop down located in top bar of Business Insight, and choose <em>Edit Workspace Style…</em>
+</p><p><img alt="bi19"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/bi19.png"></img>
+</p></li><li><p>In <em>Edit Workspace Style</em> dialog, choose the color white for the background.
+</p><p><img alt="bi20"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/bi20.png"></img>
+<img alt="bi21"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/bi21.png"></img>
+</p></li><li><p>Go to Widgets tab
+</p><p><img alt="bi22"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/bi22.png"></img>
+</p></li><li><p>Uncheck <em>Borders</em> and click <em>OK</em>
+</p><p><img alt="bi23"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/bi23.png"></img>
+</p></li></ol><p>The <em>facts 1997 for supermarkets</em> report does not vertically fit the canvas. 
+</p><ol><li><p>Click on the <em>top10 customers by unit sales</em> report and expand it to the right height.
+</p><p><img alt="bi24"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/bi24.png"></img>
+</p></li></ol><p>Now everything fits perfectly. One more minor tweak. Apparently I forgot to change the summary rows’ color to purple in the <em>facts 1997 for supermarkets</em> report. 
+</p><ol><li><p>Click the <em>Do More…</em> button for that widget.
+</p><p><img alt="bi25"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/bi25.png"></img>
+</p></li><li><p>Business Insight Advanced will be launched. Select all the grouped summary rows (North West and South West). Click the Bucket Fill drop down, and go to <em>Custom Color</em> tab, uncheck <em>Hexadecimal values</em> and enter red=99, green=101, blue=206. Click <em>Apply</em>
+</p><p><img alt="bi26"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/bi26.png"></img>
+</p></li><li><p>Set the font color to white.
+</p><p><img alt="bi27"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/bi27.png"></img>
+</p></li><li><p>Select the entire Summary row (last row). Repeat step 2 and 3, but set the background color to red=0, green=0, blue=132. Click <em>Done</em>.
+</p><p><img alt="bi28"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/bi28.png"></img>
+</p><p>Final Result.
+</p><p><img alt="bi29"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/bi29.png"></img>
+</p><p>Save the workspace in foodmart-reduced package and name it dashboard.
+</p><p><img alt="bi30"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/bi30.png"></img>
+</p></li></ol><div class="bottom nav">
+                        <em>Next Page</em>
+                        <span class="arrow">❧</span>
+                        <a href="Dimensional%2bModels.html"> Dimensional Models </a>
+                      </div><div class="tocwrapper show">
+      <a class="tochead nav" style="display: none" href="#toc">❦</a>
+      <a name="toc"></a>
+      <h4 class="toctitle">Contents</h4>
+      <div class="tocbody">
+      <div><a href="Cognos%2bExpress%2bCookbook.html">Cognos Express Cookbook</a></div><ol class="toc"> <li><div><a href="About%2bthis%2btext.html">About this text</a></div></li><li><div><a href="Setting%2bUp%2bData%2bSource.html">Setting Up Data Source</a></div></li><li><div><a href="Relational%2bModels.html">Relational Models</a></div><ol class="toc"> <li><div><a href="DMR%2b-%2bDimensionally%2bModeled%2bRelational%2bModel.html">DMR - Dimensionally Modeled Relational Model</a></div></li><li><div><a href="Simple%2bReport%2bwith%2bGraph.html">Simple Report with Graph</a></div></li><li><div><a href="Report%2b-%2bCommon%2bTechniques.html">Report - Common Techniques</a></div></li><li><div><a href="Report%2b-%2bwith%2bSome%2bScripting.html">Report - with Some Scripting</a></div></li><li><div class="current">Workspace aka Dashboards</div></li> </ol></li><li><div><a href="Dimensional%2bModels.html">Dimensional Models</a></div><ol class="toc"> <li><div><a href="Create%2bTM1%2bServer.html">Create TM1 Server</a></div></li><li><div><a href="Manual%2bCube%2bCreation.html">Manual Cube Creation</a></div></li><li><div><a href="Loading%2bData%2binto%2bCubes.html">Loading Data into Cubes</a></div></li><li><div><a href="Dimensional%2bReport.html">Dimensional Report</a></div></li> </ol></li><li><div><a href="Tools%2bof%2bthe%2bTrade.html">Tools of the Trade</a></div></li><li class="generated"><div><a href="Contents%2bin%2bDepth.html">Contents in Depth</a></div></li><li class="generated"><div><a href="Combined%2bPages.html">Combined Pages</a></div></li> </ol></div></div>
+          </div>
+        </div>
+        
+      </body>
+    
+<!-- Mirrored from 127.0.0.1:39734/Workspace+aka+Dashboards.html by HTTrack Website Copier/3.x [XR&CO'2010], Sat, 25 Aug 2012 09:15:51 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+</html>

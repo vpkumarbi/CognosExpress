@@ -1,0 +1,118 @@
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+<html>
+      
+<!-- Mirrored from 127.0.0.1:39734/Simple+Report+with+Graph.html by HTTrack Website Copier/3.x [XR&CO'2010], Sat, 25 Aug 2012 09:15:51 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+<head>
+        <title>Cognos Express Cookbook — Simple Report with Graph</title>
+        <link type="text/css" media="screen, projection" rel="stylesheet" href="css/blueprint/screen.css"></link>
+        <link type="text/css" media="screen and (min-device-width: 800px), projection" rel="stylesheet" href="css/blueprint/grid.css"></link>
+        <link type="text/css" media="print" rel="stylesheet" href="css/blueprint/print.css"></link> 
+        <!--[if lt IE 8]>
+          <link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection"/>
+        <![endif]-->
+        <link type="text/css" media="screen, projection" rel="stylesheet" href="css/pamflet.css"></link>
+        <link type="text/css" media="print" rel="stylesheet" href="css/pamflet-print.css"></link>
+        <link type="text/css" media="screen and (min-device-width: 800px), projection" rel="stylesheet" href="css/pamflet-grid.css"></link>
+        <link type="text/css" media="screen, projection" rel="stylesheet" href="css/custom.css"></link>
+        <script src="js/jquery-1.6.2.min.js"></script>
+        <script src="js/jquery.collapse.js"></script>
+        <script src="js/pamflet.js"></script>
+        
+        <meta charset="utf-8"></meta>
+        <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-34336749-1']);
+            _gaq.push(['_trackPageview']);
+            (function() {
+              var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+              ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+              var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+            </script>
+      </head>
+      <body>
+        <a class="page prev nav" href="DMR%2b-%2bDimensionally%2bModeled%2bRelational%2bModel.html">
+            <span class="space">&nbsp;</span>
+            <span class="flip">❧</span>
+          </a><a class="page next nav" href="Report%2b-%2bCommon%2bTechniques.html">
+            <span class="space">&nbsp;</span>
+            <span>❧</span>
+          </a>
+        <div class="container">
+          <div class="span-16 prepend-1 append-1">
+            <div class="top nav span-16 title">
+              <span>Cognos Express Cookbook</span> — Simple Report with Graph
+            </div>
+          </div>
+          <div class="span-16 prepend-1 append-1 contents">
+            <h1 id="Simple+Report+with+Graph">Simple Report with Graph</h1><h2 id="The+Problem">The Problem</h2><p>Create a report showing which of the following types of stores sold the most units in 1997, separated by quarters.
+</p><h2 id="The+Solution">The Solution</h2><ul><li><a  href="Tools%2bof%2bthe%2bTrade.html#report_studio">Report Studio</a>
+</li></ul><h3 id="The+Steps">The Steps</h3><ol><li><a  href="#step1">Start a Report Studio Project</a>
+</li><li><a  href="#step2">Fill Crosstab with Data</a>
+</li><li><a  href="#step3">Add Chart</a>
+</li></ol><div id="step1"></div>
+<h3 id="Step+1%3A+Start+a+Report+Studio+Project">Step 1: Start a Report Studio Project</h3><ol><li>Launch Internet Explorer and go to <em>http://127.0.0.1:19300/cognos_express/manager/welcome.html</em>. Log in if prompted. 
+</li><li><p>Click <em>Create professional reports with Report Studio</em>
+</p><p><img alt="rs01"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/rs01.png"></img>
+</p></li><li><p>Cognos Connections will open. Look in your <em>My Folder</em> directory and choose the <em>foodmart</em> package to start reporting.
+</p><p><img alt="rs02"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/rs02.png"></img>
+</p></li><li><p>After it’s done loading, click on <em>Create new</em>.
+</p><p><img alt="rs03"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/rs03.png"></img>
+</p></li><li><p>Next window allows you to pick a template so you don’t have to start from blank. We’re going to pick <em>Crosstab</em>. Crosstab allows you to view summarized information at the intersecting point of a column and row.
+</p><p><img alt="rs04"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/rs04.png"></img>
+</p></li></ol><div id="step2"></div>
+<h3 id="Step+2%3A+Fill+Crosstab+with+Data">Step 2: Fill Crosstab with Data</h3><ol><li><p>You should now see the following screen below with the query subjects to the left.
+</p><p><img alt="rs05"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/rs05.png"></img>
+</p></li><li><p>We already have the Sales Facts from 1997 so we simply collapse <em>1997 Sales Fact</em> and drag the fact, <em>Unit Sales</em> to <em>Measures</em> in the crosstab table. 
+</p><p><img alt="rs06"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/rs06.png"></img>
+</p><p>And then drop it, and you should see the following.
+</p><p><img alt="rs07"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/rs07.png"></img>
+</p></li><li><p>Your boss specified the time interval to be in the year 1997 so let’s drag <em>Year</em> in <em>Columns</em> so the report can show the unit sales are from 1997.
+</p><p><img alt="rs08"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/rs08.png"></img>
+</p><p>And then drop it, and you should see the following.
+</p><p><img alt="rs09"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/rs09.png"></img>
+</p></li><li><p>We chose crosstab so we could display the <em>Quarters</em> of the year under <em>Year</em>. Drag <em>Quarter</em> under <em>Year</em> in the <em>Columns section</em>. When you see a black bar like in the following image, drop it.
+</p><p><img alt="rs10"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/rs10.png"></img>
+</p><p><img alt="rs11"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/rs11.png"></img>
+</p></li><li><p>In the <em>Rows</em> area, drag and drop <em>Store Type</em> so your end result should be:
+</p><p><img alt="rs12"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/rs12.png"></img>
+</p></li><li><p>Click on the <em>Run Report</em> button.
+</p><p><img alt="rs13"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/rs13.png"></img>
+</p><p>By looking at the numbers, you can see that Supermarkets are selling the most units.
+</p><p><img alt="rs14"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/rs14.png"></img>
+</p></li></ol><div id="step3"></div>
+<h3 id="Step+3%3A+Add+Chart">Step 3: Add Chart</h3><ol><li><p>To make it easier for your boss to view the information, lets add a pie chart per quarter. Go to the <em>Toolbox</em> tab.
+</p><p><img alt="rs15"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/rs15.png"></img>
+</p></li><li><p>Drag and drop <em>Chart</em> object from the Toolbox list to a white space under your crosstab.
+</p><p><img alt="rs16"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/rs16.png"></img>
+</p></li><li><p>In the <em>Insert Chart</em> dialog, pick a pie chart. And at the bottom of the dialog, there will be a checkbox that says <em>Fill with data</em>. This will allow you to automatically fill the chart with data from an object that’s already on the page. In this case, there’s only one crosstab on the page. Click <em>OK</em>.
+</p><p><img alt="rs17"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/rs17.png"></img>
+</p></li><li><p>Click on the <em>Run Report</em> button.
+</p><p><img alt="rs18"  src="http://i1254.photobucket.com/albums/hh616/jcabrra/cognos%20cookbook/rs18.png"></img>
+</p></li><li>Double click the title of the report, <em>Double-click to edit text</em>, and name it “Units Sold in 1997 by Store Type”. Click <em>OK</em>.
+</li><li>Click the save button on the top-left corner, and you can save the report in public folders with the name “Units sold in 1997 by store type”. So your boss can later see it.
+</li></ol><h2 id="Do+It+Yourself">Do It Yourself</h2><p>Create a report that shows and answers the following questions: 
+</p><ol><li>Which warehouse shipped the most units in 1998?
+</li><li>In what quarter did all warehouses combined ship the least?
+</li><li>In what quarter did all warehouses combined ship the most?
+</li></ol><p>Include a chart and a note that explicitly answers questions 1,2,3.
+</p><hr><div class="bottom nav">
+                        <em>Next Page</em>
+                        <span class="arrow">❧</span>
+                        <a href="Report%2b-%2bCommon%2bTechniques.html"> Report - Common Techniques </a>
+                      </div><div class="tocwrapper show">
+      <a class="tochead nav" style="display: none" href="#toc">❦</a>
+      <a name="toc"></a>
+      <h4 class="toctitle">Contents</h4>
+      <div class="tocbody">
+      <div><a href="Cognos%2bExpress%2bCookbook.html">Cognos Express Cookbook</a></div><ol class="toc"> <li><div><a href="About%2bthis%2btext.html">About this text</a></div></li><li><div><a href="Setting%2bUp%2bData%2bSource.html">Setting Up Data Source</a></div></li><li><div><a href="Relational%2bModels.html">Relational Models</a></div><ol class="toc"> <li><div><a href="DMR%2b-%2bDimensionally%2bModeled%2bRelational%2bModel.html">DMR - Dimensionally Modeled Relational Model</a></div></li><li><div class="current">Simple Report with Graph</div></li><li><div><a href="Report%2b-%2bCommon%2bTechniques.html">Report - Common Techniques</a></div></li><li><div><a href="Report%2b-%2bwith%2bSome%2bScripting.html">Report - with Some Scripting</a></div></li><li><div><a href="Workspace%2baka%2bDashboards.html">Workspace aka Dashboards</a></div></li> </ol></li><li><div><a href="Dimensional%2bModels.html">Dimensional Models</a></div><ol class="toc"> <li><div><a href="Create%2bTM1%2bServer.html">Create TM1 Server</a></div></li><li><div><a href="Manual%2bCube%2bCreation.html">Manual Cube Creation</a></div></li><li><div><a href="Loading%2bData%2binto%2bCubes.html">Loading Data into Cubes</a></div></li><li><div><a href="Dimensional%2bReport.html">Dimensional Report</a></div></li> </ol></li><li><div><a href="Tools%2bof%2bthe%2bTrade.html">Tools of the Trade</a></div></li><li class="generated"><div><a href="Contents%2bin%2bDepth.html">Contents in Depth</a></div></li><li class="generated"><div><a href="Combined%2bPages.html">Combined Pages</a></div></li> </ol></div></div>
+          </div>
+        </div>
+        
+      </body>
+    
+<!-- Mirrored from 127.0.0.1:39734/Simple+Report+with+Graph.html by HTTrack Website Copier/3.x [XR&CO'2010], Sat, 25 Aug 2012 09:15:51 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8"><!-- /Added by HTTrack -->
+</html>
